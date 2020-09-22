@@ -6,14 +6,14 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import edu.nitt.vortex.databinding.ActivitySplashBinding
+import edu.nitt.vortex.helpers.viewLifecycle
 
 class SplashActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySplashBinding
+    private val binding by viewLifecycle(ActivitySplashBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         startNextActivity()
     }

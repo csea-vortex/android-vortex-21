@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import edu.nitt.vortex.databinding.FragmentRegisterBinding
+import edu.nitt.vortex.helpers.viewLifecycle
 
 class RegisterFragment : Fragment() {
 
-    private lateinit var binding: FragmentRegisterBinding
+    private var binding by viewLifecycle<FragmentRegisterBinding>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -1,13 +1,16 @@
 package edu.nitt.vortex
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import edu.nitt.vortex.fragments.MainFragment
+import androidx.appcompat.app.AppCompatActivity
+import edu.nitt.vortex.databinding.ActivityMainBinding
+import edu.nitt.vortex.helpers.viewLifecycle
 
 class MainActivity : AppCompatActivity() {
 
+    private val binding by viewLifecycle(ActivityMainBinding::inflate)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
     }
 }
