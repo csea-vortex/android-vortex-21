@@ -23,6 +23,7 @@ object Versions {
 }
 
 object BuildPlugins {
+    const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.gradle}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
 
@@ -39,6 +40,9 @@ object Libs {
 
     const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     const val lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+
+    const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val navigationUIKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 }
 
 object TestLibs {
@@ -52,7 +56,8 @@ object ModuleLibs {
         val implementations = listOf(
             Libs.kotlin, Libs.coreKtx, Libs.appcompat,
             Libs.constraintLayout,
-            Libs.lifecycleExtensions, Libs.lifecycleViewModelKtx
+            Libs.lifecycleExtensions, Libs.lifecycleViewModelKtx,
+            Libs.navigationFragmentKtx, Libs.navigationUIKtx
         )
         val testImplementations = listOf(TestLibs.junit)
         val androidTestImplementations = listOf(
