@@ -15,6 +15,7 @@ object Versions {
     const val constraintLayout = "2.0.1"
     const val lifecycle = "2.2.0"
     const val navigation = "2.3.0"
+    const val material = "1.3.0-alpha02"
 
     /* test */
     const val junit = "4.12"
@@ -30,6 +31,7 @@ object BuildPlugins {
     const val androidApplication = "com.android.application"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
+    const val kotlinKapt = "kotlin-kapt"
 }
 
 object Libs {
@@ -40,9 +42,14 @@ object Libs {
 
     const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     const val lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+    const val lifecycleLiveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
+    const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
+    const val lifecycleCommon = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}"
 
     const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUIKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+
+    const val material = "com.google.android.material:material:${Versions.material}"
 }
 
 object TestLibs {
@@ -57,8 +64,11 @@ object ModuleLibs {
             Libs.kotlin, Libs.coreKtx, Libs.appcompat,
             Libs.constraintLayout,
             Libs.lifecycleExtensions, Libs.lifecycleViewModelKtx,
-            Libs.navigationFragmentKtx, Libs.navigationUIKtx
+            Libs.lifecycleLiveDataKtx, Libs.lifecycleCommon,
+            Libs.navigationFragmentKtx, Libs.navigationUIKtx,
+            Libs.material
         )
+        val kapts = listOf(Libs.lifecycleCompiler)
         val testImplementations = listOf(TestLibs.junit)
         val androidTestImplementations = listOf(
             TestLibs.junitExt, TestLibs.espressoCore
