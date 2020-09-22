@@ -16,6 +16,10 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/fragmentLogin"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentRegister"
+            app:destination="@id/fragmentRegister" />
     </fragment>
 
     <fragment
@@ -39,12 +43,6 @@
         <action
             android:id="@+id/action_fragmentMain_to_fragmentLogin"
             app:destination="@id/fragmentLogin"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/fragmentMain"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_fragmentMain_to_fragmentRegister"
-            app:destination="@id/fragmentRegister"
             app:launchSingleTop="true"
             app:popUpTo="@id/fragmentMain"
             app:popUpToInclusive="true" />

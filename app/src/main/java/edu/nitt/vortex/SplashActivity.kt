@@ -24,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
             overridePendingTransition(0, 0)
-        }, 2000)
+        }, 1000)
 
     }
 }
