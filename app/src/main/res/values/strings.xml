@@ -2,12 +2,24 @@
     <string name="app_name">Vortex 21</string>
 
     <string name="full_name">Full Name</string>
+    <string name="full_name_error_description">Full Name</string>
+
     <string name="password">Password</string>
-    <string name="vortex_username">Vortex Username</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="password_error_description">Password</string>
+
+    <string name="vortex_username">Vortex Username</string>
+    <string name="vortex_username_error_description">Vortex Username</string>
+
     <string name="mobile_number">Mobile Number</string>
+    <string name="mobile_number_error_description">Mobile Number</string>
+
     <string name="email">Email</string>
+    <string name="email_error_description">Email</string>
+
     <string name="year_of_study">Year of Study</string>
+    <string name="year_of_study_error_description">Year of Study</string>
+
     <string name="department">Department</string>
     <string name="login">Login</string>
     <string name="register_account">Register\nAccount</string>

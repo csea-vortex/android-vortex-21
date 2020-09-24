@@ -19,10 +19,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/containerUsername"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/OutlinedTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="12dp"
         android:hint="@string/vortex_username"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toTopOf="@id/containerPassword"
@@ -39,10 +38,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/containerPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/OutlinedTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="12dp"
         android:hint="@string/password"
         app:endIconMode="password_toggle"
         app:layout_constraintTop_toBottomOf="@id/containerUsername"
