@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import edu.nitt.vortex.R
 import edu.nitt.vortex.databinding.FragmentHomeBinding
 import edu.nitt.vortex.helpers.viewLifecycle
 
@@ -24,8 +26,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val navHostFragment = childFragmentManager
+            .findFragmentById(R.id.home_nav_host_fragment) as NavHostFragment
 
-        // ToDo: If logged in then go to home page else Login activity
+        binding.bottomNavigation.apply {
+            // ToDo: If t-shirt not registered then enable
+            //  the T-Shirt Registration Menu Item
+            menu.getItem(3).isVisible = true
+
+            setupWithNavController(navHostFragment.navController)
+        }
 
     }
 

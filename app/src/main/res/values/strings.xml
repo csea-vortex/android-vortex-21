@@ -26,4 +26,10 @@
     <string name="logout">Logout</string>
     <string name="home">Home</string>
     <string name="register_account">Register\nAccount</string>
+
+    <string name="workshops">Workshops</string>
+    <string name="leader_board">Leader Board</string>
+    <string name="events">Events</string>
+    <string name="social_media">Social Media</string>
+    <string name="t_shirt">T-shirt</string>
 </resources>
