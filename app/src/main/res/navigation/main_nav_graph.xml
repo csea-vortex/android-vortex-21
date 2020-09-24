@@ -19,7 +19,11 @@
 
         <action
             android:id="@+id/action_fragmentLogin_to_fragmentRegister"
-            app:destination="@id/fragmentRegister" />
+            app:destination="@id/fragmentRegister"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -41,10 +45,33 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
+            android:id="@+id/action_fragmentMain_to_fragmentHome"
+            app:destination="@id/fragmentHome"
+            app:exitAnim="@android:anim/fade_out"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/fragmentMain"
+            app:popUpToInclusive="true" />
+        <action
             android:id="@+id/action_fragmentMain_to_fragmentLogin"
             app:destination="@id/fragmentLogin"
+            app:exitAnim="@android:anim/fade_out"
             app:launchSingleTop="true"
             app:popUpTo="@id/fragmentMain"
             app:popUpToInclusive="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="edu.nitt.vortex.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentLogin"
+            app:destination="@id/fragmentLogin"
+            app:exitAnim="@android:anim/fade_out"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/fragmentHome"
+            app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

@@ -67,7 +67,6 @@ class LoginFragment : Fragment() {
         }
 
         binding.buttonRegister.setOnClickListener {
-            // ToDo: Add fragment change transition/animation
             findNavController().navigate(LoginFragmentDirections.actionFragmentLoginToFragmentRegister())
         }
     }

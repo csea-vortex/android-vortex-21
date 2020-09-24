@@ -10,7 +10,6 @@ import edu.nitt.vortex.databinding.FragmentMainBinding
 import edu.nitt.vortex.helpers.viewLifecycle
 
 class MainFragment : Fragment() {
-
     private var binding by viewLifecycle<FragmentMainBinding>()
 
     override fun onCreateView(
@@ -24,12 +23,17 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ToDo: If logged in then go to home page else Login activity
+        // ToDo: If logged in then go to HomeFragment else LoginFragment
+        // This Fragment acts a bridge to home or login
+        // We land on this fragment from the Splash Activity
 
         // Dummy buttons
-        binding.buttonLogin.setOnClickListener {
+        binding.buttonLogout.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionFragmentMainToFragmentLogin())
         }
-    }
 
+        binding.buttonHome.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionFragmentMainToFragmentHome())
+        }
+    }
 }

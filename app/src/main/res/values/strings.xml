@@ -22,5 +22,8 @@
 
     <string name="department">Department</string>
     <string name="login">Login</string>
+    <string name="need_login">Need Login</string>
+    <string name="logout">Logout</string>
+    <string name="home">Home</string>
     <string name="register_account">Register\nAccount</string>
 </resources>
