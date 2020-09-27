@@ -1,17 +1,22 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryLight</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorOnPrimary">@color/colorPrimaryText</item>
+        <item name="colorOnPrimarySurface">@color/colorPrimaryText</item>
+        <item name="colorOnSecondary">@color/colorAccentText</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="android:textColorPrimaryInverse">@color/colorAccentText</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
     </style>
 
     <style name="OutlinedTextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:layout_marginBottom">6dp</item>
-        <item name="errorTextColor">@android:color/holo_red_dark</item>
-        <item name="colorError">@android:color/holo_red_dark</item>
     </style>
 
 </resources>
