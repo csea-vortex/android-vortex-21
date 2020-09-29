@@ -1,17 +1,14 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryLight</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="colorOnPrimary">@color/colorPrimaryText</item>
         <item name="colorOnPrimarySurface">@color/colorPrimaryText</item>
         <item name="colorOnSecondary">@color/colorAccentText</item>
         <item name="android:textColorPrimary">@color/colorPrimaryText</item>
         <item name="android:textColorPrimaryInverse">@color/colorAccentText</item>
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
     </style>
 
     <style name="OutlinedTextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">

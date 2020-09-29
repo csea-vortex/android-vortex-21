@@ -25,7 +25,7 @@
         android:hint="@string/vortex_username"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toTopOf="@id/containerPassword"
-        app:startIconDrawable="@drawable/ic_baseline_person_24">
+        app:startIconDrawable="@drawable/person">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -44,7 +44,7 @@
         android:hint="@string/password"
         app:endIconMode="password_toggle"
         app:layout_constraintTop_toBottomOf="@id/containerUsername"
-        app:startIconDrawable="@drawable/ic_baseline_lock_24">
+        app:startIconDrawable="@drawable/password_lock">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextPassword"

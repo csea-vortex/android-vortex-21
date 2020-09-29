@@ -3,18 +3,22 @@
     <item
         android:id="@+id/fragmentWorkshops"
         android:enabled="true"
+        android:icon="@drawable/workshops"
         android:title="@string/workshops" />
     <item
         android:id="@+id/fragmentEvents"
         android:enabled="true"
+        android:icon="@drawable/events"
         android:title="@string/events" />
     <item
         android:id="@+id/fragmentSocialMedia"
         android:enabled="true"
+        android:icon="@drawable/social_media"
         android:title="@string/social_media" />
     <item
         android:id="@+id/fragmentTShirtRegistration"
         android:enabled="true"
+        android:icon="@drawable/tshirt"
         android:title="@string/t_shirt"
         android:visible="false" />
 </menu>
