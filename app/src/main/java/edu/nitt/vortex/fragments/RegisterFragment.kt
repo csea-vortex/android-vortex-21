@@ -1,6 +1,5 @@
 package edu.nitt.vortex.fragments
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import edu.nitt.vortex.R
 import edu.nitt.vortex.databinding.FragmentRegisterBinding
 import edu.nitt.vortex.helpers.Constants
 import edu.nitt.vortex.helpers.Validators
@@ -28,6 +28,7 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().setTitle(R.string.register)
 
         setupAutoCompleteDropdownViews()
 
@@ -112,14 +113,14 @@ class RegisterFragment : Fragment() {
     private fun setupAutoCompleteDropdownViews() {
         val departmentAdapter = ArrayAdapter(
             requireContext(),
-            R.layout.simple_list_item_1,
+            android.R.layout.simple_list_item_1,
             Constants.departments
         )
         binding.autocompleteTextDepartment.setAdapter(departmentAdapter)
 
         val yearOfStudyAdapter = ArrayAdapter(
             requireContext(),
-            R.layout.simple_list_item_1,
+            android.R.layout.simple_list_item_1,
             Constants.yearOfStudy
         )
         binding.autocompleteTextYearOfStudy.setAdapter(yearOfStudyAdapter)

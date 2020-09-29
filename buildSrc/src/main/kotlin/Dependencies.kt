@@ -16,6 +16,7 @@ object Versions {
     const val lifecycle = "2.2.0"
     const val navigation = "2.3.0"
     const val material = "1.3.0-alpha02"
+    const val circularImageView = "3.1.0"
 
     /* test */
     const val junit = "4.12"
@@ -51,6 +52,8 @@ object Libs {
     const val navigationUIKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 
     const val material = "com.google.android.material:material:${Versions.material}"
+
+    const val circularImageView = "de.hdodenhof:circleimageview:${Versions.circularImageView}"
 }
 
 object TestLibs {
@@ -67,7 +70,8 @@ object ModuleLibs {
             Libs.lifecycleExtensions, Libs.lifecycleViewModelKtx,
             Libs.lifecycleLiveDataKtx, Libs.lifecycleCommon,
             Libs.navigationFragmentKtx, Libs.navigationUIKtx,
-            Libs.material
+            Libs.material,
+            Libs.circularImageView
         )
         val kapts = listOf(Libs.lifecycleCompiler)
         val testImplementations = listOf(TestLibs.junit)

@@ -22,6 +22,7 @@
 
     <string name="department">Department</string>
     <string name="login">Login</string>
+    <string name="register">Register</string>
     <string name="need_login">Need Login</string>
     <string name="logout">Logout</string>
     <string name="home">Home</string>
@@ -32,4 +33,5 @@
     <string name="events">Events</string>
     <string name="social_media">Social Media</string>
     <string name="t_shirt">T-shirt</string>
+    <string name="t_shirt_registration">T-shirt Registration</string>
 </resources>

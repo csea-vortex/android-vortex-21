@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import edu.nitt.vortex.R
 import edu.nitt.vortex.databinding.FragmentLoginBinding
 import edu.nitt.vortex.helpers.Validators
 import edu.nitt.vortex.helpers.viewLifecycle
@@ -26,7 +27,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        requireActivity().setTitle(R.string.login)
 
         mapOf(
             binding.editTextUsername to binding.containerUsername,
