@@ -22,6 +22,9 @@ object Versions {
     const val junit = "4.12"
     const val junitExt = "1.1.2"
     const val espressoCore = "3.3.0"
+
+    const val playCore = "1.8.0"
+    const val playCoreKtx = "1.8.1"
 }
 
 object BuildPlugins {
@@ -54,6 +57,8 @@ object Libs {
     const val material = "com.google.android.material:material:${Versions.material}"
 
     const val circularImageView = "de.hdodenhof:circleimageview:${Versions.circularImageView}"
+    const val playCore = "com.google.android.play:core:${Versions.playCore}"
+    const val playCoreKtx = "com.google.android.play:core-ktx:${Versions.playCoreKtx}"
 }
 
 object TestLibs {
@@ -71,7 +76,8 @@ object ModuleLibs {
             Libs.lifecycleLiveDataKtx, Libs.lifecycleCommon,
             Libs.navigationFragmentKtx, Libs.navigationUIKtx,
             Libs.material,
-            Libs.circularImageView
+            Libs.circularImageView,
+            Libs.playCore, Libs.playCoreKtx
         )
         val kapts = listOf(Libs.lifecycleCompiler)
         val testImplementations = listOf(TestLibs.junit)
