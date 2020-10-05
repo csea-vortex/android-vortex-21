@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/fragmentWorkshops"
-        android:name="edu.nitt.vortex.fragments.WorkshopsFragment"
+        android:name="edu.nitt.vortex21.fragments.WorkshopsFragment"
         android:label="@string/workshops"
         tools:layout="@layout/fragment_workshops" />
 
     <fragment
         android:id="@+id/fragmentEvents"
-        android:name="edu.nitt.vortex.fragments.EventsFragment"
+        android:name="edu.nitt.vortex21.fragments.EventsFragment"
         android:label="@string/events"
         tools:layout="@layout/fragment_events" />
 
     <fragment
         android:id="@+id/fragmentSocialMedia"
-        android:name="edu.nitt.vortex.fragments.SocialMediaFragment"
+        android:name="edu.nitt.vortex21.fragments.SocialMediaFragment"
         android:label="@string/social_media"
         tools:layout="@layout/fragment_social_media" />
 
     <fragment
         android:id="@+id/fragmentTShirtRegistration"
-        android:name="edu.nitt.vortex.fragments.TShirtRegistrationFragment"
+        android:name="edu.nitt.vortex21.fragments.TShirtRegistrationFragment"
         android:label="@string/t_shirt"
         tools:layout="@layout/fragment_tshirt" />
 

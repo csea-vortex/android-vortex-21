@@ -1,4 +1,4 @@
-package edu.nitt.vortex.adapters
+package edu.nitt.vortex21.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
-import edu.nitt.vortex.R
-import edu.nitt.vortex.model.SocialMediaLink
+import edu.nitt.vortex21.R
+import edu.nitt.vortex21.model.SocialMediaLink
 
 class SocialMediaLinksAdapter(
     private val context: Context,

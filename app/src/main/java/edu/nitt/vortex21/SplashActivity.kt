@@ -1,4 +1,4 @@
-package edu.nitt.vortex
+package edu.nitt.vortex21
 
 import android.app.Activity
 import android.content.DialogInterface
@@ -14,9 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
-import edu.nitt.vortex.databinding.ActivitySplashBinding
-import edu.nitt.vortex.helpers.viewLifecycle
-import java.lang.Exception
+import edu.nitt.vortex21.databinding.ActivitySplashBinding
+import edu.nitt.vortex21.helpers.viewLifecycle
 
 class SplashActivity : AppCompatActivity() {
 

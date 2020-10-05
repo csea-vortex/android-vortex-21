@@ -1,4 +1,4 @@
-package edu.nitt.vortex.fragments
+package edu.nitt.vortex21.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import edu.nitt.vortex.R
-import edu.nitt.vortex.databinding.FragmentHomeBinding
-import edu.nitt.vortex.helpers.viewLifecycle
+import edu.nitt.vortex21.R
+import edu.nitt.vortex21.databinding.FragmentHomeBinding
+import edu.nitt.vortex21.helpers.viewLifecycle
 
 
 class HomeFragment : Fragment() {

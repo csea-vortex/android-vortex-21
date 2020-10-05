@@ -1,4 +1,4 @@
-package edu.nitt.vortex
+package edu.nitt.vortex21
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

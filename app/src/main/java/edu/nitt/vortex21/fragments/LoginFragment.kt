@@ -1,4 +1,4 @@
-package edu.nitt.vortex.fragments
+package edu.nitt.vortex21.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import edu.nitt.vortex.R
-import edu.nitt.vortex.databinding.FragmentLoginBinding
-import edu.nitt.vortex.helpers.Validators
-import edu.nitt.vortex.helpers.viewLifecycle
+import edu.nitt.vortex21.R
+import edu.nitt.vortex21.databinding.FragmentLoginBinding
+import edu.nitt.vortex21.helpers.Validators
+import edu.nitt.vortex21.helpers.viewLifecycle
 
 class LoginFragment : Fragment() {
 
