@@ -1,4 +1,4 @@
-package edu.nitt.vortex.fragments
+package edu.nitt.vortex21.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import edu.nitt.vortex.databinding.FragmentMainBinding
-import edu.nitt.vortex.helpers.viewLifecycle
+import edu.nitt.vortex21.databinding.FragmentMainBinding
+import edu.nitt.vortex21.helpers.viewLifecycle
 
 class MainFragment : Fragment() {
     private var binding by viewLifecycle<FragmentMainBinding>()

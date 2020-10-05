@@ -9,7 +9,7 @@ plugins {
 android {
     compileSdkVersion(AndroidSdk.compileSdk)
     defaultConfig {
-        applicationId = "edu.nitt.vortex"
+        applicationId = "edu.nitt.vortex21"
         minSdkVersion(AndroidSdk.minSdk)
         targetSdkVersion(AndroidSdk.targetSdk)
         versionCode = AndroidSdk.versionCode

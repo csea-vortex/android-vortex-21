@@ -1,9 +1,9 @@
-package edu.nitt.vortex
+package edu.nitt.vortex21
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import edu.nitt.vortex.databinding.ActivityMainBinding
-import edu.nitt.vortex.helpers.viewLifecycle
+import edu.nitt.vortex21.databinding.ActivityMainBinding
+import edu.nitt.vortex21.helpers.viewLifecycle
 
 class MainActivity : AppCompatActivity() {
 
