@@ -17,6 +17,7 @@ object Versions {
     const val navigation = "2.3.0"
     const val material = "1.3.0-alpha02"
     const val circularImageView = "3.1.0"
+    const val storiesProgressView = "3.0.0"
 
     /* test */
     const val junit = "4.12"
@@ -59,6 +60,7 @@ object Libs {
     const val circularImageView = "de.hdodenhof:circleimageview:${Versions.circularImageView}"
     const val playCore = "com.google.android.play:core:${Versions.playCore}"
     const val playCoreKtx = "com.google.android.play:core-ktx:${Versions.playCoreKtx}"
+
 }
 
 object TestLibs {

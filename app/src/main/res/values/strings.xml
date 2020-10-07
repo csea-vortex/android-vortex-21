@@ -38,4 +38,6 @@
     <string name="update_to_the_new_app_to_have_a_seamless_experience">Update to the new app to have a seamless experience.</string>
     <string name="cancel">CANCEL</string>
     <string name="update">UPDATE</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

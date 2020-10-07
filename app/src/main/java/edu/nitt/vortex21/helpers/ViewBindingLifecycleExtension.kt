@@ -36,6 +36,7 @@ fun <T : ViewBinding> Fragment.viewLifecycle(): ReadWriteProperty<Fragment, T> =
         }
 
         // binding is made null when view is destroyed.
+
         override fun onDestroy(owner: LifecycleOwner) {
             binding = null
         }
