@@ -14,7 +14,7 @@ import edu.nitt.vortex21.helpers.viewLifecycle
 
 class HomeFragment : Fragment() {
 
-    private var binding by viewLifecycle<FragmentHomeBinding>()
+    public var binding by viewLifecycle<FragmentHomeBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +37,10 @@ class HomeFragment : Fragment() {
             setupWithNavController(navHostFragment.navController)
         }
 
+    }
+
+    public fun hideNavBar(){
+        binding.bottomNavigation.visibility = View.INVISIBLE
     }
 
 }
