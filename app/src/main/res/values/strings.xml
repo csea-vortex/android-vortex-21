@@ -34,4 +34,6 @@
     <string name="social_media">Social Media</string>
     <string name="t_shirt">T-shirt</string>
     <string name="t_shirt_registration">T-shirt Registration</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

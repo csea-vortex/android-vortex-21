@@ -17,6 +17,7 @@ object Versions {
     const val navigation = "2.3.0"
     const val material = "1.3.0-alpha02"
     const val circularImageView = "3.1.0"
+    const val storiesProgressView = "3.0.0"
 
     /* test */
     const val junit = "4.12"
@@ -54,6 +55,9 @@ object Libs {
     const val material = "com.google.android.material:material:${Versions.material}"
 
     const val circularImageView = "de.hdodenhof:circleimageview:${Versions.circularImageView}"
+
+    const val storiesProgressView ="com.github.shts:StoriesProgressView:${Versions.storiesProgressView}"
+
 }
 
 object TestLibs {
@@ -71,7 +75,8 @@ object ModuleLibs {
             Libs.lifecycleLiveDataKtx, Libs.lifecycleCommon,
             Libs.navigationFragmentKtx, Libs.navigationUIKtx,
             Libs.material,
-            Libs.circularImageView
+            Libs.circularImageView,
+            Libs.storiesProgressView
         )
         val kapts = listOf(Libs.lifecycleCompiler)
         val testImplementations = listOf(TestLibs.junit)
