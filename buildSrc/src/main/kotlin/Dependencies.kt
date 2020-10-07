@@ -19,7 +19,6 @@ object Versions {
     const val circularImageView = "3.1.0"
     const val retrofit = "2.9.0"
     const val security = "1.1.0-alpha02"
-
     /* test */
     const val junit = "4.12"
     const val junitExt = "1.1.2"
