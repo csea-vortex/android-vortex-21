@@ -13,17 +13,49 @@ import edu.nitt.vortex21.databinding.FragmentRegisterBinding
 import edu.nitt.vortex21.helpers.Constants
 import edu.nitt.vortex21.helpers.Validators
 import edu.nitt.vortex21.helpers.viewLifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
+import edu.nitt.vortex21.helpers.Resource
+import edu.nitt.vortex21.model.RegisterRequest
+import edu.nitt.vortex21.viewmodel.AuthViewModel
 
 class RegisterFragment : Fragment() {
 
     private var binding by viewLifecycle<FragmentRegisterBinding>()
+    private val viewModel: AuthViewModel by lazy {
+        ViewModelProvider(this).get(AuthViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        observeLiveData()
         return binding.root
+    }
+
+    private fun observeLiveData() {
+        viewModel.registerResponse.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    Toast.makeText(requireContext(), "Registered User", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBarRegister.visibility = View.INVISIBLE
+    }
+
+    private fun showProgressBar() {
+        binding.progressBarRegister.visibility = View.VISIBLE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,23 +121,29 @@ class RegisterFragment : Fragment() {
                 binding.containerEmail.error = "Invalid email"
             }
 
+            /*val yearOfStudy = binding.autocompleteTextYearOfStudy.text.toString()
             if (binding.autocompleteTextYearOfStudy.text.isEmpty()) {
                 allOk = false
                 binding.containerYearOfStudy.error = "Enter your year of study"
-            }
+            }*/
 
+            val department = binding.autocompleteTextDepartment.text.toString()
             if (binding.autocompleteTextDepartment.text.isEmpty()) {
                 allOk = false
                 binding.containerDepartment.error = "Enter your department"
             }
 
             if (allOk) {
-                // ToDo: Send a network request here, show the loader
-                Toast.makeText(
-                    requireContext(),
-                    "$name\n$username\n$password$confirmPassword\n$number\n$email",
-                    Toast.LENGTH_LONG
-                ).show()
+                val registerRequest = RegisterRequest(
+                    fullName = name,
+                    username = username,
+                    password = password,
+                    mobileNumber = number,
+                    email = email,
+                    department = department
+                )
+                showProgressBar()
+                viewModel.sendRegisterRequest(registerRequest)
             }
         }
     }

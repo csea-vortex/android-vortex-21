@@ -7,22 +7,54 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentLoginBinding
 import edu.nitt.vortex21.helpers.Validators
 import edu.nitt.vortex21.helpers.viewLifecycle
+import edu.nitt.vortex21.helpers.Resource
+import edu.nitt.vortex21.model.LoginRequest
+import edu.nitt.vortex21.viewmodel.AuthViewModel
 
 class LoginFragment : Fragment() {
 
     private var binding by viewLifecycle<FragmentLoginBinding>()
+    private val viewModel: AuthViewModel by lazy {
+        ViewModelProvider(this).get(AuthViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        observeLiveData()
         return binding.root
+    }
+
+    private fun observeLiveData() {
+        viewModel.loginResponse.observe(viewLifecycleOwner) {response ->
+            when(response) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    Toast.makeText(requireContext(), "Logged in User", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBarLogin.visibility = View.INVISIBLE
+    }
+
+    private fun showProgressBar() {
+        binding.progressBarLogin.visibility = View.VISIBLE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,14 +88,9 @@ class LoginFragment : Fragment() {
             }
 
             if (allOk) {
-                // ToDo: Check if credentials are ok (send network-request)
-                //  if yes then login else show appropriate error message
-
-                Toast.makeText(
-                    requireContext(),
-                    "You may get logged in :)",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val loginRequest = LoginRequest(username, password)
+                showProgressBar()
+                viewModel.sendLoginRequest(loginRequest)
             }
         }
 
