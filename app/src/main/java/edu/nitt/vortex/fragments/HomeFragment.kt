@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -37,9 +38,18 @@ class HomeFragment : Fragment() {
             setupWithNavController(navHostFragment.navController)
         }
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback {
+                if (!navHostFragment.navController.navigateUp()) {
+                    // If there is no fragment then the user is trying to
+                    // quit the app.
+                    requireActivity().finish()
+                }
+            }
     }
 
-    public fun hideNavBar(){
+    public fun hideNavBar() {
         binding.bottomNavigation.visibility = View.INVISIBLE
     }
 
