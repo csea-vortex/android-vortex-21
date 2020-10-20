@@ -1,19 +1,20 @@
 package edu.nitt.vortex21
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.ktx.BuildConfig
 import edu.nitt.vortex21.databinding.ActivitySplashBinding
 import edu.nitt.vortex21.helpers.viewLifecycle
 
@@ -21,61 +22,70 @@ class SplashActivity : AppCompatActivity() {
 
     private val binding by viewLifecycle(ActivitySplashBinding::inflate)
     private var canLaunchNextActivity = false
-    val TAG="AppVersionStatus"
-
-    override fun onStart() {
-        super.onStart()
-        checkUpdateAvailability()
-    }
+    private val TAG = "AppVersionStatus"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        startNextActivity()
+        checkUpdateAvailability()
     }
 
     private fun checkUpdateAvailability() {
 
         var alertDialog: AlertDialog? = null
-        val appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
+        val appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        Log.i(TAG, "The current version code: " + BuildConfig.VERSION_CODE)
+        Log.i(TAG, "The current version name: " + BuildConfig.VERSION_NAME)
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
 
-            Log.i(TAG,"So regarding update "+appUpdateInfo.updateAvailability()+"->"+
-                    UpdateAvailability.UPDATE_AVAILABLE+" okay.")
+            Log.i(
+                TAG, "appUpdateInfo.updateAvailability() = " + appUpdateInfo.updateAvailability()
+                        + " and update is available if it equals " + UpdateAvailability.UPDATE_AVAILABLE
+                        + " and appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE) is " +
+                        appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            )
+
+            Log.i(
+                TAG, "Available Version Code is " + appUpdateInfo.availableVersionCode()
+            )
 
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
 
-                Log.i(TAG,"Have to update app.")
+                Log.i(TAG, "App needs to be updated.")
 
                 alertDialog = this.let {
                     val builder = AlertDialog.Builder(it)
 
-                    builder.apply {
-                        setPositiveButton("UPDATE",
-                            DialogInterface.OnClickListener { dialog, id ->
-                                Log.i(TAG,"Updating app.")
+                    val dialogView = it.layoutInflater.inflate(R.layout.update_alert_dialog, null)
 
-                                try {
-                                    appUpdateManager.startUpdateFlowForResult(
-                                        appUpdateInfo,
-                                        AppUpdateType.IMMEDIATE,
-                                        this@SplashActivity,
-                                        APP_UPDATE_REQUEST_CODE
-                                    )
-                                } catch (e: IntentSender.SendIntentException) {
-                                    e.printStackTrace()
-                                }
+                    builder.setView(dialogView)
 
-                            })
+                    val btnCancel = dialogView.findViewById<Button>(R.id.btn_cancel)
+                    val btnUpdate = dialogView.findViewById<Button>(R.id.btn_update)
 
-                        setNegativeButton("CLOSE",
-                            DialogInterface.OnClickListener { dialog, id ->
-                                Log.i(TAG,"User closed app.")
-                                finish()
-                            })
+                    btnCancel.setOnClickListener {
+                        Log.i(TAG, "User closed the app.")
+                        finish()
+                    }
+
+                    btnUpdate.setOnClickListener {
+                        Log.i(TAG, "Updating app.")
+
+                        try {
+                            appUpdateManager.startUpdateFlowForResult(
+                                appUpdateInfo,
+                                AppUpdateType.IMMEDIATE,
+                                this@SplashActivity,
+                                APP_UPDATE_REQUEST_CODE
+                            )
+                        } catch (e: IntentSender.SendIntentException) {
+                            e.printStackTrace()
+                        }
                     }
 
                     builder.create()
@@ -85,13 +95,16 @@ class SplashActivity : AppCompatActivity() {
                 alertDialog!!.show()
 
             } else {
-                Log.i(TAG,"Latest app already exist.")
+                Log.i(TAG, "Can't update the app now.")
                 canLaunchNextActivity = true
+                startNextActivity()
             }
         }
 
         appUpdateInfoTask.addOnFailureListener { appUpdateInfo ->
-            Log.i(TAG,"Task failed.")
+            Log.i(TAG, "Task failed.")
+            canLaunchNextActivity = true
+            startNextActivity()
         }
 
     }
@@ -100,19 +113,25 @@ class SplashActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == APP_UPDATE_REQUEST_CODE) {
-            if (resultCode != Activity.RESULT_OK) {
-                Toast.makeText(this,
+            // or finish?
+            canLaunchNextActivity = true
+            startNextActivity()
+        } else {
+            if (resultCode == Activity.RESULT_OK) {
+                Toast.makeText(
+                    this,
                     "App Update failed, please try again on the next app launch.",
-                    Toast.LENGTH_SHORT)
-                    .show()
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
+
     }
 
     private fun startNextActivity() {
         val intent = Intent(this, MainActivity::class.java)
         Handler(Looper.getMainLooper()).postDelayed({
-            if(canLaunchNextActivity) {
+            if (canLaunchNextActivity) {
                 startActivity(intent)
                 finish()
                 overridePendingTransition(0, 0)
@@ -122,6 +141,6 @@ class SplashActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val APP_UPDATE_REQUEST_CODE = -15
+        private const val APP_UPDATE_REQUEST_CODE = 17
     }
 }
