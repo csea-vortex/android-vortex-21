@@ -1,4 +1,4 @@
-package edu.nitt.vortex.fragments
+package edu.nitt.vortex21.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import edu.nitt.vortex.R
-import edu.nitt.vortex.adapters.SocialMediaLinksAdapter
-import edu.nitt.vortex.databinding.FragmentSocialMediaBinding
-import edu.nitt.vortex.helpers.viewLifecycle
-import edu.nitt.vortex.model.SocialMediaLink
+import edu.nitt.vortex21.R
+import edu.nitt.vortex21.adapters.SocialMediaLinksAdapter
+import edu.nitt.vortex21.databinding.FragmentSocialMediaBinding
+import edu.nitt.vortex21.helpers.viewLifecycle
+import edu.nitt.vortex21.model.SocialMediaLink
 
 
 class SocialMediaFragment : Fragment() {
@@ -50,8 +50,16 @@ class SocialMediaFragment : Fragment() {
                         R.drawable.instagram,
                         "https://instagram.com/vortex_nitt?igshid=7cduw1t8j1k"
                     ),
-                    SocialMediaLink("Twitter", R.drawable.twitter, ""),
-                    SocialMediaLink("LinkedIn", R.drawable.linkedin, ""),
+                    SocialMediaLink(
+                        "Twitter",
+                        R.drawable.twitter,
+                        ""
+                    ),
+                    SocialMediaLink(
+                        "LinkedIn",
+                        R.drawable.linkedin,
+                        ""
+                    ),
                 )
             )
         }

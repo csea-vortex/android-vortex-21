@@ -1,4 +1,4 @@
-package edu.nitt.vortex.helpers
+package edu.nitt.vortex21.helpers
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity

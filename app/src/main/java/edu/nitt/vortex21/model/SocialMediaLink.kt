@@ -1,4 +1,4 @@
-package edu.nitt.vortex.model
+package edu.nitt.vortex21.model
 
 import androidx.annotation.DrawableRes
 
