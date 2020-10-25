@@ -18,7 +18,11 @@
         tools:layout="@layout/fragment_events" >
         <action
             android:id="@+id/action_fragmentEvents_to_storyFragment"
-            app:destination="@id/storyFragment" />
+            app:destination="@id/storyFragment"
+            app:enterAnim="@anim/push_up_in"
+            app:exitAnim="@anim/push_down_out"
+            app:popEnterAnim="@anim/push_down_in"
+            app:popExitAnim="@anim/push_up_out" />
     </fragment>
 
     <fragment
@@ -34,7 +38,7 @@
         tools:layout="@layout/fragment_tshirt" />
     <fragment
         android:id="@+id/storyFragment"
-        android:name="edu.nitt.vortex.fragments.StoryFragment"
+        android:name="edu.nitt.vortex21.fragments.StoryFragment"
         android:label="fragment_story"
         tools:layout="@layout/fragment_story" >
         <action

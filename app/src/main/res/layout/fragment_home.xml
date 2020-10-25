@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.HomeFragment">
+    tools:context="edu.nitt.vortex21.fragments.HomeFragment">
 
     <fragment
         android:id="@+id/home_nav_host_fragment"

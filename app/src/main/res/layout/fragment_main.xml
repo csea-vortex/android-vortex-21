@@ -5,7 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.MainFragment">
+    tools:context="edu.nitt.vortex21.fragments.MainFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalCenterGuideline"

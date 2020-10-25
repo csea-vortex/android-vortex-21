@@ -25,7 +25,9 @@ class SocialMediaLinksAdapter(
             .from(parent.context)
             .inflate(R.layout.list_item_social_media, parent, false)
                 as ConstraintLayout
-        return SocialMediaLinkViewHolder(view)
+        return SocialMediaLinkViewHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(holder: SocialMediaLinkViewHolder, position: Int) {

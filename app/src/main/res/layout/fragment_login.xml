@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
     android:layout_margin="16dp"
-    tools:context=".fragments.LoginFragment">
+    tools:context="edu.nitt.vortex21.fragments.LoginFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalCenterGuideline"
