@@ -13,8 +13,9 @@ import edu.nitt.vortex21.helpers.viewLifecycle
 
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import edu.nitt.vortex.adapters.StoryAdapter
-import edu.nitt.vortex.model.Story
+
+import edu.nitt.vortex21.adapters.StoryAdapter
+import edu.nitt.vortex21.model.Story
 
 
 class EventsFragment : Fragment() {
@@ -41,12 +42,19 @@ class EventsFragment : Fragment() {
         binding.recyclerViewStory.layoutManager = linearLayoutManager
 
         storyList = ArrayList()
-        storyAdapter = requireContext().let { StoryAdapter(it, storyList as ArrayList<Story>,{selectedStoryItem:Story->listItemClicked(selectedStoryItem)}) }
+        storyAdapter = requireContext().let {
+            StoryAdapter(
+                it,
+                storyList as ArrayList<Story>,
+                { selectedStoryItem: Story ->
+                    listItemClicked(selectedStoryItem)
+                })
+        }
         binding.recyclerViewStory.adapter = storyAdapter
 
     }
 
-    private fun listItemClicked(story:Story){
+    private fun listItemClicked(story: Story){
         val bundle = bundleOf(
             "storyImage" to story.imageurl,
             "storyName" to story.storyName,

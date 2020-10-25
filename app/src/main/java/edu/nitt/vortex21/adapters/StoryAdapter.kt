@@ -1,16 +1,14 @@
-package edu.nitt.vortex.adapters
+package edu.nitt.vortex21.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ExpandableListView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
-import edu.nitt.vortex.R
-import edu.nitt.vortex.model.Story
+import edu.nitt.vortex21.R
+import edu.nitt.vortex21.model.Story
 import kotlinx.android.synthetic.main.story_item.view.*
 
 class StoryAdapter(
@@ -24,7 +22,7 @@ class StoryAdapter(
         var storyImageSeen = view.findViewById(R.id.story_image_seen) as CircleImageView
         var storyImage = view.findViewById(R.id.story_image) as CircleImageView
         var storyName = view.findViewById(R.id.story_name) as TextView
-        fun bind(story:Story,  clickListener:(Story)->Unit){
+        fun bind(story: Story, clickListener:(Story)->Unit){
             view.story_name.text = story.storyName
             view.setOnClickListener{
                 clickListener(story)
@@ -47,6 +45,6 @@ class StoryAdapter(
     }
 
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
-       holder.bind(Story("","","DK"),clickListener)
+       holder.bind(Story("", "", "DK"),clickListener)
     }
 }

@@ -19,6 +19,9 @@ object Versions {
     const val circularImageView = "3.1.0"
     const val retrofit = "2.9.0"
     const val security = "1.1.0-alpha02"
+    const val storiesProgressView = "3.0.0"
+    const val picasso = "2.71828"
+
     /* test */
     const val junit = "4.12"
     const val junitExt = "1.1.2"
@@ -66,6 +69,8 @@ object Libs {
     const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
 
     const val security = "androidx.security:security-crypto:${Versions.security}"
+    const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
+
 }
 
 object TestLibs {
@@ -88,7 +93,8 @@ object ModuleLibs {
             Libs.playCoreKtx,
             Libs.retrofit,
             Libs.retrofitGsonConverter,
-            Libs.security
+            Libs.security,
+            Libs.picasso
         )
         val kapts = listOf(Libs.lifecycleCompiler)
         val testImplementations = listOf(TestLibs.junit)
