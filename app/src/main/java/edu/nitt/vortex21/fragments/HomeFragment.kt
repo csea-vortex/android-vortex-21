@@ -49,8 +49,6 @@ class HomeFragment : Fragment() {
             }
     }
 
-    public fun hideNavBar() {
-        binding.bottomNavigation.visibility = View.INVISIBLE
-    }
+
 
 }
