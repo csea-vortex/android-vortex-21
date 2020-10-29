@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.squareup.picasso.Picasso
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentEventsBinding
@@ -121,9 +122,9 @@ class StoryFragment : Fragment(), StoriesListener {
     private fun getStories(){
         imagesList = ArrayList()
         storyids = ArrayList()
-        (imagesList as ArrayList<String>).add("https://picsum.photos/id/1/200/300")
-        (imagesList as ArrayList<String>).add("https://picsum.photos/id/2/200/300")
-        (imagesList as ArrayList<String>).add("https://picsum.photos/id/3/200/300")
+        (imagesList as ArrayList<String>).add("https://picsum.photos/id/1/600/700")
+        (imagesList as ArrayList<String>).add("https://picsum.photos/id/2/600/700")
+        (imagesList as ArrayList<String>).add("https://picsum.photos/id/3/600/700")
         binding.storiesProgress.setStoriesCount(imagesList!!.size)
         binding.storiesProgress.setStoryDuration(5000L)
         binding.storiesProgress.setStoriesListener(this)
@@ -137,9 +138,8 @@ class StoryFragment : Fragment(), StoriesListener {
         val navHostFragment = this.parentFragment as NavHostFragment
         val parent = navHostFragment.parentFragment as HomeFragment
         parent.binding.bottomNavigation.visibility = View.VISIBLE
-        activity?.onBackPressed()
 
-        //navHostFragment.navController.navigateUp()
+       navHostFragment.navController.popBackStack(R.id.storyFragment,true)
     }
 
     override fun onPrev() {
