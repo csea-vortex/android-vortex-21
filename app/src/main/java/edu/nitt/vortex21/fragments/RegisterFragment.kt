@@ -31,7 +31,6 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
-        observeLiveData()
         return binding.root
     }
 
@@ -41,6 +40,7 @@ class RegisterFragment : Fragment() {
                 is Resource.Success -> {
                     hideProgressBar()
                     Toast.makeText(requireContext(), "Registered User", Toast.LENGTH_SHORT).show()
+                    requireActivity().onBackPressed()
                 }
                 is Resource.Error -> {
                     hideProgressBar()
@@ -61,6 +61,7 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.register)
+        observeLiveData()
 
         setupAutoCompleteDropdownViews()
 
