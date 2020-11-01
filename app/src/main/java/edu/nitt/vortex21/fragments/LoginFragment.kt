@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentLoginBinding
+import edu.nitt.vortex21.helpers.Constants
 import edu.nitt.vortex21.helpers.Validators
 import edu.nitt.vortex21.helpers.viewLifecycle
 import edu.nitt.vortex21.helpers.Resource
@@ -24,6 +28,7 @@ class LoginFragment : Fragment() {
     private val viewModel: AuthViewModel by lazy {
         ViewModelProvider(this).get(AuthViewModel::class.java)
     }
+    private lateinit var loginRequest: LoginRequest
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,14 +43,35 @@ class LoginFragment : Fragment() {
         viewModel.loginResponse.observe(viewLifecycleOwner) {response ->
             when(response) {
                 is Resource.Success -> {
+                    saveToken(response.data!!.token)
                     hideProgressBar()
                     Toast.makeText(requireContext(), "Logged in User", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(LoginFragmentDirections.actionFragmentLoginToFragmentMain())
                 }
                 is Resource.Error -> {
                     hideProgressBar()
                     Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun saveToken(token: String) {
+        val context = requireActivity().applicationContext
+        val masterKey = MasterKey.Builder(context)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+
+        EncryptedSharedPreferences.create(
+            context,
+            Constants.encryptedSharedPreferencesName,
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        ).edit {
+            putString("token", token)
+            putString("username", loginRequest.username)
+            commit()
         }
     }
 
@@ -88,7 +114,7 @@ class LoginFragment : Fragment() {
             }
 
             if (allOk) {
-                val loginRequest = LoginRequest(username, password)
+                loginRequest = LoginRequest(username, password)
                 showProgressBar()
                 viewModel.sendLoginRequest(loginRequest)
             }
