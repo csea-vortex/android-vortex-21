@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -41,6 +42,9 @@ class HomeFragment : Fragment() {
         requireActivity()
             .onBackPressedDispatcher
             .addCallback {
+                (activity as AppCompatActivity).supportActionBar?.show()
+
+                binding.bottomNavigation.visibility = View.VISIBLE
                 if (!navHostFragment.navController.navigateUp()) {
                     // If there is no fragment then the user is trying to
                     // quit the app.

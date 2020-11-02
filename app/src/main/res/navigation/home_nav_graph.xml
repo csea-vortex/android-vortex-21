@@ -17,12 +17,12 @@
         android:label="@string/events"
         tools:layout="@layout/fragment_events" >
         <action
-            android:id="@+id/action_fragmentEvents_to_storyFragment"
-            app:destination="@id/storyFragment"
-            app:enterAnim="@anim/push_up_in"
-            app:exitAnim="@anim/push_down_out"
-            app:popEnterAnim="@anim/push_down_in"
-            app:popExitAnim="@anim/push_up_out" />
+            android:id="@+id/action_fragmentEvents_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/bounce_zoom"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/bounce_zoom"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
@@ -40,10 +40,19 @@
         android:id="@+id/storyFragment"
         android:name="edu.nitt.vortex21.fragments.StoryFragment"
         android:label="fragment_story"
-        tools:layout="@layout/fragment_story" >
+        tools:layout="@layout/fragment_story" />
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="edu.nitt.vortex21.fragments.ViewPagerFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" >
         <action
-            android:id="@+id/action_storyFragment_to_fragmentEvents"
-            app:destination="@id/fragmentEvents" />
+            android:id="@+id/action_viewPagerFragment_to_fragmentEvents"
+            app:destination="@id/fragmentEvents"
+            app:enterAnim="@anim/push_up_in"
+            app:exitAnim="@anim/push_up_out"
+            app:popEnterAnim="@anim/push_down_in"
+            app:popExitAnim="@anim/push_down_out" />
     </fragment>
 
 </navigation>

@@ -57,7 +57,7 @@ class EventsFragment : Fragment() {
             "storyName" to story.storyName,
             "storyId" to story.storyid
         )
-        findNavController().navigate(R.id.action_fragmentEvents_to_storyFragment,bundle)
+        findNavController().navigate(R.id.action_fragmentEvents_to_viewPagerFragment,bundle)
     }
 }
 
