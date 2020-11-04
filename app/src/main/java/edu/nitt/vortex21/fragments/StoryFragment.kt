@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import androidx.viewpager2.widget.ViewPager2
 import com.squareup.picasso.Picasso
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentStoryBinding
@@ -22,12 +23,12 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
 
 
     private var binding by viewLifecycle<FragmentStoryBinding>()
-
+    private lateinit var viewPager2: ViewPager2
     private var imagesList:List<String>? = null
     private var storyids:List<String>? = null
     private var counter=0
     private var pressTime = 0L
-    private var limit = 500L
+    private var limit = 5000L
     private val onTouchListener = View.OnTouchListener {view, motionEvent ->
         when(motionEvent.action){
             MotionEvent.ACTION_DOWN->
@@ -62,7 +63,9 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //requireActivity().setTitle("Story")
-
+     val viewPagerFragment = this.parentFragment  as ViewPagerFragment
+        viewPager2 = viewPagerFragment.binding.pager
+        viewPager2.currentItem = requireArguments().getInt("position")
      val navHostFragment = this.parentFragment?.parentFragment as NavHostFragment
        val parent = navHostFragment.parentFragment as HomeFragment
        parent.binding.bottomNavigation.visibility = View.INVISIBLE
@@ -111,7 +114,8 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
        navHostFragment.navController.popBackStack(R.id.viewPagerFragment,true)*/
         Log.i("MyTagComplete",counter.toString())
         counter = 0
-        storyViewListener.OnEndStory()
+        viewPager2.currentItem = requireArguments().getInt("position")
+        storyViewListener.OnEndStory(requireArguments().getInt("position"))
 
     }
 
