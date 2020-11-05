@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -16,12 +17,13 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentViewPagerBinding
 import edu.nitt.vortex21.helpers.viewLifecycle
+import kotlinx.android.synthetic.main.fragment_view_pager.*
 
 
 class ViewPagerFragment : Fragment() {
 
     var binding by viewLifecycle<FragmentViewPagerBinding>()
-    private var stories:Int = 5
+    private var stories:Int = 4
     private var pagerAdapter:FragmentStateAdapter? = null
 
     interface storyViewListener{
@@ -51,6 +53,12 @@ class ViewPagerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         pagerAdapter = ScreenSlidePagerAdapter(this)
         binding.pager.adapter = pagerAdapter
+        binding.pager.registerOnPageChangeCallback(object: OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.pager.currentItem = position
+            }
+        })
 
     }
 
@@ -64,13 +72,16 @@ class ViewPagerFragment : Fragment() {
             }
             return fragment
         }
+
     }
+
 
     private fun onComplete(position: Int){
         if(binding.pager.currentItem < pagerAdapter!!.itemCount-1) {
-            binding.pager.currentItem++
+            binding.pager.currentItem = binding.pager.currentItem + 1
             Log.i("MyTagPagerCurrentItem", binding.pager.currentItem.toString())
-
+            binding.pager.currentItem = position+1
+            Log.i("MyTagPagerCurrentItem", binding.pager.currentItem.toString())
         }
         else{
             val navHostFragment = this.parentFragment as NavHostFragment
@@ -84,7 +95,7 @@ class ViewPagerFragment : Fragment() {
         if(binding.pager.currentItem > 0){
             binding.pager.currentItem = binding.pager.currentItem -1
             Log.i("MyTagPagerCurrentItem", binding.pager.currentItem.toString())
-           // counter = 0
+
         }
     }
 

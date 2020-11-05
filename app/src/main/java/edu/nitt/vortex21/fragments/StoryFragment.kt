@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.squareup.picasso.Picasso
 import edu.nitt.vortex21.R
@@ -17,7 +18,7 @@ import edu.nitt.vortex21.helpers.viewLifecycle
 import jp.shts.android.storiesprogressview.StoriesProgressView.StoriesListener
 
 
-class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) : Fragment(), StoriesListener {
+class StoryFragment(var storyViewListener: ViewPagerFragment.storyViewListener) : Fragment(), StoriesListener {
 
 
 
@@ -28,7 +29,8 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
     private var storyids:List<String>? = null
     private var counter=0
     private var pressTime = 0L
-    private var limit = 5000L
+    private var limit = 500L
+
     private val onTouchListener = View.OnTouchListener {view, motionEvent ->
         when(motionEvent.action){
             MotionEvent.ACTION_DOWN->
@@ -56,37 +58,39 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
         // Inflate the layout for this fragment
         binding = FragmentStoryBinding.inflate(inflater, container, false)
         (activity as AppCompatActivity).supportActionBar?.hide()
-        Log.i("MyTagPagerItemCreate",requireArguments().getInt("position").toString())
+
+
          return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //requireActivity().setTitle("Story")
-     val viewPagerFragment = this.parentFragment  as ViewPagerFragment
+
+        val viewPagerFragment = this.parentFragment  as ViewPagerFragment
         viewPager2 = viewPagerFragment.binding.pager
         viewPager2.currentItem = requireArguments().getInt("position")
-     val navHostFragment = this.parentFragment?.parentFragment as NavHostFragment
-       val parent = navHostFragment.parentFragment as HomeFragment
-       parent.binding.bottomNavigation.visibility = View.INVISIBLE
+        Log.i("MyTagPagerItemCreate",requireArguments().getInt("position").toString())
+        val navHostFragment = this.parentFragment?.parentFragment as NavHostFragment
+        val parent = navHostFragment.parentFragment as HomeFragment
+        parent.binding.bottomNavigation.visibility = View.INVISIBLE
         getStories(requireArguments().getInt("position"))
-       binding.apply {
-           reverse.setOnClickListener{
-               Log.i("Touched","Reverse")
-               binding.storiesProgress.reverse()
-               Log.i("reverse",counter.toString())
-           }
-           reverse.setOnTouchListener(onTouchListener)
+        binding.apply {
+            reverse.setOnClickListener{
+                Log.i("Touched","Reverse")
+                binding.storiesProgress.reverse()
+                Log.i("reverse",counter.toString())
+            }
+            reverse.setOnTouchListener(onTouchListener)
 
-           skip.setOnClickListener{
-               Log.i("Touched","Skip")
-               Log.i("skip",counter.toString())
+            skip.setOnClickListener{
+                Log.i("Touched","Skip")
+                Log.i("skip",counter.toString())
+                binding.storiesProgress.skip()
 
-               binding.storiesProgress.skip()
 
-           }
-           skip.setOnTouchListener(onTouchListener)
-       }
+            }
+            skip.setOnTouchListener(onTouchListener)
+        }
 
     }
 
@@ -96,7 +100,8 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
         storyids = ArrayList()
         (imagesList as ArrayList<String>).add("https://picsum.photos/id/1/600/700")
         (imagesList as ArrayList<String>).add("https://picsum.photos/id/2/600/700")
-        (imagesList as ArrayList<String>).add("https://picsum.photos/id/3/600/700")
+      //  (imagesList as ArrayList<String>).add("https://picsum.photos/id/3/600/700")
+      //  (imagesList as ArrayList<String>).add("https://picsum.photos/id/4/600/700")
         binding.storiesProgress.setStoriesCount(imagesList!!.size)
         binding.storiesProgress.setStoryDuration(4000L)
         binding.storiesProgress.setStoriesListener(this)
@@ -106,6 +111,7 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
 
     }
 
+
     override fun onComplete() {
        /* val navHostFragment = this.parentFragment?.parentFragment as NavHostFragment
         val parent = navHostFragment.parentFragment as HomeFragment
@@ -113,9 +119,9 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
         (activity as AppCompatActivity).supportActionBar?.show()
        navHostFragment.navController.popBackStack(R.id.viewPagerFragment,true)*/
         Log.i("MyTagComplete",counter.toString())
-        counter = 0
-        viewPager2.currentItem = requireArguments().getInt("position")
-        storyViewListener.OnEndStory(requireArguments().getInt("position"))
+       // counter = 0
+       //viewPager2.currentItem = requireArguments().getInt("position")
+       storyViewListener.OnEndStory(requireArguments().getInt("position"))
 
     }
 
@@ -129,6 +135,7 @@ class StoryFragment(val storyViewListener: ViewPagerFragment.storyViewListener) 
 
             Log.i("MyTagPrev",counter.toString())
             counter = 0
+           // viewPager2.currentItem = requireArguments().getInt("position")-1
             storyViewListener.onPrevStory()
         }
     }
