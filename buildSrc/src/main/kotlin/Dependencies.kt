@@ -17,7 +17,7 @@ object Versions {
     const val navigation = "2.3.0"
     const val material = "1.3.0-alpha02"
     const val circularImageView = "3.1.0"
-    const val storiesProgressView = "3.0.0"
+    //const val storiesProgressView = "3.0.0"
     const val picasso = "2.71828"
 
     /* test */
@@ -62,6 +62,8 @@ object Libs {
     const val playCore = "com.google.android.play:core:${Versions.playCore}"
     const val playCoreKtx = "com.google.android.play:core-ktx:${Versions.playCoreKtx}"
 
+    //const val storiesProgressView ="com.github.shts:StoriesProgressView:${Versions.storiesProgressView}"
+
     const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
 
 }
@@ -83,6 +85,7 @@ object ModuleLibs {
             Libs.material,
             Libs.circularImageView,
             Libs.playCore, Libs.playCoreKtx,
+            //Libs.storiesProgressView,
             Libs.picasso
         )
         val kapts = listOf(Libs.lifecycleCompiler)
