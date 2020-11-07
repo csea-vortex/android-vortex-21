@@ -36,34 +36,47 @@ class EventsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.events)
-        val linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
-        linearLayoutManager.reverseLayout = true
-        linearLayoutManager.stackFromEnd = true
+        val linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.recyclerViewStory.layoutManager = linearLayoutManager
 
         storyList = ArrayList()
 
         // dummy data.
-        for(i in 0..15)
-            storyList!!.add(Story(
-                listOf("https://domaingang.com/wp-content/uploads/2010/06/bitly.png",
-                "https://domaingang.com/wp-content/uploads/2010/06/bitly.png"),
-                "$i", "Story #$i"))
+
+
+        for(i in 1..15){
+            when {
+                i%3==0 -> storyList!!.add(Story(
+                    listOf("https://domaingang.com/wp-content/uploads/2010/06/bitly.png",
+                        "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2012/12/technics-q-c-1108-622-4-730x409.jpeg"),
+                    "$i", "Story #$i"))
+                i%3==1 -> storyList!!.add(Story(
+                    listOf("https://www.formdesigncenter.com/uploads/2013/10/lorempixel-3.jpg",
+                        "https://i.pinimg.com/originals/a0/fa/64/a0fa64fcb7ae2af757bd5667f223764b.jpg"),
+                    "$i", "Story #$i"))
+                else -> storyList!!.add(Story(
+                    listOf("https://www.finditshareit.com/wp-content/uploads/2015/07/cats-q-g-960-600-4.jpg",
+                        "https://i.pinimg.com/originals/a0/fa/64/a0fa64fcb7ae2af757bd5667f223764b.jpg"),
+                    "$i", "Story #$i"))
+            }
+        }
+
 
 
         storyAdapter = StoryAdapter(requireContext(),
             storyList as ArrayList<Story>) {
-                selectedStoryItem: Story ->
-                listItemClicked(selectedStoryItem)
+                selectedStoryIndex: Int ->
+                listItemClicked(selectedStoryIndex)
         }
 
         binding.recyclerViewStory.adapter = storyAdapter
 
     }
 
-    private fun listItemClicked(story: Story){
+    private fun listItemClicked(index: Int){
         val bundle = bundleOf(
-            "story" to story
+            "story" to storyList,
+            "position" to index
         )
         findNavController().navigate(R.id.action_fragmentEvents_to_storyFragment,bundle)
     }

@@ -29,6 +29,9 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
     private var pressTime = 0L
     private var limit = 500L
     private var story: Story? = null
+    private var stories: List<Story>? = null
+    private var currentIndex = 0
+    private lateinit var navHostFragment:NavHostFragment
 
     private val onTouchListener = View.OnTouchListener { view, motionEvent ->
         when (motionEvent.action) {
@@ -53,7 +56,10 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentStoryBinding.inflate(inflater, container, false)
-        story = arguments?.getParcelable<Story>("story")!!
+        stories = arguments?.getParcelableArrayList<Story>("story")!!
+        currentIndex = arguments?.getInt("position")!!
+        story = stories!![currentIndex]
+
         return binding.root
     }
 
@@ -61,10 +67,33 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         super.onViewCreated(view, savedInstanceState)
         //requireActivity().setTitle("Story")
 
-        val navHostFragment = this.parentFragment as NavHostFragment
+        navHostFragment = this.parentFragment as NavHostFragment
         val parent = navHostFragment.parentFragment as HomeFragment
         parent.binding.bottomNavigation.visibility = View.INVISIBLE
         getStories()
+        //dummy()
+
+        binding.apply {
+            reverse.setOnClickListener {
+                Log.i("Touched", "Reverse")
+                binding.storiesProgress.reverse()
+                Log.i("reverse", counter.toString())
+            }
+            reverse.setOnTouchListener(onTouchListener)
+
+            skip.setOnClickListener {
+                Log.i("Touched", "Skip")
+                Log.i("skip", counter.toString())
+
+                binding.storiesProgress.skip()
+
+            }
+            skip.setOnTouchListener(onTouchListener)
+        }
+
+    }
+
+    private fun dummy() {
         binding.skip.setOnTouchListener(object : OnSwipeTouchListener(requireActivity()) {
             override fun onSwipeRight() {
                 super.onSwipeRight()
@@ -94,31 +123,12 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
                     }
             }
         })
-        binding.apply {
-            reverse.setOnClickListener {
-                Log.i("Touched", "Reverse")
-                binding.storiesProgress.reverse()
-                Log.i("reverse", counter.toString())
-            }
-            reverse.setOnTouchListener(onTouchListener)
-
-            skip.setOnClickListener {
-                Log.i("Touched", "Skip")
-                Log.i("skip", counter.toString())
-
-                binding.storiesProgress.skip()
-
-            }
-            skip.setOnTouchListener(onTouchListener)
-        }
-
     }
 
 
     private fun getStories() {
         imagesList = ArrayList()
         storyids = ArrayList()
-        imagesList = ArrayList()
 
         imagesList = story?.imageurl
 
@@ -126,17 +136,39 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         binding.storiesProgress.setStoryDuration(5000L)
         binding.storiesProgress.setStoriesListener(this)
         binding.storiesProgress.startStories(counter)
+        binding.tvStory.text = story!!.storyName
         Picasso.get().load(imagesList!![counter]).into(binding.imageStory)
 
 
     }
 
     override fun onComplete() {
-        val navHostFragment = this.parentFragment as NavHostFragment
-        val parent = navHostFragment.parentFragment as HomeFragment
-        parent.binding.bottomNavigation.visibility = View.VISIBLE
 
-        navHostFragment.navController.popBackStack(R.id.storyFragment, true)
+        println("Completed index: $currentIndex")
+
+        if(currentIndex == stories!!.size-1) {
+            val navHostFragment = this.parentFragment as NavHostFragment
+            val parent = navHostFragment.parentFragment as HomeFragment
+            parent.binding.bottomNavigation.visibility = View.VISIBLE
+            navHostFragment.navController.popBackStack(R.id.storyFragment, true)
+        } else {
+            currentIndex++
+            story = stories!![currentIndex]
+            imagesList = story!!.imageurl
+            counter = 0
+
+            binding.storiesProgress.clear()
+
+            binding.storiesProgress.setStoriesCount(imagesList!!.size)
+            binding.storiesProgress.setStoryDuration(5000L)
+            binding.storiesProgress.setStoriesListener(this)
+            binding.storiesProgress.startStories(counter)
+            binding.tvStory.text = story!!.storyName
+            Picasso.get().load(imagesList!![counter]).into(binding.imageStory)
+
+
+        }
+
     }
 
     override fun onPrev() {
