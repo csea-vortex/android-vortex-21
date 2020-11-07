@@ -165,8 +165,6 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
             binding.storiesProgress.startStories(counter)
             binding.tvStory.text = story!!.storyName
             Picasso.get().load(imagesList!![counter]).into(binding.imageStory)
-
-
         }
 
     }
@@ -175,6 +173,21 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         if (counter > 0)
             Picasso.get().load(imagesList!![--counter]).placeholder(R.drawable.vortex_logo)
                 .into(binding.imageStory)
+        if (counter == 0 && currentIndex!=0) {
+            currentIndex--
+            story = stories!![currentIndex]
+            imagesList = story!!.imageurl
+            counter = 0
+
+            binding.storiesProgress.clear()
+
+            binding.storiesProgress.setStoriesCount(imagesList!!.size)
+            binding.storiesProgress.setStoryDuration(5000L)
+            binding.storiesProgress.setStoriesListener(this)
+            binding.storiesProgress.startStories(counter)
+            binding.tvStory.text = story!!.storyName
+            Picasso.get().load(imagesList!![counter]).into(binding.imageStory)
+        }
     }
 
     override fun onNext() {
