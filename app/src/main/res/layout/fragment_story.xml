@@ -13,6 +13,17 @@
         android:scaleType="centerInside"
         android:src="@drawable/vortex_logo"
         />
+
+    <TextView
+        android:id="@+id/tvStory"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        tools:text="Yes."
+        android:gravity="center"
+        />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

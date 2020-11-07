@@ -29,7 +29,7 @@ public class StoriesProgressView extends LinearLayout {
     /**
      * pointer of running animation
      */
-    private int current = -1;
+    public int current = -1;
     private StoriesListener storiesListener;
     boolean isComplete;
 
@@ -72,7 +72,7 @@ public class StoriesProgressView extends LinearLayout {
         bindViews();
     }
 
-    private void bindViews() {
+    public void bindViews() {
         progressBars.clear();
         removeAllViews();
 
@@ -96,6 +96,16 @@ public class StoriesProgressView extends LinearLayout {
         View v = new View(getContext());
         v.setLayoutParams(SPACE_LAYOUT_PARAM);
         return v;
+    }
+
+    public void clear() {
+        progressBars.clear();
+        storiesCount = -1;
+        current = -1;
+        storiesListener = null;
+        isComplete = false;
+        isSkipStart = false;
+        isReverseStart = false;
     }
 
     /**
