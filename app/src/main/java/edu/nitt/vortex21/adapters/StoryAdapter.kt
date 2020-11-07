@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.main.story_item.view.*
 
 class StoryAdapter(
     private val mContext: Context,
-    private val stories: List<Story>,
-    private val clickListener:(Story)->Unit
+    private var stories: List<Story>,
+    private val clickListener:(Int)->Unit
     ) : RecyclerView.Adapter<StoryAdapter.StoryViewHolder>()
 {
 
@@ -22,10 +22,10 @@ class StoryAdapter(
         var storyImageSeen = view.findViewById(R.id.story_image_seen) as CircleImageView
         var storyImage = view.findViewById(R.id.story_image) as CircleImageView
         var storyName = view.findViewById(R.id.story_name) as TextView
-        fun bind(story: Story, clickListener:(Story)->Unit){
+        fun bind(index: Int, story: Story, clickListener: (Int)->Unit){
             view.story_name.text = story.storyName
             view.setOnClickListener{
-                clickListener(story)
+                clickListener(index)
             }
 
         }
@@ -43,6 +43,6 @@ class StoryAdapter(
     override fun getItemCount() = stories.size
 
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
-       holder.bind(stories[position],clickListener)
+       holder.bind(position, stories[position], clickListener)
     }
 }
