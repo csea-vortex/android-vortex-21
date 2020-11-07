@@ -2,46 +2,43 @@ package edu.nitt.vortex21.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.squareup.picasso.Picasso
 import edu.nitt.vortex21.R
-import edu.nitt.vortex21.databinding.FragmentEventsBinding
 import edu.nitt.vortex21.databinding.FragmentStoryBinding
 import edu.nitt.vortex21.helpers.OnSwipeTouchListener
 import edu.nitt.vortex21.helpers.viewLifecycle
 import edu.nitt.vortex21.storieslibrary.StoriesProgressView
-import kotlinx.android.synthetic.main.fragment_story.*
+import edu.nitt.vortex21.model.Story as Story
 
 
 class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
 
 
-
     private var binding by viewLifecycle<FragmentStoryBinding>()
 
-    private var imagesList:List<String>? = null
-    private var storyids:List<String>? = null
-    private var counter=0
+    private var imagesList: List<String>? = null
+    private var storyids: List<String>? = null
+    private var counter = 0
     private var pressTime = 0L
     private var limit = 500L
-    private val onTouchListener = View.OnTouchListener {view, motionEvent ->
-        when(motionEvent.action){
-            MotionEvent.ACTION_DOWN->
-            {
+    private var story: Story? = null
+
+    private val onTouchListener = View.OnTouchListener { view, motionEvent ->
+        when (motionEvent.action) {
+            MotionEvent.ACTION_DOWN -> {
                 pressTime = System.currentTimeMillis()
                 binding.storiesProgress.pause()
                 return@OnTouchListener false
             }
-            MotionEvent.ACTION_UP->
-            {
-                val now  = System.currentTimeMillis()
+            MotionEvent.ACTION_UP -> {
+                val now = System.currentTimeMillis()
                 binding.storiesProgress.resume()
                 return@OnTouchListener limit < now - pressTime
             }
@@ -50,14 +47,13 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentStoryBinding.inflate(inflater, container, false)
-
+        story = arguments?.getParcelable<Story>("story")!!
         return binding.root
     }
 
@@ -69,24 +65,24 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         val parent = navHostFragment.parentFragment as HomeFragment
         parent.binding.bottomNavigation.visibility = View.INVISIBLE
         getStories()
-        binding.skip.setOnTouchListener(object :OnSwipeTouchListener(requireActivity()){
+        binding.skip.setOnTouchListener(object : OnSwipeTouchListener(requireActivity()) {
             override fun onSwipeRight() {
                 super.onSwipeRight()
-                Log.i("Swiped","right")
+                Log.i("Swiped", "right")
                 binding.imageStory.setImageResource(R.drawable.vortex_logo)
                 counter = 0
             }
 
             override fun onSwipeLeft() {
                 super.onSwipeLeft()
-                Log.i("Swiped","left")
+                Log.i("Swiped", "left")
                 binding.imageStory.setImageResource(R.drawable.vortex_logo)
                 counter = 0
             }
 
             override fun onSwipeDown() {
                 super.onSwipeDown()
-                Log.i("Swiped","down")
+                Log.i("Swiped", "down")
                 requireActivity()
                     .onBackPressedDispatcher
                     .addCallback {
@@ -98,33 +94,34 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
                     }
             }
         })
-       binding.apply {
-           reverse.setOnClickListener{
-               Log.i("Touched","Reverse")
-               binding.storiesProgress.reverse()
-               Log.i("reverse",counter.toString())
-           }
-           reverse.setOnTouchListener(onTouchListener)
+        binding.apply {
+            reverse.setOnClickListener {
+                Log.i("Touched", "Reverse")
+                binding.storiesProgress.reverse()
+                Log.i("reverse", counter.toString())
+            }
+            reverse.setOnTouchListener(onTouchListener)
 
-           skip.setOnClickListener{
-               Log.i("Touched","Skip")
-               Log.i("skip",counter.toString())
+            skip.setOnClickListener {
+                Log.i("Touched", "Skip")
+                Log.i("skip", counter.toString())
 
-               binding.storiesProgress.skip()
+                binding.storiesProgress.skip()
 
-           }
-           skip.setOnTouchListener(onTouchListener)
-       }
+            }
+            skip.setOnTouchListener(onTouchListener)
+        }
 
     }
 
 
-    private fun getStories(){
+    private fun getStories() {
         imagesList = ArrayList()
         storyids = ArrayList()
-        (imagesList as ArrayList<String>).add("https://picsum.photos/id/1/600/700")
-        (imagesList as ArrayList<String>).add("https://picsum.photos/id/2/600/700")
-        (imagesList as ArrayList<String>).add("https://picsum.photos/id/3/600/700")
+        imagesList = ArrayList()
+
+        imagesList = story?.imageurl
+
         binding.storiesProgress.setStoriesCount(imagesList!!.size)
         binding.storiesProgress.setStoryDuration(5000L)
         binding.storiesProgress.setStoriesListener(this)
@@ -139,20 +136,21 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         val parent = navHostFragment.parentFragment as HomeFragment
         parent.binding.bottomNavigation.visibility = View.VISIBLE
 
-       navHostFragment.navController.popBackStack(R.id.storyFragment,true)
+        navHostFragment.navController.popBackStack(R.id.storyFragment, true)
     }
 
     override fun onPrev() {
-        if(counter>0)
-        Picasso.get().load(imagesList!![--counter]).placeholder(R.drawable.vortex_logo).into(binding.imageStory)
+        if (counter > 0)
+            Picasso.get().load(imagesList!![--counter]).placeholder(R.drawable.vortex_logo)
+                .into(binding.imageStory)
     }
 
     override fun onNext() {
-        if(counter<imagesList!!.size)
-        Picasso.get().load(imagesList!![++counter]).placeholder(R.drawable.vortex_logo).into(binding.imageStory)
+        if (counter < imagesList!!.size)
+            Picasso.get().load(imagesList!![++counter]).placeholder(R.drawable.vortex_logo)
+                .into(binding.imageStory)
 
     }
-
 
 
     override fun onResume() {
@@ -164,9 +162,4 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         super.onPause()
         binding.storiesProgress.pause()
     }
-
-
 }
-
-
-

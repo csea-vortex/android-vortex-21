@@ -40,11 +40,9 @@ class StoryAdapter(
         return StoryViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-         return 10
-    }
+    override fun getItemCount() = stories.size
 
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
-       holder.bind(Story("", "", "DK"),clickListener)
+       holder.bind(stories[position],clickListener)
     }
 }

@@ -42,23 +42,28 @@ class EventsFragment : Fragment() {
         binding.recyclerViewStory.layoutManager = linearLayoutManager
 
         storyList = ArrayList()
-        storyAdapter = requireContext().let {
-            StoryAdapter(
-                it,
-                storyList as ArrayList<Story>,
-                { selectedStoryItem: Story ->
-                    listItemClicked(selectedStoryItem)
-                })
+
+        // dummy data.
+        for(i in 0..15)
+            storyList!!.add(Story(
+                listOf("https://domaingang.com/wp-content/uploads/2010/06/bitly.png",
+                "https://domaingang.com/wp-content/uploads/2010/06/bitly.png"),
+                "$i", "Story #$i"))
+
+
+        storyAdapter = StoryAdapter(requireContext(),
+            storyList as ArrayList<Story>) {
+                selectedStoryItem: Story ->
+                listItemClicked(selectedStoryItem)
         }
+
         binding.recyclerViewStory.adapter = storyAdapter
 
     }
 
     private fun listItemClicked(story: Story){
         val bundle = bundleOf(
-            "storyImage" to story.imageurl,
-            "storyName" to story.storyName,
-            "storyId" to story.storyid
+            "story" to story
         )
         findNavController().navigate(R.id.action_fragmentEvents_to_storyFragment,bundle)
     }
