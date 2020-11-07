@@ -100,9 +100,8 @@ public class StoriesProgressView extends LinearLayout {
 
     public void clear() {
         progressBars.clear();
-        storiesCount = -1;
-        current = -1;
-        storiesListener = null;
+        storiesCount = 0;
+        current = 0;
         isComplete = false;
         isSkipStart = false;
         isReverseStart = false;
