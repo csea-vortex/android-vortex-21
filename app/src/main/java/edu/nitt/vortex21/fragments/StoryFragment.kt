@@ -16,11 +16,11 @@ import edu.nitt.vortex21.databinding.FragmentEventsBinding
 import edu.nitt.vortex21.databinding.FragmentStoryBinding
 import edu.nitt.vortex21.helpers.OnSwipeTouchListener
 import edu.nitt.vortex21.helpers.viewLifecycle
-import jp.shts.android.storiesprogressview.StoriesProgressView.StoriesListener
+import edu.nitt.vortex21.storieslibrary.StoriesProgressView
 import kotlinx.android.synthetic.main.fragment_story.*
 
 
-class StoryFragment : Fragment(), StoriesListener {
+class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
 
 
 
