@@ -75,6 +75,6 @@ class EventsFragment : Fragment() {
             "story" to storyList,
             "position" to index
         )
-        findNavController().navigate(R.id.action_fragmentEvents_to_storyFragment,bundle)
+        findNavController().navigate(R.id.action_fragmentEvents_to_fragmentStoryViewPager,bundle)
     }
 }
