@@ -26,7 +26,8 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
     // counter to store the index of current story in the week
     private var counter = 0
     // All week's story.
-    private var stories: List<Story>? = null
+    private var story: Story? = null
+    private var STORIES_COUNT = 0
     // Current Week's Index
     private var currentIndex = 0
 
@@ -50,6 +51,16 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         false
     }
 
+    interface SetFragmentInterface {
+        fun setFragmentIndex(index:Int)
+    }
+    private lateinit var viewPagerInterface: SetFragmentInterface
+
+    fun setInterface(context: ViewPagerFragment) {
+        Log.i("onAttach","Interface initialised")
+        viewPagerInterface = context
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,8 +69,11 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         binding = FragmentStoryBinding.inflate(inflater, container, false)
 
         // Receiving list of stories, and current index.
-        stories = arguments?.getParcelableArrayList<Story>("story")!!
+        story = arguments?.getParcelable<Story>("story")!!
         currentIndex = arguments?.getInt("position")!!
+        STORIES_COUNT = arguments?.getInt("size")!!
+
+        Log.i("Story", "Launched story for week: #$currentIndex")
 
         return binding.root
     }
@@ -71,7 +85,9 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         val navHostFragment = this.parentFragment as NavHostFragment
         val parent = navHostFragment.parentFragment as HomeFragment
         parent.binding.bottomNavigation.visibility = View.INVISIBLE
-        setStories(stories?.get(currentIndex)!!)
+
+        counter = 0
+        story?.let { setStories(it) }
         //dummy()
 
         // Set onClickListener and onTouchListener
@@ -87,44 +103,12 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
 
     }
 
-//    private fun dummy() {
-//        binding.skip.setOnTouchListener(object : OnSwipeTouchListener(requireActivity()) {
-//            override fun onSwipeRight() {
-//                super.onSwipeRight()
-//                Log.i("Swiped", "right")
-//                binding.imageStory.setImageResource(R.drawable.vortex_logo)
-//                counter = 0
-//            }
-//
-//            override fun onSwipeLeft() {
-//                super.onSwipeLeft()
-//                Log.i("Swiped", "left")
-//                binding.imageStory.setImageResource(R.drawable.vortex_logo)
-//                counter = 0
-//            }
-//
-//            override fun onSwipeDown() {
-//                super.onSwipeDown()
-//                Log.i("Swiped", "down")
-//                requireActivity()
-//                    .onBackPressedDispatcher
-//                    .addCallback {
-//                        if (!navHostFragment.navController.navigateUp()) {
-//                            // If there is no fragment then the user is trying to
-//                            // quit the app.
-//                            requireActivity().finish()
-//                        }
-//                    }
-//            }
-//        })
-//    }
-
     override fun onComplete() {
 
         Log.i("onComplete", "Completed index: $currentIndex")
 
         // If last story then go back to events fragment.
-        if(currentIndex == stories!!.size-1) {
+        if(currentIndex == STORIES_COUNT-1) {
             val navHostFragment = this.parentFragment as NavHostFragment
             val parent = navHostFragment.parentFragment as HomeFragment
             parent.binding.bottomNavigation.visibility = View.VISIBLE
@@ -132,9 +116,7 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         } else {
             currentIndex++
             counter = 0
-
-            binding.storiesProgress.clear()
-            setStories(stories!![currentIndex])
+            viewPagerInterface.setFragmentIndex(currentIndex)
         }
 
     }
@@ -146,9 +128,7 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         if (counter == 0 && currentIndex!=0) {
             currentIndex--
             counter = 0
-
-            binding.storiesProgress.clear()
-            setStories(stories!![currentIndex])
+            viewPagerInterface.setFragmentIndex(currentIndex)
         }
     }
 
