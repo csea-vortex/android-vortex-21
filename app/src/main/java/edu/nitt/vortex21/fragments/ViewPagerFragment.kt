@@ -41,6 +41,7 @@ class ViewPagerFragment: Fragment(), StoryFragment.SetFragmentInterface {
         viewPager = binding.storyViewPager
         viewPager.adapter = ScreenSlidePagerAdapter(parentFragmentManager)
         viewPager.currentItem = currentIndex
+
     }
 
     private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(
