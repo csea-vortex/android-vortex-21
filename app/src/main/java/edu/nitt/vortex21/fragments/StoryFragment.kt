@@ -1,6 +1,7 @@
 package edu.nitt.vortex21.fragments
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -35,21 +36,7 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
     private var STORY_LIMIT_TIME = 500L
 
     // To pause or skip story
-    private val onTouchListener = View.OnTouchListener { view, motionEvent ->
-        when (motionEvent.action) {
-            MotionEvent.ACTION_DOWN -> {
-                STORY_PRESS_TIME = System.currentTimeMillis()
-                binding.storiesProgress.pause()
-                return@OnTouchListener false
-            }
-            MotionEvent.ACTION_UP -> {
-                val now = System.currentTimeMillis()
-                binding.storiesProgress.resume()
-                return@OnTouchListener STORY_LIMIT_TIME < now - STORY_PRESS_TIME
-            }
-        }
-        false
-    }
+    private lateinit var onTouchListener: View.OnTouchListener
 
     interface SetFragmentInterface {
         fun setFragmentIndex(index:Int)
@@ -75,7 +62,86 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
 
         Log.i("Story", "Launched story for week: #$currentIndex")
 
+        STORY_PRESS_TIME = 0L
+        STORY_LIMIT_TIME = 500L
+
+        onTouchListener = View.OnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    STORY_PRESS_TIME = System.currentTimeMillis()
+                    binding.storiesProgress.pause()
+                    Log.i("OnTouch","Story paused.")
+                    return@OnTouchListener false
+                }
+                MotionEvent.ACTION_UP -> {
+                    val now = System.currentTimeMillis()
+                    binding.storiesProgress.resume()
+                    Log.i("OnTouch","Story resumed/changed.")
+                    return@OnTouchListener STORY_LIMIT_TIME < now - STORY_PRESS_TIME
+                }
+            }
+            false
+        }
+
+        // Set onClickListener and onTouchListener
+        binding.apply {
+            reverse.setOnClickListener {
+                binding.storiesProgress.reverse()
+            }
+            skip.setOnClickListener {
+                binding.storiesProgress.skip()
+            }
+
+            reverse.setOnTouchListener(onTouchListener)
+            skip.setOnTouchListener(onTouchListener)
+        }
+
+
         return binding.root
+    }
+
+    override fun setMenuVisibility(menuVisible: Boolean) {
+        super.setMenuVisibility(menuVisible)
+        if(isVisible) {
+            // TODO: Keep progress at 0 until this is hit.
+            Log.i("In focus","Setting counter to 0.")
+            counter = 0
+            story?.let { setStories(it) }
+
+            STORY_PRESS_TIME = 0L
+            STORY_LIMIT_TIME = 500L
+
+            onTouchListener = View.OnTouchListener { view, motionEvent ->
+                when (motionEvent.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        STORY_PRESS_TIME = System.currentTimeMillis()
+                        binding.storiesProgress.pause()
+                        Log.i("OnTouch","Story paused.")
+                        return@OnTouchListener false
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        val now = System.currentTimeMillis()
+                        binding.storiesProgress.resume()
+                        Log.i("OnTouch","Story resumed/changed.")
+                        return@OnTouchListener STORY_LIMIT_TIME < now - STORY_PRESS_TIME
+                    }
+                }
+                false
+            }
+
+            binding.apply {
+                reverse.setOnClickListener {
+                    binding.storiesProgress.reverse()
+                }
+                skip.setOnClickListener {
+                    binding.storiesProgress.skip()
+                }
+
+                reverse.setOnTouchListener(onTouchListener)
+                skip.setOnTouchListener(onTouchListener)
+            }
+
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -89,17 +155,6 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         counter = 0
         story?.let { setStories(it) }
         //dummy()
-
-        // Set onClickListener and onTouchListener
-        binding.apply {
-            root.setOnTouchListener(onTouchListener)
-            reverse.setOnClickListener {
-                binding.storiesProgress.reverse()
-            }
-            skip.setOnClickListener {
-                binding.storiesProgress.skip()
-            }
-        }
 
     }
 
