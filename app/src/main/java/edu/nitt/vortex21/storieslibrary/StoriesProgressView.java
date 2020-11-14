@@ -7,6 +7,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -130,6 +131,7 @@ public class StoriesProgressView extends LinearLayout {
      * Skip current story
      */
     public void skip() {
+        Log.i("StoryView","Trying to skip");
         if (isSkipStart || isReverseStart) return;
         if (isComplete) return;
         if (current < 0) return;
@@ -142,6 +144,7 @@ public class StoriesProgressView extends LinearLayout {
      * Reverse current story
      */
     public void reverse() {
+        Log.i("StoryView","Trying to reverse");
         if (isSkipStart || isReverseStart) return;
         if (isComplete) return;
         if (current < 0) return;
