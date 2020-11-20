@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-private const val BASE_URL = "https://spider.nitt.edu/vortex21/"
+private const val BASE_URL = "https://vortex.nitt.edu/api/"
 
 interface AuthApiService {
     @POST("register")
