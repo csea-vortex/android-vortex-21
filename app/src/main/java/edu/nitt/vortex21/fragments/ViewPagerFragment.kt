@@ -1,6 +1,7 @@
 package edu.nitt.vortex21.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class ViewPagerFragment: Fragment(), StoryFragment.SetFragmentInterface {
     private var STORIES_COUNT = 0
     private lateinit var stories: List<Story>
     private var currentIndex = 0
+    private var adapter: ScreenSlidePagerAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +30,7 @@ class ViewPagerFragment: Fragment(), StoryFragment.SetFragmentInterface {
     ): View? {
         binding = FragmentViewPagerBinding.inflate(inflater, container, false)
 
-        stories = arguments?.getParcelableArrayList<Story>("story")!!
+        stories = arguments?.getParcelableArrayList("story")!!
         currentIndex = arguments?.getInt("position")!!
         STORIES_COUNT = stories.size
 
@@ -39,8 +41,10 @@ class ViewPagerFragment: Fragment(), StoryFragment.SetFragmentInterface {
         super.onViewCreated(view, savedInstanceState)
 
         viewPager = binding.storyViewPager
-        viewPager.adapter = ScreenSlidePagerAdapter(parentFragmentManager)
+        adapter = ScreenSlidePagerAdapter(parentFragmentManager)
+        viewPager.adapter = adapter
         viewPager.currentItem = currentIndex
+
 
     }
 
@@ -59,6 +63,7 @@ class ViewPagerFragment: Fragment(), StoryFragment.SetFragmentInterface {
                 "position" to position,
                 "size" to STORIES_COUNT
             )
+
             frag.arguments = bundle
             frag.setInterface(this@ViewPagerFragment)
 
@@ -66,7 +71,13 @@ class ViewPagerFragment: Fragment(), StoryFragment.SetFragmentInterface {
         }
     }
 
-    override fun setFragmentIndex(index: Int) {
+    override fun setFragmentIndex(index: Int, prev: Int) {
+        val item = adapter?.getItem(prev)
+        Log.i("f",item.toString())
+//        (item as StoryFragment).binding.storiesProgress.resetProgressBars()
+//        item.binding.storiesProgress.startStories(0)
+//        item.binding.storiesProgress.pause()
+
         viewPager.currentItem = index
     }
 }
