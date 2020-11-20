@@ -1,7 +1,6 @@
 package edu.nitt.vortex21.fragments
 
 import android.annotation.SuppressLint
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,7 +19,7 @@ import edu.nitt.vortex21.model.Story as Story
 
 class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
 
-    private var binding by viewLifecycle<FragmentStoryBinding>()
+    var binding by viewLifecycle<FragmentStoryBinding>()
 
     private var currentWeekImageURLs: List<String>? = null
 
@@ -42,12 +41,11 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
     private val tagLaunched = "Launched"
     private val tagSet = "Set"
 
-
     // To pause or skip story
     private lateinit var onTouchListener: View.OnTouchListener
 
     interface SetFragmentInterface {
-        fun setFragmentIndex(index:Int)
+        fun setFragmentIndex(index:Int, prev:Int)
     }
     private lateinit var viewPagerInterface: SetFragmentInterface
 
@@ -58,11 +56,10 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
 
     override fun setMenuVisibility(menuVisible: Boolean) {
         super.setMenuVisibility(menuVisible)
+        Log.i(tagCalled,"setMenuVisibility()")
+        counter = 0
         if(isVisible) {
-            // TODO: Keep progress at 0 until this is hit.
-            counter = 0
-            story?.let { setStories(it) }
-
+            binding.storiesProgress.startStories(0)
         }
     }
 
@@ -74,11 +71,11 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         binding = FragmentStoryBinding.inflate(inflater, container, false)
 
         // Receiving list of stories, and current index.
-        story = arguments?.getParcelable<Story>("story")!!
+        story = arguments?.getParcelable("story")!!
         currentIndex = arguments?.getInt("position")!!
         STORIES_COUNT = arguments?.getInt("size")!!
 
-        Log.i(tagLaunched, "Launched story for week: #$currentIndex")
+        Log.i(tagCalled, "onCreateView() #$currentIndex")
 
         STORY_PRESS_TIME = 0L
         STORY_LIMIT_TIME = 500L
@@ -125,6 +122,7 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         val parent = navHostFragment.parentFragment as HomeFragment
         parent.binding.bottomNavigation.visibility = View.INVISIBLE
 
+        story?.let { setStories(it) }
     }
 
     private fun setStories(story: Story) {
@@ -133,16 +131,13 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         binding.storiesProgress.setStoriesCount(currentWeekImageURLs!!.size)
         binding.storiesProgress.setStoryDuration(5000L)
         binding.storiesProgress.setStoriesListener(this)
-        binding.storiesProgress.startStories(counter)
         binding.tvStory.text = story.storyName
         Picasso.get().load(currentWeekImageURLs!![counter]).into(binding.imageStory)
     }
 
     override fun onComplete() {
 
-        //Log.i(tagCalled, "onComplete(): Completed index- $currentIndex")
-
-        // If last story then go back to events fragment.
+        // If last week's story then go back to events fragment.
         if(currentIndex == STORIES_COUNT-1) {
             val navHostFragment = this.parentFragment as NavHostFragment
             val parent = navHostFragment.parentFragment as HomeFragment
@@ -151,7 +146,10 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         } else {
             currentIndex++
             counter = 0
-            viewPagerInterface.setFragmentIndex(currentIndex)
+            binding.storiesProgress.setProgressBarsToMin()
+            binding.storiesProgress.startStories(counter)
+            binding.storiesProgress.pause()
+            viewPagerInterface.setFragmentIndex(currentIndex, currentIndex-1)
         }
 
     }
@@ -166,7 +164,10 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         else if (currentIndex != 0) {
             currentIndex--
             counter = 0
-            viewPagerInterface.setFragmentIndex(currentIndex)
+            binding.storiesProgress.setProgressBarsToMin()
+            binding.storiesProgress.startStories(counter)
+            binding.storiesProgress.pause()
+            viewPagerInterface.setFragmentIndex(currentIndex, currentIndex+1)
         }
     }
 
@@ -177,24 +178,16 @@ class StoryFragment : Fragment(), StoriesProgressView.StoriesListener {
         if (counter < currentWeekImageURLs!!.size-1)
             Picasso.get().load(currentWeekImageURLs!![++counter]).placeholder(R.drawable.vortex_logo)
                 .into(binding.imageStory)
-        else if(currentIndex < STORIES_COUNT-1){
-            currentIndex++
-            counter = 0
-            viewPagerInterface.setFragmentIndex(currentIndex)
-        }
     }
 
     override fun onResume() {
         super.onResume()
-        binding.storiesProgress.resume()
-        Log.i(tagCalled,"onResumed() is called of Week#$currentIndex")
-        counter = 0
-        story?.let { setStories(it) }
+        Log.i(tagCalled,"onResumed() Week#$currentIndex")
     }
 
     override fun onPause() {
         super.onPause()
-        binding.storiesProgress.pause()
-        Log.i(tagCalled,"onPause() is called of Week#$currentIndex")
+        Log.i(tagCalled,"onPause() Week#$currentIndex")
+        //binding.storiesProgress.resetProgressBars()
     }
 }

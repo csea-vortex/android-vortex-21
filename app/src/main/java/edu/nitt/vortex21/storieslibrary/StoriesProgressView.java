@@ -64,6 +64,12 @@ public class StoriesProgressView extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
+    public void setProgressBarsToMin() {
+        Log.i("Progress View","Reset progress");
+        for(int i=0; i<progressBars.size(); i++){
+            progressBars.get(i).setMinWithoutCallback();
+        }
+    }
 
     private void init(Context context, @Nullable AttributeSet attrs) {
         setOrientation(LinearLayout.HORIZONTAL);
@@ -97,15 +103,6 @@ public class StoriesProgressView extends LinearLayout {
         View v = new View(getContext());
         v.setLayoutParams(SPACE_LAYOUT_PARAM);
         return v;
-    }
-
-    public void clear() {
-        progressBars.clear();
-        storiesCount = 0;
-        current = 0;
-        isComplete = false;
-        isSkipStart = false;
-        isReverseStart = false;
     }
 
     /**
