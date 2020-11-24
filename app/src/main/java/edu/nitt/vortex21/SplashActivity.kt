@@ -23,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
     private val binding by viewLifecycle(ActivitySplashBinding::inflate)
     private var canLaunchNextActivity = false
     private val TAG = "AppVersionStatus"
+    private var alertDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,6 @@ class SplashActivity : AppCompatActivity() {
 
     private fun checkUpdateAvailability() {
 
-        var alertDialog: AlertDialog? = null
         val appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
 
@@ -86,6 +86,7 @@ class SplashActivity : AppCompatActivity() {
                         } catch (e: IntentSender.SendIntentException) {
                             e.printStackTrace()
                         }
+                        finish()
                     }
 
                     builder.create()
@@ -139,6 +140,15 @@ class SplashActivity : AppCompatActivity() {
         }, 1000)
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(alertDialog != null){
+            alertDialog!!.dismiss()
+            alertDialog = null
+        }
+    }
+
 
     companion object {
         private const val APP_UPDATE_REQUEST_CODE = 17
