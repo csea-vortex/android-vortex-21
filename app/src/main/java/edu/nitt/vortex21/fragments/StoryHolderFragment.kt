@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import edu.nitt.vortex21.adapters.StoryHolderAdapter
 import edu.nitt.vortex21.databinding.FragmentStoryHolderBinding
 import edu.nitt.vortex21.helpers.viewLifecycle
@@ -31,7 +32,7 @@ class StoryHolderFragment : Fragment() {
             ) { position ->
                 val nextPosition = position + 1
                 if (nextPosition == stories.size) {
-                    parentFragmentManager.popBackStack()
+                    findNavController().popBackStack()
                 } else {
                     setCurrentItem(nextPosition, true)
                 }

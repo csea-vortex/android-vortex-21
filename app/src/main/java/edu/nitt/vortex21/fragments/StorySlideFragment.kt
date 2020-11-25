@@ -14,10 +14,6 @@ import edu.nitt.vortex21.storieslibrary.StoriesProgressView
 
 private const val SLIDE_DURATION = 2000L
 
-interface OnSlideChangeListener {
-    fun onChange(position: Int)
-}
-
 class StorySlideFragment(
     private val story: Story,
     private val onSlideShowComplete: () -> Unit
@@ -27,14 +23,15 @@ class StorySlideFragment(
     private var mCurrentSlideIdx = -1
     private val mStoriesListener = object : StoriesProgressView.StoriesListener {
         override fun onNext() {
-            updateSlide(1)
+            updateSlide(mCurrentSlideIdx + 1)
         }
 
         override fun onPrev() {
-            updateSlide(-1)
+            updateSlide(mCurrentSlideIdx - 1)
         }
 
         override fun onComplete() {
+            mCurrentSlideIdx = story.slides.size
             onSlideShowComplete()
         }
     }
@@ -69,8 +66,8 @@ class StorySlideFragment(
         }
     }
 
-    private fun updateSlide(delta: Int) {
-        mCurrentSlideIdx += delta
+    private fun updateSlide(updatedSlideIndex: Int) {
+        mCurrentSlideIdx = updatedSlideIndex
         // ToDO: Change story slide in ViewPager
         if (mCurrentSlideIdx < 0 || mCurrentSlideIdx >= story.slides.size) return;
         Picasso.get()
@@ -82,9 +79,8 @@ class StorySlideFragment(
         super.onResume()
         if (mCurrentSlideIdx < 0) {
             // The slide has yet not started
-            mCurrentSlideIdx = 0
+            binding.storyProgress.startStories(0)
             updateSlide(0)
-            binding.storyProgress.startStories()
         } else {
             binding.storyProgress.resume()
         }
@@ -92,6 +88,12 @@ class StorySlideFragment(
 
     override fun onPause() {
         super.onPause()
-        binding.storyProgress.pause()
+        if (mCurrentSlideIdx == story.slides.size) {
+            binding.storyProgress.resetProgressBars()
+            updateSlide(0)
+            mCurrentSlideIdx = -1 // Reset the position
+        } else {
+            binding.storyProgress.pause()
+        }
     }
 }
