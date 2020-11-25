@@ -71,6 +71,11 @@ public class StoriesProgressView extends LinearLayout {
         }
     }
 
+    public void resetProgressBars() {
+        setProgressBarsToMin();
+        isComplete = false;
+    }
+
     private void init(Context context, @Nullable AttributeSet attrs) {
         setOrientation(LinearLayout.HORIZONTAL);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StoriesProgressView);
