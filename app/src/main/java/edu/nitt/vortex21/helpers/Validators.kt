@@ -16,6 +16,6 @@ object Validators {
     }
 
     fun containsAlphabets(name: String): Boolean {
-        return name.matches("^[a-zA-Z]*$".toRegex())
+        return name.matches("^[a-zA-Z ]*$".toRegex())
     }
 }
