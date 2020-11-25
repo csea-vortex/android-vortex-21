@@ -1,6 +1,6 @@
 package edu.nitt.vortex21.repository
 
-import edu.nitt.vortex21.VortexApi
+import edu.nitt.vortex21.api.VortexApi
 import edu.nitt.vortex21.model.LoginRequest
 import edu.nitt.vortex21.model.LoginResponse
 import edu.nitt.vortex21.model.RegisterRequest

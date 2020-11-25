@@ -15,7 +15,7 @@
         android:id="@+id/fragmentEvents"
         android:name="edu.nitt.vortex21.fragments.EventsFragment"
         android:label="@string/events"
-        tools:layout="@layout/fragment_events" >
+        tools:layout="@layout/fragment_events">
         <action
             android:id="@+id/action_fragmentEvents_to_storyFragment"
             app:destination="@id/storyFragment"
@@ -24,8 +24,8 @@
             app:popEnterAnim="@anim/push_down_in"
             app:popExitAnim="@anim/push_up_out" />
         <action
-            android:id="@+id/action_fragmentEvents_to_fragmentStoryViewPager"
-            app:destination="@id/fragmentStoryViewPager" />
+            android:id="@+id/action_fragmentEvents_to_fragmentStoryHolder"
+            app:destination="@id/fragmentStoryHolder" />
     </fragment>
 
     <fragment
@@ -39,20 +39,29 @@
         android:name="edu.nitt.vortex21.fragments.TShirtRegistrationFragment"
         android:label="@string/t_shirt"
         tools:layout="@layout/fragment_tshirt" />
+
     <fragment
         android:id="@+id/storyFragment"
         android:name="edu.nitt.vortex21.fragments.StoryFragment"
         android:label="fragment_story"
-        tools:layout="@layout/fragment_story" >
+        tools:layout="@layout/fragment_story_slide">
         <action
             android:id="@+id/action_storyFragment_to_fragmentEvents"
             app:destination="@id/fragmentEvents" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragmentStoryViewPager"
-        android:name="edu.nitt.vortex21.fragments.ViewPagerFragment"
-        android:label="Story View Pager Fragment"
-        tools:layout="@layout/fragment_view_pager" />
+        android:id="@+id/fragmentStoryHolder"
+        android:name="edu.nitt.vortex21.fragments.StoryHolderFragment"
+        android:label="Story Holder Fragment"
+        tools:layout="@layout/fragment_story_holder">
+        <argument
+            android:name="storyIdx"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="stories"
+            app:argType="edu.nitt.vortex21.model.Stories" />
+    </fragment>
 
 </navigation>
