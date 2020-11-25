@@ -2,6 +2,7 @@ package edu.nitt.vortex21.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -12,13 +13,33 @@ import edu.nitt.vortex21.helpers.viewLifecycle
 import edu.nitt.vortex21.model.Story
 import edu.nitt.vortex21.storieslibrary.StoriesProgressView
 
-private const val SLIDE_DURATION = 2000L
+private const val SLIDE_DURATION = 3000L
 
 class StorySlideFragment(
     private val story: Story,
     private val onSlideShowComplete: () -> Unit
 ) : Fragment() {
     private var binding by viewLifecycle<FragmentStorySlideBinding>()
+    private var pressTime = 0L
+    private var limit = 500L
+    private val onTouchListener = View.OnTouchListener {view, motionEvent ->
+        when(motionEvent.action){
+            MotionEvent.ACTION_DOWN->
+            {
+                pressTime = System.currentTimeMillis()
+                binding.storyProgress.pause()
+                return@OnTouchListener false
+            }
+            MotionEvent.ACTION_UP->
+            {
+                val now  = System.currentTimeMillis()
+                binding.storyProgress.resume()
+                return@OnTouchListener limit < now - pressTime
+            }
+        }
+        false
+    }
+
 
     private var mCurrentSlideIdx = -1
     private val mStoriesListener = object : StoriesProgressView.StoriesListener {
@@ -36,6 +57,7 @@ class StorySlideFragment(
         }
     }
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentStorySlideBinding.inflate(inflater, container, false)
         return binding.root
@@ -45,13 +67,16 @@ class StorySlideFragment(
         super.onViewCreated(view, savedInstanceState)
         initStorySlides()
 
+
         binding.skip.setOnClickListener {
             binding.storyProgress.skip()
         }
+        binding.skip.setOnTouchListener(onTouchListener)
 
         binding.reverse.setOnClickListener {
             binding.storyProgress.reverse()
         }
+        binding.reverse.setOnTouchListener(onTouchListener)
     }
 
     private fun initStorySlides() {
