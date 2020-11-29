@@ -25,7 +25,11 @@
             app:popExitAnim="@anim/push_up_out" />
         <action
             android:id="@+id/action_fragmentEvents_to_fragmentStoryHolder"
-            app:destination="@id/fragmentStoryHolder" />
+            app:destination="@id/fragmentStoryHolder"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment

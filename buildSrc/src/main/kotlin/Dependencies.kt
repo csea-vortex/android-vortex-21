@@ -28,6 +28,9 @@ object Versions {
 
     const val playCore = "1.8.0"
     const val playCoreKtx = "1.8.1"
+
+    const val  okhttp = "3.10.0"
+    const val okhttpDownloader = "1.1.0"
 }
 
 object BuildPlugins {
@@ -71,6 +74,9 @@ object Libs {
 
     const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
 
+    const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
+    const val okhttpDownloader = "com.jakewharton.picasso:picasso2-okhttp3-downloader:${Versions.okhttpDownloader}"
+
 }
 
 object TestLibs {
@@ -94,7 +100,9 @@ object ModuleLibs {
             Libs.retrofit,
             Libs.retrofitGsonConverter,
             Libs.security,
-            Libs.picasso
+            Libs.picasso,
+            Libs.okhttp,
+            Libs.okhttpDownloader
         )
         val kapts = listOf(Libs.lifecycleCompiler)
         val testImplementations = listOf(TestLibs.junit)

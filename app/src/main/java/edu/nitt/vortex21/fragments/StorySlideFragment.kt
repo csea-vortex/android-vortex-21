@@ -1,17 +1,22 @@
 package edu.nitt.vortex21.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.squareup.picasso.Callback
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentStorySlideBinding
 import edu.nitt.vortex21.helpers.Constants
 import edu.nitt.vortex21.helpers.viewLifecycle
 import edu.nitt.vortex21.model.Story
 import edu.nitt.vortex21.storieslibrary.StoriesProgressView
+import java.lang.Exception
 
 private const val SLIDE_DURATION = 3000L
 
@@ -81,9 +86,23 @@ class StorySlideFragment(
 
     private fun initStorySlides() {
         binding.storyTitle.text = story.title
-        Picasso.get()
-            .load(Constants.BACKEND_BASE_URL + story.slides[0].imageUrl)
-            .into(binding.profileImage)
+        try {
+            Picasso.get()
+                .load(Constants.BACKEND_BASE_URL + story.slides[0].imageUrl)
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(binding.profileImage, object : Callback {
+                    override fun onSuccess() {
+
+                    }
+
+                    override fun onError(e: Exception?) {
+                        e?.stackTrace
+                    }
+
+                })
+        }catch (e:Exception){
+            e.stackTrace
+        }
         binding.storyProgress.apply {
             setStoriesCount(story.slides.size)
             setStoryDuration(SLIDE_DURATION)
@@ -95,9 +114,22 @@ class StorySlideFragment(
         mCurrentSlideIdx = updatedSlideIndex
         // ToDO: Change story slide in ViewPager
         if (mCurrentSlideIdx < 0 || mCurrentSlideIdx >= story.slides.size) return;
-        Picasso.get()
-            .load(Constants.BACKEND_BASE_URL + story.slides[mCurrentSlideIdx].imageUrl)
-            .into(binding.image)
+        try {
+            Picasso.get()
+                .load(Constants.BACKEND_BASE_URL + story.slides[mCurrentSlideIdx].imageUrl)
+                .into(binding.image, object : Callback {
+                    override fun onSuccess() {
+
+                    }
+
+                    override fun onError(e: Exception?) {
+                      e?.stackTrace
+                    }
+
+                })
+        }catch (e:Exception){
+            e.stackTrace
+        }
     }
 
     override fun onResume() {

@@ -1,12 +1,18 @@
 package edu.nitt.vortex21.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Callback
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.StoryItemBinding
 import edu.nitt.vortex21.helpers.Constants
 import edu.nitt.vortex21.model.Story
+import java.lang.Exception
 
 class StoryTrayAdapter(
     private var stories: List<Story>,
@@ -15,10 +21,26 @@ class StoryTrayAdapter(
 
     class StoryViewHolder(val binding: StoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(index: Int, story: Story, clickListener: (Int) -> Unit) {
-            binding.storyName.text = story.title
-            Picasso.get()
-                .load(Constants.BACKEND_BASE_URL + story.slides[0].imageUrl)
-                .into(binding.storyImage)
+           binding.storyName.text = story.title
+            try {
+
+
+                Picasso.get()
+                    .load(Constants.BACKEND_BASE_URL + story.slides[0].imageUrl)
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(binding.storyImage, object : Callback {
+                        override fun onSuccess() {
+
+                        }
+
+                        override fun onError(e: Exception?) {
+                            e?.stackTrace
+                        }
+
+                    })
+            }catch (e:Exception){
+                e.stackTrace
+            }
             binding.root.setOnClickListener {
                 clickListener(index)
             }
