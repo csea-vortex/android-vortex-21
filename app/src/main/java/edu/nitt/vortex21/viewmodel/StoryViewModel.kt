@@ -1,5 +1,7 @@
 package edu.nitt.vortex21.viewmodel
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,11 +17,15 @@ class StoryViewModel : ViewModel() {
     private val repository = StoryRepository()
     val storyResponse = MutableLiveData<Resource<StoryResponse>>()
 
-    fun fetchStoriesOfCategory(category: String) {
+    fun fetchStoriesOfCategory(category: String,context: Context) {
         viewModelScope.launch {
-            storyResponse.postValue(Resource.Loading())
-            val response = repository.fetchStoriesOfCategory(category)
-            storyResponse.postValue(handleStoryResponse(response))
+            try {
+                storyResponse.postValue(Resource.Loading())
+                val response = repository.fetchStoriesOfCategory(category)
+                storyResponse.postValue(handleStoryResponse(response))
+            }catch (e:Exception){
+                Toast.makeText(context,"No internet Connection",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
