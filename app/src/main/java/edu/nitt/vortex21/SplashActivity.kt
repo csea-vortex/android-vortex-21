@@ -88,6 +88,7 @@ class SplashActivity : AppCompatActivity() {
                         } catch (e: IntentSender.SendIntentException) {
                             e.printStackTrace()
                         }
+                        finish()
                     }
 
                     builder.create()
