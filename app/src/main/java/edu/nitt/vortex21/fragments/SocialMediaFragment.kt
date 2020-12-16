@@ -50,8 +50,16 @@ class SocialMediaFragment : Fragment() {
                         R.drawable.instagram,
                         "https://instagram.com/vortex_nitt?igshid=7cduw1t8j1k"
                     ),
-                    SocialMediaLink("Twitter", R.drawable.twitter, ""),
-                    SocialMediaLink("LinkedIn", R.drawable.linkedin, ""),
+                    SocialMediaLink(
+                        "Twitter",
+                        R.drawable.twitter,
+                        ""
+                    ),
+                    SocialMediaLink(
+                        "LinkedIn",
+                        R.drawable.linkedin,
+                        ""
+                    ),
                 )
             )
         }

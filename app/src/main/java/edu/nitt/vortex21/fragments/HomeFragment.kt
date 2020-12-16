@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -14,7 +15,7 @@ import edu.nitt.vortex21.helpers.viewLifecycle
 
 class HomeFragment : Fragment() {
 
-    private var binding by viewLifecycle<FragmentHomeBinding>()
+    public var binding by viewLifecycle<FragmentHomeBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +38,17 @@ class HomeFragment : Fragment() {
             setupWithNavController(navHostFragment.navController)
         }
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback {
+                if (!navHostFragment.navController.navigateUp()) {
+                    // If there is no fragment then the user is trying to
+                    // quit the app.
+                    requireActivity().finish()
+                }
+            }
     }
+
+
 
 }

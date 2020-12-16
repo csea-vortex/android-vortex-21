@@ -32,6 +32,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        
     }
 
     kotlinOptions {
@@ -39,9 +40,11 @@ android {
     }
 
 
+
 }
 
 dependencies {
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     ModuleLibs.AppModule.implementations.forEach(::implementation)
     ModuleLibs.AppModule.kapts.forEach(::kapt)
     ModuleLibs.AppModule.testImplementations.forEach(::testImplementation)

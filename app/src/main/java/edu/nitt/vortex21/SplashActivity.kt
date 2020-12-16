@@ -28,7 +28,9 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        checkUpdateAvailability()
+        //checkUpdateAvailability()
+        canLaunchNextActivity = true
+        startNextActivity()
     }
 
     private fun checkUpdateAvailability() {
@@ -92,8 +94,10 @@ class SplashActivity : AppCompatActivity() {
                     builder.create()
                 }
 
-                alertDialog!!.setCancelable(false)
+                // todo: make it false.
+                alertDialog!!.setCancelable(true)
                 alertDialog!!.show()
+                canLaunchNextActivity = true
 
             } else {
                 Log.i(TAG, "Can't update the app now.")
@@ -148,7 +152,6 @@ class SplashActivity : AppCompatActivity() {
             alertDialog = null
         }
     }
-
 
     companion object {
         private const val APP_UPDATE_REQUEST_CODE = 17

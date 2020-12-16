@@ -29,4 +29,6 @@ object Constants {
     )
 
     const val encryptedSharedPreferencesName = "encrypted_shared_pref"
+    const val BACKEND_BASE_URL = "https://vortex.nitt.edu"
+    const val API_BASE_URL = "${BACKEND_BASE_URL}/api/"
 }
