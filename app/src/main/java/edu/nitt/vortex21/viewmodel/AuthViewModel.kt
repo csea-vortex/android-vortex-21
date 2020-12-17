@@ -1,6 +1,12 @@
 package edu.nitt.vortex21.viewmodel
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,11 +25,17 @@ class AuthViewModel: ViewModel() {
     val registerResponse = MutableLiveData<Resource<RegisterResponse>>()
     val loginResponse = MutableLiveData<Resource<LoginResponse>>()
 
+
     fun sendRegisterRequest(registerRequest: RegisterRequest) {
         viewModelScope.launch {
             registerResponse.postValue(Resource.Loading())
-            val response = repository.sendRegisterRequest(registerRequest)
-            registerResponse.postValue(handleRegisterResponse(response))
+            try {
+                val response = repository.sendRegisterRequest(registerRequest)
+                registerResponse.postValue(handleRegisterResponse(response))
+            }catch (e:Exception){
+                registerResponse.postValue(Resource.Error("No internet"))
+            }
+
         }
     }
 
@@ -44,8 +56,12 @@ class AuthViewModel: ViewModel() {
     fun sendLoginRequest(loginRequest: LoginRequest) {
         viewModelScope.launch {
             loginResponse.postValue(Resource.Loading())
-            val response = repository.sendLoginRequest(loginRequest)
-            loginResponse.postValue(handleLoginResponse(response))
+            try {
+                val response = repository.sendLoginRequest(loginRequest)
+                loginResponse.postValue(handleLoginResponse(response))
+            }catch (e:Exception){
+                loginResponse.postValue(Resource.Error("No Internet"))
+            }
         }
     }
 

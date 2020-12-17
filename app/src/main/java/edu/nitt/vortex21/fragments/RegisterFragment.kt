@@ -1,5 +1,6 @@
 package edu.nitt.vortex21.fragments
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +11,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentRegisterBinding
-import edu.nitt.vortex21.helpers.Constants
-import edu.nitt.vortex21.helpers.Validators
-import edu.nitt.vortex21.helpers.viewLifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import edu.nitt.vortex21.helpers.Resource
+import edu.nitt.vortex21.helpers.*
 import edu.nitt.vortex21.model.RegisterRequest
 import edu.nitt.vortex21.viewmodel.AuthViewModel
 
@@ -144,7 +142,12 @@ class RegisterFragment : Fragment() {
                     department = department
                 )
                 showProgressBar()
-                viewModel.sendRegisterRequest(registerRequest)
+                try {
+                    viewModel.sendRegisterRequest(registerRequest)
+                }catch (e:Exception){
+                    Toast.makeText(requireContext(),"No Internet Connection",Toast.LENGTH_SHORT).show()
+                    hideProgressBar()
+                }
             }
         }
     }

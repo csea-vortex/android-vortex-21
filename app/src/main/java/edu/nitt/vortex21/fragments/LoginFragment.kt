@@ -1,5 +1,6 @@
 package edu.nitt.vortex21.fragments
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +16,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentLoginBinding
-import edu.nitt.vortex21.helpers.Constants
-import edu.nitt.vortex21.helpers.Validators
-import edu.nitt.vortex21.helpers.viewLifecycle
-import edu.nitt.vortex21.helpers.Resource
+import edu.nitt.vortex21.helpers.*
 import edu.nitt.vortex21.model.LoginRequest
 import edu.nitt.vortex21.viewmodel.AuthViewModel
 
@@ -116,7 +114,12 @@ class LoginFragment : Fragment() {
             if (allOk) {
                 loginRequest = LoginRequest(username, password)
                 showProgressBar()
-                viewModel.sendLoginRequest(loginRequest)
+                try {
+                    viewModel.sendLoginRequest(loginRequest)
+                }catch (e:Exception){
+                    Toast.makeText(requireContext(),"No Internet Connection",Toast.LENGTH_SHORT).show()
+                    hideProgressBar()
+                }
             }
         }
 

@@ -14,7 +14,6 @@ android {
         targetSdkVersion(AndroidSdk.targetSdk)
         versionCode = AndroidSdk.versionCode
         versionName = AndroidSdk.versionName
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -49,4 +48,5 @@ dependencies {
     ModuleLibs.AppModule.kapts.forEach(::kapt)
     ModuleLibs.AppModule.testImplementations.forEach(::testImplementation)
     ModuleLibs.AppModule.androidTestImplementations.forEach(::androidTestImplementation)
+    //
 }
