@@ -1,16 +1,13 @@
 package edu.nitt.vortex21.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Callback
-import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
-import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentStorySlideBinding
 import edu.nitt.vortex21.helpers.Constants
 import edu.nitt.vortex21.helpers.viewLifecycle
@@ -86,10 +83,10 @@ class StorySlideFragment(
 
     private fun initStorySlides() {
         binding.storyTitle.text = story.title
+
         try {
             Picasso.get()
                 .load(Constants.BACKEND_BASE_URL + story.slides[0].imageUrl)
-                .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(binding.profileImage, object : Callback {
                     override fun onSuccess() {
 
@@ -103,6 +100,7 @@ class StorySlideFragment(
         }catch (e:Exception){
             e.stackTrace
         }
+
         binding.storyProgress.apply {
             setStoriesCount(story.slides.size)
             setStoryDuration(SLIDE_DURATION)
@@ -114,6 +112,7 @@ class StorySlideFragment(
         mCurrentSlideIdx = updatedSlideIndex
         // ToDO: Change story slide in ViewPager
         if (mCurrentSlideIdx < 0 || mCurrentSlideIdx >= story.slides.size) return;
+
         try {
             Picasso.get()
                 .load(Constants.BACKEND_BASE_URL + story.slides[mCurrentSlideIdx].imageUrl)
@@ -123,13 +122,14 @@ class StorySlideFragment(
                     }
 
                     override fun onError(e: Exception?) {
-                      e?.stackTrace
+                        e?.stackTrace
                     }
 
                 })
         }catch (e:Exception){
             e.stackTrace
         }
+
     }
 
     override fun onResume() {

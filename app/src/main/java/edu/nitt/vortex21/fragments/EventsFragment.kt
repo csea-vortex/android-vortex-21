@@ -1,19 +1,13 @@
 package edu.nitt.vortex21.fragments
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
+
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -50,11 +44,14 @@ class EventsFragment : Fragment() {
     }
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.events)
 
-        storyViewModel.fetchStoriesOfCategory("techie-tuesdays",requireContext())
+
+        storyViewModel.fetchStoriesOfCategory("techie-tuesdays")
+
 
         val navHostFragment = this.parentFragment as NavHostFragment
         val parent = navHostFragment.parentFragment as HomeFragment

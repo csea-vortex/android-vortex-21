@@ -17,15 +17,16 @@ class StoryViewModel : ViewModel() {
     private val repository = StoryRepository()
     val storyResponse = MutableLiveData<Resource<StoryResponse>>()
 
-    fun fetchStoriesOfCategory(category: String,context: Context) {
+    fun fetchStoriesOfCategory(category: String) {
         viewModelScope.launch {
-            try {
                 storyResponse.postValue(Resource.Loading())
+            try {
                 val response = repository.fetchStoriesOfCategory(category)
                 storyResponse.postValue(handleStoryResponse(response))
             }catch (e:Exception){
-                Toast.makeText(context,"No internet Connection",Toast.LENGTH_SHORT).show()
+                storyResponse.postValue(Resource.Error("No Internet"))
             }
+
         }
     }
 

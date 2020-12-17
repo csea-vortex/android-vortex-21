@@ -31,6 +31,7 @@ object Versions {
 
     const val  okhttp = "3.10.0"
     const val okhttpDownloader = "1.1.0"
+    const val okhttpLogger = "4.9.0"
 }
 
 object BuildPlugins {
@@ -76,6 +77,7 @@ object Libs {
 
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
     const val okhttpDownloader = "com.jakewharton.picasso:picasso2-okhttp3-downloader:${Versions.okhttpDownloader}"
+    const val okhttplogger = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpLogger}"
 
 }
 
@@ -102,7 +104,8 @@ object ModuleLibs {
             Libs.security,
             Libs.picasso,
             Libs.okhttp,
-            Libs.okhttpDownloader
+            Libs.okhttpDownloader,
+            Libs.okhttplogger
         )
         val kapts = listOf(Libs.lifecycleCompiler)
         val testImplementations = listOf(TestLibs.junit)
