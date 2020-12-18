@@ -1,19 +1,32 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryLight</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorOnPrimary">@color/colorPrimaryText</item>
-        <item name="colorOnPrimarySurface">@color/colorPrimaryText</item>
-        <item name="colorOnSecondary">@color/colorAccentText</item>
-        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
-        <item name="android:textColorPrimaryInverse">@color/colorAccentText</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorOnPrimary">@android:color/white</item>
     </style>
 
-    <style name="OutlinedTextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="color">@android:color/white</item>
+        <item name="boxBackgroundColor">@android:color/black</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/textInputLayoutBoxCornerRadiusTop</item>
+        <item name="boxCornerRadiusTopStart">@dimen/textInputLayoutBoxCornerRadiusTop</item>
+        <item name="startIconTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextInputLayout.ExposedDropdownMenu" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="color">@android:color/white</item>
+        <item name="boxBackgroundColor">@android:color/black</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/textInputLayoutBoxCornerRadiusTop</item>
+        <item name="boxCornerRadiusTopStart">@dimen/textInputLayoutBoxCornerRadiusTop</item>
+        <item name="startIconTint">@color/colorPrimary</item>
     </style>
 
 </resources>

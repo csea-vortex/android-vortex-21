@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Vortex 21</string>
+    <string name="vortex">Vortex</string>
+    <string name="techie_tuesday">Techie Tuesday</string>
 
     <string name="full_name">Full Name</string>
     <string name="full_name_error_description">Full Name</string>

@@ -1,6 +1,7 @@
 package edu.nitt.vortex21.fragments
 
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +34,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        initGradientBackgroundAnimation(binding.root)
         observeLiveData()
         return binding.root
     }

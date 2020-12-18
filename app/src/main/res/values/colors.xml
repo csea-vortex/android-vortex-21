@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#128C7E</color>
-    <color name="colorPrimaryLight">#25D366</color>
-    <color name="colorPrimaryDark">#075E54</color>
-    <color name="colorAccent">#64ffda</color>
-    <color name="colorAccentLight">#9effff</color>
-    <color name="colorAccentDark">#14cba8</color>
-    <color name="colorPrimaryText">#ffffff</color>
-    <color name="colorAccentText">#000000</color>
+    <color name="colorPrimary">#004e92</color>
+    <color name="colorPrimaryDark">#000428</color>
+    <color name="colorAccent">#06BFEE</color>
+
     <color name="progress_primary">@color/white</color>
     <color name="progress_secondary">@color/gray_scale</color>
     <color name="progress_max_active">@color/white</color>
     <color name="gray_scale">#929292</color>
     <color name="white">#fff</color>
+
+    <color name="backgroundColorGradientStart">#000428</color>
+    <color name="backgroundColorGradientCenter">#010847</color>
+    <color name="backgroundColorGradientEnd">#031F3E</color>
+
+    <color name="textInputLayoutBoxBackground">#02000000</color>
 </resources>

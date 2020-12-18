@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerVertical="true"
+    android:background="@drawable/background_gradient"
     tools:context="edu.nitt.vortex21.fragments.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,15 +26,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
-            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/containerName"
-            style="@style/OutlinedTextInputLayout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/full_name"
@@ -52,7 +52,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/containerUsername"
-            style="@style/OutlinedTextInputLayout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/vortex_username"
@@ -71,7 +71,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/containerPassword"
-            style="@style/OutlinedTextInputLayout"
+            style="@style/TextInputLayout"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/containerConfirmPassword"
-            style="@style/OutlinedTextInputLayout"
+            style="@style/TextInputLayout"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/containerNumber"
-            style="@style/OutlinedTextInputLayout"
+            style="@style/TextInputLayout"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/containerEmail"
-            style="@style/OutlinedTextInputLayout"
+            style="@style/TextInputLayout"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/containerYearOfStudy"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/TextInputLayout.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/year_of_study"
@@ -167,7 +167,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/containerDepartment"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/TextInputLayout.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/department"

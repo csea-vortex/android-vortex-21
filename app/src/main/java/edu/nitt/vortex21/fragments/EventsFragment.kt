@@ -37,7 +37,6 @@ class EventsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEventsBinding.inflate(inflater, container, false)
-        (activity as AppCompatActivity).supportActionBar?.show()
         observeLiveData()
 
         return binding.root

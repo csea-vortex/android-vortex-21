@@ -1,6 +1,7 @@
 package edu.nitt.vortex21.fragments
 
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        initGradientBackgroundAnimation(binding.root)
         return binding.root
     }
 

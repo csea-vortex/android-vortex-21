@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentHomeBinding
+import edu.nitt.vortex21.helpers.initGradientBackgroundAnimation
 import edu.nitt.vortex21.helpers.viewLifecycle
 
 
@@ -22,6 +23,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        initGradientBackgroundAnimation(binding.root)
         return binding.root
     }
 
