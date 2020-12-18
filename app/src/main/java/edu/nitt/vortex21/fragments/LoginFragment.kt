@@ -1,7 +1,6 @@
 package edu.nitt.vortex21.fragments
 
 
-import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,8 +39,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun observeLiveData() {
-        viewModel.loginResponse.observe(viewLifecycleOwner) {response ->
-            when(response) {
+        viewModel.loginResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is Resource.Success -> {
                     saveToken(response.data!!.token)
                     hideProgressBar()
@@ -77,10 +76,12 @@ class LoginFragment : Fragment() {
 
     private fun hideProgressBar() {
         binding.progressBarLogin.visibility = View.INVISIBLE
+        binding.buttonLogin.isEnabled = true
     }
 
     private fun showProgressBar() {
         binding.progressBarLogin.visibility = View.VISIBLE
+        binding.buttonLogin.isEnabled = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -118,8 +119,8 @@ class LoginFragment : Fragment() {
                 showProgressBar()
                 try {
                     viewModel.sendLoginRequest(loginRequest)
-                }catch (e:Exception){
-                    Toast.makeText(requireContext(),"No Internet Connection",Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(requireContext(), "No Internet Connection", Toast.LENGTH_SHORT).show()
                     hideProgressBar()
                 }
             }

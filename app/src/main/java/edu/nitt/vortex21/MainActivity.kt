@@ -1,13 +1,7 @@
 package edu.nitt.vortex21
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import edu.nitt.vortex21.databinding.ActivityMainBinding
 import edu.nitt.vortex21.helpers.viewLifecycle
 
@@ -19,5 +13,4 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
     }
-
 }

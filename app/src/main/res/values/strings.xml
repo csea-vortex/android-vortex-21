@@ -33,12 +33,12 @@
     <string name="leader_board">Leader Board</string>
     <string name="events">Events</string>
     <string name="social_media">Social Media</string>
-    <string name="t_shirt">T-shirt</string>
+    <string name="more">More</string>
     <string name="t_shirt_registration">T-shirt Registration</string>
     <string name="new_update_available">New Update Available</string>
     <string name="update_to_the_new_app_to_have_a_seamless_experience">Update to the new app to have a seamless experience.</string>
     <string name="cancel">CANCEL</string>
     <string name="update">UPDATE</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="name">Name</string>
 </resources>

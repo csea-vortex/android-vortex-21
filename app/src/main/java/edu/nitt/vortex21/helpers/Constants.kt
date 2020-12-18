@@ -1,5 +1,8 @@
 package edu.nitt.vortex21.helpers
 
+import edu.nitt.vortex21.R
+import edu.nitt.vortex21.model.SocialMediaLink
+
 object Constants {
     val departments = listOf(
         "Architecture",
@@ -31,4 +34,32 @@ object Constants {
     const val encryptedSharedPreferencesName = "encrypted_shared_pref"
     const val BACKEND_BASE_URL = "https://vortex.nitt.edu"
     const val API_BASE_URL = "${BACKEND_BASE_URL}/api/"
+
+    val SOCIAL_MEDIA_LINKS = arrayOf(
+        SocialMediaLink(
+            "Vortex Website",
+            R.drawable.vortex_logo,
+            "https://vortex.nitt.edu/"
+        ),
+        SocialMediaLink(
+            "Facebook",
+            R.drawable.facebook,
+            "https://www.facebook.com/vortex.nitt/"
+        ),
+        SocialMediaLink(
+            "Instagram",
+            R.drawable.instagram,
+            "https://instagram.com/vortex_nitt?igshid=7cduw1t8j1k"
+        ),
+        SocialMediaLink(
+            "Twitter",
+            R.drawable.twitter,
+            ""
+        ),
+        SocialMediaLink(
+            "LinkedIn",
+            R.drawable.linkedin,
+            ""
+        ),
+    )
 }

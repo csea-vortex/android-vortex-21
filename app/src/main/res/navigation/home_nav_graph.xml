@@ -33,16 +33,16 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fragmentSocialMedia"
-        android:name="edu.nitt.vortex21.fragments.SocialMediaFragment"
+        android:id="@+id/fragmentLeaderboard"
+        android:name="edu.nitt.vortex21.fragments.LeaderboardFragment"
         android:label="@string/social_media"
-        tools:layout="@layout/fragment_social_media" />
+        tools:layout="@layout/fragment_leaderboard" />
 
     <fragment
-        android:id="@+id/fragmentTShirtRegistration"
-        android:name="edu.nitt.vortex21.fragments.TShirtRegistrationFragment"
-        android:label="@string/t_shirt"
-        tools:layout="@layout/fragment_tshirt" />
+        android:id="@+id/fragmentMore"
+        android:name="edu.nitt.vortex21.fragments.MoreFragment"
+        android:label="@string/more"
+        tools:layout="@layout/fragment_more" />
 
     <fragment
         android:id="@+id/storyFragment"

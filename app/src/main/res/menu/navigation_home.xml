@@ -11,14 +11,14 @@
         android:icon="@drawable/events"
         android:title="@string/events" />
     <item
-        android:id="@+id/fragmentSocialMedia"
+        android:id="@+id/fragmentLeaderboard"
         android:enabled="true"
-        android:icon="@drawable/social_media"
-        android:title="@string/social_media" />
+        android:icon="@drawable/leaderboard"
+        android:title="@string/leader_board" />
     <item
-        android:id="@+id/fragmentTShirtRegistration"
+        android:id="@+id/fragmentMore"
         android:enabled="true"
-        android:icon="@drawable/tshirt"
-        android:title="@string/t_shirt"
+        android:icon="@drawable/more"
+        android:title="@string/more"
         android:visible="false" />
 </menu>

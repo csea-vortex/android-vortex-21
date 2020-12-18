@@ -9,7 +9,6 @@ import com.squareup.picasso.Picasso
 import edu.nitt.vortex21.databinding.StoryItemBinding
 import edu.nitt.vortex21.helpers.Constants
 import edu.nitt.vortex21.model.Story
-import java.lang.Exception
 
 class StoryTrayAdapter(
     private var stories: List<Story>,
@@ -18,24 +17,16 @@ class StoryTrayAdapter(
 
     class StoryViewHolder(val binding: StoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(index: Int, story: Story, clickListener: (Int) -> Unit) {
-           binding.storyName.text = story.title
+            binding.storyName.text = story.title
 
             try {
                 Picasso.get()
                     .load(Constants.BACKEND_BASE_URL + story.slides[0].imageUrl)
                     .into(binding.storyImage, object : Callback {
-                        override fun onSuccess() {
-
-                        }
-
-                        override fun onError(e: Exception?) {
-
-                            e?.stackTrace
-                        }
-
+                        override fun onSuccess() = Unit
+                        override fun onError(e: Exception?) = Unit
                     })
-            }catch (e:Exception){
-                e.stackTrace
+            } catch (e: Exception) {
             }
 
             binding.root.setOnClickListener {

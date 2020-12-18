@@ -1,7 +1,6 @@
 package edu.nitt.vortex21.fragments
 
 
-import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,10 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import edu.nitt.vortex21.R
-import edu.nitt.vortex21.databinding.FragmentRegisterBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import edu.nitt.vortex21.R
+import edu.nitt.vortex21.databinding.FragmentRegisterBinding
 import edu.nitt.vortex21.helpers.*
 import edu.nitt.vortex21.model.RegisterRequest
 import edu.nitt.vortex21.viewmodel.AuthViewModel
@@ -36,7 +35,7 @@ class RegisterFragment : Fragment() {
 
     private fun observeLiveData() {
         viewModel.registerResponse.observe(viewLifecycleOwner) { response ->
-            when(response) {
+            when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
                     Toast.makeText(requireContext(), "Registered User", Toast.LENGTH_SHORT).show()
@@ -52,10 +51,12 @@ class RegisterFragment : Fragment() {
 
     private fun hideProgressBar() {
         binding.progressBarRegister.visibility = View.INVISIBLE
+        binding.buttonRegister.isEnabled = true
     }
 
     private fun showProgressBar() {
         binding.progressBarRegister.visibility = View.VISIBLE
+        binding.buttonRegister.isEnabled = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -146,8 +147,8 @@ class RegisterFragment : Fragment() {
                 showProgressBar()
                 try {
                     viewModel.sendRegisterRequest(registerRequest)
-                }catch (e:Exception){
-                    Toast.makeText(requireContext(),"No Internet Connection",Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(requireContext(), "No Internet Connection", Toast.LENGTH_SHORT).show()
                     hideProgressBar()
                 }
             }

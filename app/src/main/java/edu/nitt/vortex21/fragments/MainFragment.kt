@@ -42,7 +42,6 @@ class MainFragment : Fragment() {
         ).apply {
             val username = getString("username", "")!!
             if (username.isNotEmpty()) {
-                Log.i("MainFragment", username)
                 findNavController().navigate(MainFragmentDirections.actionFragmentMainToFragmentHome())
             } else {
                 findNavController().navigate(MainFragmentDirections.actionFragmentMainToFragmentLogin())
