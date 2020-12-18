@@ -190,7 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:text="@string/register_account"
+            android:text="@string/register"
             android:textAllCaps="false"
             app:layout_constraintEnd_toStartOf="@id/verticalCenterGuideline"
             app:layout_constraintStart_toEndOf="@id/verticalCenterGuideline"

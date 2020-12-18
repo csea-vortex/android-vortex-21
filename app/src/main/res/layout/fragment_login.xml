@@ -85,7 +85,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="2dp"
                 android:layout_weight="1"
-                android:text="@string/register_account"
+                android:text="@string/register"
                 android:textAllCaps="false" />
 
         </LinearLayout>

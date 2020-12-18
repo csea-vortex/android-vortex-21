@@ -11,7 +11,7 @@
     <color name="white">#fff</color>
 
     <color name="backgroundColorGradientStart">#000428</color>
-    <color name="backgroundColorGradientCenter">#010847</color>
+    <color name="backgroundColorGradientCenter">#0F175E</color>
     <color name="backgroundColorGradientEnd">#031F3E</color>
 
     <color name="textInputLayoutBoxBackground">#02000000</color>
