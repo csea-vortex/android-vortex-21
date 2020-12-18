@@ -1,4 +1,4 @@
-package edu.nitt.vortex21.storieslibrary;
+package edu.nitt.vortex21.views;
 
 import android.content.Context;
 import androidx.annotation.AttrRes;

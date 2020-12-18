@@ -1,8 +1,12 @@
 package edu.nitt.vortex21
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
+import android.media.AudioManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,6 +22,7 @@ import com.google.android.play.core.ktx.BuildConfig
 import edu.nitt.vortex21.databinding.ActivitySplashBinding
 import edu.nitt.vortex21.helpers.viewLifecycle
 
+
 class SplashActivity : AppCompatActivity() {
 
     private val binding by viewLifecycle(ActivitySplashBinding::inflate)
@@ -28,9 +33,29 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        //checkUpdateAvailability()
+        initSplashAnimation()
+//        checkUpdateAvailability()
         canLaunchNextActivity = true
         startNextActivity()
+    }
+
+    private fun initSplashAnimation() {
+        val uri = Uri.parse("android.resource://edu.nitt.vortex21/" + R.raw.splash)
+        binding.video.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE)
+            } else {
+                val audioManager = applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                audioManager.requestAudioFocus(
+                    null,
+                    AudioManager.STREAM_MUSIC,
+                    AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK
+                )
+            }
+            setOnCompletionListener { start() }
+            setVideoURI(uri)
+            start()
+        }
     }
 
     private fun checkUpdateAvailability() {
@@ -141,13 +166,13 @@ class SplashActivity : AppCompatActivity() {
                 finish()
                 overridePendingTransition(0, 0)
             }
-        }, 1000)
+        }, 3000)
 
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if(alertDialog != null){
+        if (alertDialog != null) {
             alertDialog!!.dismiss()
             alertDialog = null
         }

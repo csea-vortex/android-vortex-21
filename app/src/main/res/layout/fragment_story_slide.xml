@@ -32,7 +32,7 @@
 
     </LinearLayout>
 
-    <edu.nitt.vortex21.storieslibrary.StoriesProgressView
+    <edu.nitt.vortex21.views.StoriesProgressView
         android:id="@+id/storyProgress"
         android:layout_width="match_parent"
         android:layout_height="10dp"

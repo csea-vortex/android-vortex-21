@@ -12,7 +12,7 @@ import edu.nitt.vortex21.databinding.FragmentStorySlideBinding
 import edu.nitt.vortex21.helpers.Constants
 import edu.nitt.vortex21.helpers.viewLifecycle
 import edu.nitt.vortex21.model.Story
-import edu.nitt.vortex21.storieslibrary.StoriesProgressView
+import edu.nitt.vortex21.views.StoriesProgressView
 import java.lang.Exception
 
 private const val SLIDE_DURATION = 3000L
