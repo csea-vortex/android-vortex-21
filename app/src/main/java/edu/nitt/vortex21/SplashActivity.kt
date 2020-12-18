@@ -34,9 +34,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initSplashAnimation()
-//        checkUpdateAvailability()
-        canLaunchNextActivity = true
-        startNextActivity()
+        checkUpdateAvailability()
     }
 
     private fun initSplashAnimation() {
@@ -119,10 +117,8 @@ class SplashActivity : AppCompatActivity() {
                     builder.create()
                 }
 
-                // todo: make it false.
-                alertDialog!!.setCancelable(true)
+                alertDialog!!.setCancelable(false)
                 alertDialog!!.show()
-                canLaunchNextActivity = true
 
             } else {
                 Log.i(TAG, "Can't update the app now.")
