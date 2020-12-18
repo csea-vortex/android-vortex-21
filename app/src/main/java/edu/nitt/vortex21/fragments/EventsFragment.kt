@@ -16,6 +16,7 @@ import edu.nitt.vortex21.R
 import edu.nitt.vortex21.adapters.StoryTrayAdapter
 import edu.nitt.vortex21.databinding.FragmentEventsBinding
 import edu.nitt.vortex21.helpers.Resource
+import edu.nitt.vortex21.helpers.initGradientBackgroundAnimation
 import edu.nitt.vortex21.helpers.viewLifecycle
 import edu.nitt.vortex21.model.Stories
 import edu.nitt.vortex21.viewmodel.StoryViewModel
@@ -35,11 +36,10 @@ class EventsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEventsBinding.inflate(inflater, container, false)
+        initGradientBackgroundAnimation(binding.root)
         observeLiveData()
-
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

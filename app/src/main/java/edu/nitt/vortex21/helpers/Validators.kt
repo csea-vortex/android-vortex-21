@@ -18,4 +18,8 @@ object Validators {
     fun containsAlphabets(name: String): Boolean {
         return name.matches("^[a-zA-Z ]*$".toRegex())
     }
+
+    fun isStrongPassword(password: String): Boolean {
+        return password.matches("^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$".toRegex())
+    }
 }

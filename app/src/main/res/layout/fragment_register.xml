@@ -146,22 +146,20 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/containerYearOfStudy"
-            style="@style/TextInputLayout.ExposedDropdownMenu"
+            android:id="@+id/containerCollege"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/year_of_study"
-            android:labelFor="@id/autocompleteTextYearOfStudy"
-            android:visibility="gone"
-            app:endIconMode="dropdown_menu"
-            app:layout_constraintTop_toBottomOf="@id/containerEmail">
+            android:hint="@string/full_college_name"
+            app:endIconMode="clear_text"
+            app:layout_constraintTop_toBottomOf="@id/containerEmail"
+            app:startIconDrawable="@drawable/college">
 
-            <AutoCompleteTextView
-                android:id="@+id/autocompleteTextYearOfStudy"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextCollege"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                android:label="@id/containerYearOfStudy" />
+                android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -173,7 +171,7 @@
             android:hint="@string/department"
             android:labelFor="@id/autocompleteTextDepartment"
             app:endIconMode="dropdown_menu"
-            app:layout_constraintTop_toBottomOf="@id/containerYearOfStudy">
+            app:layout_constraintTop_toBottomOf="@id/containerCollege">
 
             <AutoCompleteTextView
                 android:id="@+id/autocompleteTextDepartment"

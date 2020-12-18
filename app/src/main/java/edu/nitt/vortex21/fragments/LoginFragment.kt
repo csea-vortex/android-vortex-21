@@ -109,9 +109,10 @@ class LoginFragment : Fragment() {
             }
 
             val password = binding.editTextPassword.text.toString()
-            if (password.length < 8) {
+            if (password.isEmpty() or !Validators.isStrongPassword(password)) {
                 allOk = false
-                binding.containerPassword.error = "Password should have at least 8 characters"
+                binding.containerPassword.error =
+                    "Password must contain at least 8 characters in total, at least 1 number, 1 small and capital alphabet and a special character"
             }
 
             if (allOk) {

@@ -73,7 +73,7 @@ class RegisterFragment : Fragment() {
             binding.editTextConfirmPassword to binding.containerConfirmPassword,
             binding.editTextNumber to binding.containerNumber,
             binding.editTextEmail to binding.containerEmail,
-            binding.autocompleteTextYearOfStudy to binding.containerYearOfStudy,
+            binding.editTextCollege to binding.containerCollege,
             binding.autocompleteTextDepartment to binding.containerDepartment,
         ).forEach {
             it.key.addTextChangedListener { text ->
@@ -106,9 +106,10 @@ class RegisterFragment : Fragment() {
                 val error = "Both password fields should be the same and non-empty"
                 binding.containerPassword.error = error
                 binding.containerConfirmPassword.error = error
-            } else if (password.length < 8) {
+            } else if (!Validators.isStrongPassword(password)) {
                 allOk = false
-                binding.containerPassword.error = "Password should have at least 8 characters"
+                binding.containerPassword.error =
+                    "Password must contain at least 8 characters in total, at least 1 number, 1 small and capital alphabet and a special character"
             }
 
             val number = binding.editTextNumber.text.toString()
@@ -123,11 +124,11 @@ class RegisterFragment : Fragment() {
                 binding.containerEmail.error = "Invalid email"
             }
 
-            /*val yearOfStudy = binding.autocompleteTextYearOfStudy.text.toString()
-            if (binding.autocompleteTextYearOfStudy.text.isEmpty()) {
+            val college = binding.editTextCollege.text.toString()
+            if (college.isEmpty()) {
                 allOk = false
-                binding.containerYearOfStudy.error = "Enter your year of study"
-            }*/
+                binding.containerCollege.error = "College field cannot be empty"
+            }
 
             val department = binding.autocompleteTextDepartment.text.toString()
             if (binding.autocompleteTextDepartment.text.isEmpty()) {
@@ -142,7 +143,8 @@ class RegisterFragment : Fragment() {
                     password = password,
                     mobileNumber = number,
                     email = email,
-                    department = department
+                    department = department,
+                    college = college
                 )
                 showProgressBar()
                 try {
@@ -162,13 +164,6 @@ class RegisterFragment : Fragment() {
             Constants.departments
         )
         binding.autocompleteTextDepartment.setAdapter(departmentAdapter)
-
-        val yearOfStudyAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_list_item_1,
-            Constants.yearOfStudy
-        )
-        binding.autocompleteTextYearOfStudy.setAdapter(yearOfStudyAdapter)
     }
 
 }

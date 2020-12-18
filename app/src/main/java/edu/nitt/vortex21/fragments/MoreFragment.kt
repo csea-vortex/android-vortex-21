@@ -16,6 +16,7 @@ import edu.nitt.vortex21.MainActivity
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentMoreBinding
 import edu.nitt.vortex21.helpers.Constants
+import edu.nitt.vortex21.helpers.initGradientBackgroundAnimation
 import edu.nitt.vortex21.helpers.viewLifecycle
 
 
@@ -28,6 +29,7 @@ class MoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMoreBinding.inflate(inflater, container, false)
+        initGradientBackgroundAnimation(binding.root)
         initSocialMediaChips()
         initLogoutButton()
         return binding.root

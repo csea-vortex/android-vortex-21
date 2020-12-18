@@ -22,6 +22,9 @@
     <string name="year_of_study">Year of Study</string>
     <string name="year_of_study_error_description">Year of Study</string>
 
+    <string name="full_college_name">Full College Name</string>
+    <string name="college_error_description">College</string>
+
     <string name="department">Department</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
