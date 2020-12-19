@@ -1,49 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.nitt.vortex21.fragments.MainFragment">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/verticalCenterGuideline"
-        android:layout_width="1dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MainFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:text="@string/need_login"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@id/verticalCenterGuideline"
-        app:layout_constraintStart_toEndOf="@id/verticalCenterGuideline"
-        app:layout_constraintTop_toBottomOf="@id/message" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:text="@string/home"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@id/verticalCenterGuideline"
-        app:layout_constraintStart_toEndOf="@id/verticalCenterGuideline"
-        app:layout_constraintTop_toBottomOf="@id/buttonLogout" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context="edu.nitt.vortex2021.fragments.MainFragment" />

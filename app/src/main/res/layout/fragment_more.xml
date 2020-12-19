@@ -10,7 +10,7 @@
     android:paddingStart="16dp"
     android:paddingTop="4dp"
     android:paddingEnd="16dp"
-    tools:context="edu.nitt.vortex21.fragments.MoreFragment">
+    tools:context="edu.nitt.vortex2021.fragments.MoreFragment">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logoutButton"

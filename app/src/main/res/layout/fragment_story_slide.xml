@@ -4,7 +4,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.nitt.vortex21.fragments.StorySlideFragment">
+    tools:context="edu.nitt.vortex2021.fragments.StorySlideFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
 
     </LinearLayout>
 
-    <edu.nitt.vortex21.views.StoriesProgressView
+    <edu.nitt.vortex2021.views.StoriesProgressView
         android:id="@+id/storyProgress"
         android:layout_width="match_parent"
         android:layout_height="10dp"
@@ -77,7 +77,6 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:contentDescription="@string/techie_tuesday"
-        android:scaleType="fitCenter"
-        android:src="@drawable/vortex_logo" />
+        android:scaleType="fitCenter" />
 
 </RelativeLayout>

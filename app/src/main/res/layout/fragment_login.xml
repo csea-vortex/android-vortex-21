@@ -8,7 +8,7 @@
     android:layout_centerHorizontal="true"
     android:background="@drawable/background_gradient"
     android:padding="16dp"
-    tools:context="edu.nitt.vortex21.fragments.LoginFragment">
+    tools:context="edu.nitt.vortex2021.fragments.LoginFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

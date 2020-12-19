@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    tools:context="edu.nitt.vortex21.SplashActivity">
+    tools:context="edu.nitt.vortex2021.SplashActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/topGuideline"

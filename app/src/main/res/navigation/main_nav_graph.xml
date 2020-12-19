@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentLogin"
-        android:name="edu.nitt.vortex21.fragments.LoginFragment"
+        android:name="edu.nitt.vortex2021.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/fragmentRegister"
-        android:name="edu.nitt.vortex21.fragments.RegisterFragment"
+        android:name="edu.nitt.vortex2021.fragments.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
         <action
@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/fragmentMain"
-        android:name="edu.nitt.vortex21.fragments.MainFragment"
+        android:name="edu.nitt.vortex2021.fragments.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/fragmentHome"
-        android:name="edu.nitt.vortex21.fragments.HomeFragment"
+        android:name="edu.nitt.vortex2021.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action

@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/fragmentWorkshops"
-        android:name="edu.nitt.vortex21.fragments.WorkshopsFragment"
+        android:name="edu.nitt.vortex2021.fragments.WorkshopsFragment"
         android:label="@string/workshops"
         tools:layout="@layout/fragment_workshops" />
 
     <fragment
         android:id="@+id/fragmentEvents"
-        android:name="edu.nitt.vortex21.fragments.EventsFragment"
+        android:name="edu.nitt.vortex2021.fragments.EventsFragment"
         android:label="@string/events"
         tools:layout="@layout/fragment_events">
         <action
@@ -27,19 +27,19 @@
 
     <fragment
         android:id="@+id/fragmentLeaderboard"
-        android:name="edu.nitt.vortex21.fragments.LeaderboardFragment"
+        android:name="edu.nitt.vortex2021.fragments.LeaderboardFragment"
         android:label="@string/social_media"
         tools:layout="@layout/fragment_leaderboard" />
 
     <fragment
         android:id="@+id/fragmentMore"
-        android:name="edu.nitt.vortex21.fragments.MoreFragment"
+        android:name="edu.nitt.vortex2021.fragments.MoreFragment"
         android:label="@string/more"
         tools:layout="@layout/fragment_more" />
 
     <fragment
         android:id="@+id/fragmentStory"
-        android:name="edu.nitt.vortex21.fragments.StorySlideFragment"
+        android:name="edu.nitt.vortex2021.fragments.StorySlideFragment"
         android:label="fragment_story"
         tools:layout="@layout/fragment_story_slide">
         <action
@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/fragmentStoryHolder"
-        android:name="edu.nitt.vortex21.fragments.StoryHolderFragment"
+        android:name="edu.nitt.vortex2021.fragments.StoryHolderFragment"
         android:label="Story Holder Fragment"
         tools:layout="@layout/fragment_story_holder">
         <argument
@@ -58,7 +58,7 @@
             app:argType="integer" />
         <argument
             android:name="stories"
-            app:argType="edu.nitt.vortex21.model.Stories" />
+            app:argType="edu.nitt.vortex2021.model.Stories" />
     </fragment>
 
 </navigation>

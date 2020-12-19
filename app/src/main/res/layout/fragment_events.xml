@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_gradient"
-    tools:context="edu.nitt.vortex21.fragments.EventsFragment">
+    tools:context="edu.nitt.vortex2021.fragments.EventsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_story"
