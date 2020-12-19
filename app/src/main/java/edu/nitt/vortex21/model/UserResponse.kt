@@ -1,6 +1,6 @@
 package edu.nitt.vortex21.model
 
-data class LoginResponse (
+data class UserResponse(
     val success: Boolean,
-    val message: String,
+    val data: User
 )

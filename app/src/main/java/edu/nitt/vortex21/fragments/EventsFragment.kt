@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import edu.nitt.vortex21.BaseApplication
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.adapters.StoryTrayAdapter
 import edu.nitt.vortex21.databinding.FragmentEventsBinding
@@ -25,9 +26,7 @@ import edu.nitt.vortex21.viewmodel.StoryViewModel
 class EventsFragment : Fragment() {
 
     private var binding by viewLifecycle<FragmentEventsBinding>()
-    private val storyViewModel: StoryViewModel by lazy {
-        ViewModelProvider(this).get(StoryViewModel::class.java)
-    }
+    private lateinit var viewmodel: StoryViewModel
     private val mStories = Stories()
 
 
@@ -36,9 +35,18 @@ class EventsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEventsBinding.inflate(inflater, container, false)
+        initViewModel()
         initGradientBackgroundAnimation(binding.root)
-        observeLiveData()
         return binding.root
+    }
+
+    private fun initViewModel() {
+        val factory = (requireActivity().application as BaseApplication)
+            .applicationComponent
+            .getViewModelProviderFactory()
+
+        viewmodel = ViewModelProvider(this, factory).get(StoryViewModel::class.java)
+        observeLiveData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +54,7 @@ class EventsFragment : Fragment() {
         requireActivity().setTitle(R.string.events)
 
 
-        storyViewModel.fetchStoriesOfCategory("techie-tuesdays")
+        viewmodel.fetchStoriesOfCategory("techie-tuesdays")
 
 
         val navHostFragment = this.parentFragment as NavHostFragment
@@ -69,7 +77,7 @@ class EventsFragment : Fragment() {
     }
 
     private fun observeLiveData() {
-        storyViewModel.storyResponse.observe(viewLifecycleOwner) { response ->
+        viewmodel.storyResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     mStories.clear()

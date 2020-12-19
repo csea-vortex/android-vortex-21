@@ -6,26 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.edit
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
-import edu.nitt.vortex21.R
+import edu.nitt.vortex21.BaseApplication
 import edu.nitt.vortex21.databinding.FragmentLoginBinding
-import edu.nitt.vortex21.helpers.*
+import edu.nitt.vortex21.helpers.Resource
+import edu.nitt.vortex21.helpers.Validators
+import edu.nitt.vortex21.helpers.initGradientBackgroundAnimation
+import edu.nitt.vortex21.helpers.viewLifecycle
 import edu.nitt.vortex21.model.LoginRequest
 import edu.nitt.vortex21.viewmodel.AuthViewModel
 
 class LoginFragment : Fragment() {
 
     private var binding by viewLifecycle<FragmentLoginBinding>()
-    private val viewModel: AuthViewModel by lazy {
-        ViewModelProvider(this).get(AuthViewModel::class.java)
-    }
+
+    private lateinit var viewModel: AuthViewModel
     private lateinit var loginRequest: LoginRequest
 
     override fun onCreateView(
@@ -33,18 +32,25 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        initViewModel()
         initGradientBackgroundAnimation(binding.root)
-        observeLiveData()
         return binding.root
+    }
+
+    private fun initViewModel() {
+        val factory = (requireActivity().application as BaseApplication)
+            .applicationComponent
+            .getViewModelProviderFactory()
+
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+        observeLiveData()
     }
 
     private fun observeLiveData() {
         viewModel.loginResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    saveToken(response.data!!.token)
                     hideProgressBar()
-                    Toast.makeText(requireContext(), "Logged in User", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(LoginFragmentDirections.actionFragmentLoginToFragmentMain())
                 }
                 is Resource.Error -> {
@@ -52,25 +58,6 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-    }
-
-    private fun saveToken(token: String) {
-        val context = requireActivity().applicationContext
-        val masterKey = MasterKey.Builder(context)
-            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-            .build()
-
-        EncryptedSharedPreferences.create(
-            context,
-            Constants.encryptedSharedPreferencesName,
-            masterKey,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        ).edit {
-            putString("token", token)
-            putString("username", loginRequest.username)
-            commit()
         }
     }
 
@@ -86,7 +73,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().setTitle(R.string.login)
+
 
         mapOf(
             binding.editTextUsername to binding.containerUsername,
@@ -109,10 +96,9 @@ class LoginFragment : Fragment() {
             }
 
             val password = binding.editTextPassword.text.toString()
-            if (password.isEmpty() or !Validators.isStrongPassword(password)) {
+            if (password.isEmpty()) {
                 allOk = false
-                binding.containerPassword.error =
-                    "Password must contain at least 8 characters in total, at least 1 number, 1 small and capital alphabet and a special character"
+                binding.containerPassword.error = "Required Field"
             }
 
             if (allOk) {

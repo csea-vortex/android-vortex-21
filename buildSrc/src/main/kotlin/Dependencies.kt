@@ -20,6 +20,7 @@ object Versions {
     const val retrofit = "2.9.0"
     const val security = "1.1.0-alpha02"
     const val picasso = "2.71828"
+    const val dagger2 = "2.27"
 
     /* test */
     const val junit = "4.12"
@@ -29,7 +30,7 @@ object Versions {
     const val playCore = "1.8.0"
     const val playCoreKtx = "1.8.1"
 
-    const val  okhttp = "3.10.0"
+    const val okhttp = "3.10.0"
     const val okhttpDownloader = "1.1.0"
     const val okhttpLogger = "4.9.0"
 }
@@ -79,6 +80,11 @@ object Libs {
     const val okhttpDownloader = "com.jakewharton.picasso:picasso2-okhttp3-downloader:${Versions.okhttpDownloader}"
     const val okhttplogger = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpLogger}"
 
+    const val dagger = "com.google.dagger:dagger:${Versions.dagger2}"
+    const val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger2}"
+    const val daggerAndroidAndroidProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger2}"
+    const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger2}"
+
 }
 
 object TestLibs {
@@ -105,9 +111,13 @@ object ModuleLibs {
             Libs.picasso,
             Libs.okhttp,
             Libs.okhttpDownloader,
-            Libs.okhttplogger
+            Libs.okhttplogger,
+            Libs.dagger, Libs.daggerAndroid
         )
-        val kapts = listOf(Libs.lifecycleCompiler)
+        val kapts = listOf(
+            Libs.lifecycleCompiler,
+            Libs.daggerCompiler, Libs.daggerAndroidAndroidProcessor
+        )
         val testImplementations = listOf(TestLibs.junit)
         val androidTestImplementations = listOf(
             TestLibs.junitExt, TestLibs.espressoCore

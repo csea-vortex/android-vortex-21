@@ -12,9 +12,11 @@ import edu.nitt.vortex21.repository.AuthRepository
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
+import javax.inject.Inject
 
-class AuthViewModel: ViewModel() {
-    private val repository = AuthRepository()
+class AuthViewModel @Inject constructor(
+    private val repository: AuthRepository
+) : ViewModel() {
     val registerResponse = MutableLiveData<Resource<RegisterResponse>>()
     val loginResponse = MutableLiveData<Resource<LoginResponse>>()
 
@@ -24,7 +26,7 @@ class AuthViewModel: ViewModel() {
             try {
                 val response = repository.sendRegisterRequest(registerRequest)
                 registerResponse.postValue(handleRegisterResponse(response))
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 registerResponse.postValue(Resource.Error("No internet"))
             }
 
@@ -51,7 +53,7 @@ class AuthViewModel: ViewModel() {
             try {
                 val response = repository.sendLoginRequest(loginRequest)
                 loginResponse.postValue(handleLoginResponse(response))
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 loginResponse.postValue(Resource.Error("No Internet"))
             }
         }
