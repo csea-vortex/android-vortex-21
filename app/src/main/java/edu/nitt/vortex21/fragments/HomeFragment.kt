@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentHomeBinding
@@ -16,7 +17,7 @@ import edu.nitt.vortex21.helpers.viewLifecycle
 
 class HomeFragment : Fragment() {
 
-    public var binding by viewLifecycle<FragmentHomeBinding>()
+    var binding by viewLifecycle<FragmentHomeBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +34,6 @@ class HomeFragment : Fragment() {
             .findFragmentById(R.id.home_nav_host_fragment) as NavHostFragment
 
         binding.bottomNavigation.apply {
-            // ToDo: If t-shirt not registered then enable
-            //  the T-Shirt Registration Menu Item
-            menu.getItem(3).isVisible = true
-
             setupWithNavController(navHostFragment.navController)
         }
 
@@ -49,8 +46,6 @@ class HomeFragment : Fragment() {
                     requireActivity().finish()
                 }
             }
+
     }
-
-
-
 }

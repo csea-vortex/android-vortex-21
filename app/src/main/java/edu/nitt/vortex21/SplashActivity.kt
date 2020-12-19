@@ -11,10 +11,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
@@ -65,17 +66,13 @@ class SplashActivity : AppCompatActivity() {
         Log.i(TAG, "The current version name: " + BuildConfig.VERSION_NAME)
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-
             Log.i(
                 TAG, "appUpdateInfo.updateAvailability() = " + appUpdateInfo.updateAvailability()
                         + " and update is available if it equals " + UpdateAvailability.UPDATE_AVAILABLE
                         + " and appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE) is " +
                         appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
             )
-
-            Log.i(
-                TAG, "Available Version Code is " + appUpdateInfo.availableVersionCode()
-            )
+            Log.i(TAG, "Available Version Code is " + appUpdateInfo.availableVersionCode())
 
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                 && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
@@ -83,24 +80,11 @@ class SplashActivity : AppCompatActivity() {
 
                 Log.i(TAG, "App needs to be updated.")
 
-                alertDialog = this.let {
-                    val builder = AlertDialog.Builder(it)
-
-                    val dialogView = it.layoutInflater.inflate(R.layout.update_alert_dialog, null)
-
-                    builder.setView(dialogView)
-
-                    val btnCancel = dialogView.findViewById<Button>(R.id.btn_cancel)
-                    val btnUpdate = dialogView.findViewById<Button>(R.id.btn_update)
-
-                    btnCancel.setOnClickListener {
-                        Log.i(TAG, "User closed the app.")
-                        finish()
-                    }
-
-                    btnUpdate.setOnClickListener {
-                        Log.i(TAG, "Updating app.")
-
+                alertDialog = MaterialAlertDialogBuilder(this).apply {
+                    val view = layoutInflater.inflate(R.layout.update_alert_dialog, binding.root, false)
+                    setView(view)
+                    setCancelable(false)
+                    view.findViewById<MaterialButton>(R.id.btn_update).setOnClickListener {
                         try {
                             appUpdateManager.startUpdateFlowForResult(
                                 appUpdateInfo,
@@ -113,13 +97,10 @@ class SplashActivity : AppCompatActivity() {
                         }
                         finish()
                     }
-
-                    builder.create()
-                }
-
-                alertDialog!!.setCancelable(false)
-                alertDialog!!.show()
-
+                    setOnDismissListener {
+                        finish()
+                    }
+                }.create().apply { show() }
             } else {
                 Log.i(TAG, "Can't update the app now.")
                 canLaunchNextActivity = true
@@ -127,7 +108,7 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
-        appUpdateInfoTask.addOnFailureListener { appUpdateInfo ->
+        appUpdateInfoTask.addOnFailureListener {
             Log.i(TAG, "Task failed.")
             canLaunchNextActivity = true
             startNextActivity()
@@ -168,10 +149,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (alertDialog != null) {
-            alertDialog!!.dismiss()
-            alertDialog = null
-        }
+        alertDialog?.dismiss()
+        alertDialog = null
     }
 
     companion object {

@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/fragmentWorkshops"
-        android:enabled="true"
-        android:icon="@drawable/workshops"
-        android:title="@string/workshops" />
-    <item
         android:id="@+id/fragmentEvents"
         android:enabled="true"
         android:icon="@drawable/events"
-        android:title="@string/events" />
+        android:title="@string/events"
+        android:visible="true" />
+    <item
+        android:id="@+id/fragmentWorkshops"
+        android:enabled="true"
+        android:icon="@drawable/workshops"
+        android:title="@string/workshops"
+        android:visible="false" />
     <item
         android:id="@+id/fragmentLeaderboard"
         android:enabled="true"
         android:icon="@drawable/leaderboard"
-        android:title="@string/leader_board" />
+        android:title="@string/leader_board"
+        android:visible="false" />
     <item
         android:id="@+id/fragmentMore"
         android:enabled="true"
         android:icon="@drawable/more"
         android:title="@string/more"
-        android:visible="false" />
+        android:visible="true" />
 </menu>

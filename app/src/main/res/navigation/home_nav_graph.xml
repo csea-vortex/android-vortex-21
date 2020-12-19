@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentWorkshops">
+    app:startDestination="@id/fragmentEvents">
 
     <fragment
         android:id="@+id/fragmentWorkshops"
@@ -16,13 +16,6 @@
         android:name="edu.nitt.vortex21.fragments.EventsFragment"
         android:label="@string/events"
         tools:layout="@layout/fragment_events">
-        <action
-            android:id="@+id/action_fragmentEvents_to_storyFragment"
-            app:destination="@id/storyFragment"
-            app:enterAnim="@anim/push_up_in"
-            app:exitAnim="@anim/push_down_out"
-            app:popEnterAnim="@anim/push_down_in"
-            app:popExitAnim="@anim/push_up_out" />
         <action
             android:id="@+id/action_fragmentEvents_to_fragmentStoryHolder"
             app:destination="@id/fragmentStoryHolder"
@@ -45,12 +38,12 @@
         tools:layout="@layout/fragment_more" />
 
     <fragment
-        android:id="@+id/storyFragment"
-        android:name="edu.nitt.vortex21.fragments.StoryFragment"
+        android:id="@+id/fragmentStory"
+        android:name="edu.nitt.vortex21.fragments.StorySlideFragment"
         android:label="fragment_story"
         tools:layout="@layout/fragment_story_slide">
         <action
-            android:id="@+id/action_storyFragment_to_fragmentEvents"
+            android:id="@+id/action_fragmentStory_fragmentEvents"
             app:destination="@id/fragmentEvents" />
     </fragment>
 

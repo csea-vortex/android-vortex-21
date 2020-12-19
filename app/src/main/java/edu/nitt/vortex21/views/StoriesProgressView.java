@@ -27,9 +27,6 @@ public class StoriesProgressView extends LinearLayout {
     private final List<PausableProgressBar> progressBars = new ArrayList<>();
 
     private int storiesCount = -1;
-    /**
-     * pointer of running animation
-     */
     public int current = -1;
     private StoriesListener storiesListener;
     boolean isComplete;
