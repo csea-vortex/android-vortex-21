@@ -11,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import edu.nitt.vortex21.BaseApplication
 import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.FragmentRegisterBinding
 import edu.nitt.vortex21.helpers.*
@@ -20,17 +21,25 @@ import edu.nitt.vortex21.viewmodel.AuthViewModel
 class RegisterFragment : Fragment() {
 
     private var binding by viewLifecycle<FragmentRegisterBinding>()
-    private val viewModel: AuthViewModel by lazy {
-        ViewModelProvider(this).get(AuthViewModel::class.java)
-    }
+    private lateinit var viewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        initViewModels()
         initGradientBackgroundAnimation(binding.root)
         return binding.root
+    }
+
+    private fun initViewModels() {
+        val factory = (requireActivity().application as BaseApplication)
+            .applicationComponent
+            .getViewModelProviderFactory()
+
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+        observeLiveData()
     }
 
     private fun observeLiveData() {
@@ -62,7 +71,6 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.register)
-        observeLiveData()
 
         setupAutoCompleteDropdownViews()
 

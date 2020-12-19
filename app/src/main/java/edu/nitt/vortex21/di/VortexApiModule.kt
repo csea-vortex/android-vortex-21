@@ -6,8 +6,9 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import edu.nitt.vortex21.api.AuthApiService
-import edu.nitt.vortex21.api.HeaderInterceptor
+import edu.nitt.vortex21.api.CookieAuthTokenInterceptor
 import edu.nitt.vortex21.api.StoryApiService
+import edu.nitt.vortex21.api.UserApiService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,11 +21,11 @@ object VortexApiModule {
 
     @Provides
     @Singleton
-    fun provideHeaderInterceptor(context: Context) = HeaderInterceptor(context)
+    fun provideHeaderInterceptor(context: Context) = CookieAuthTokenInterceptor(context)
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(context: Context, interceptor: HeaderInterceptor) = OkHttpClient.Builder()
+    fun provideOkHttpClient(context: Context, interceptor: CookieAuthTokenInterceptor) = OkHttpClient.Builder()
         .addInterceptor(interceptor)
         .callTimeout(10, TimeUnit.SECONDS)
         .readTimeout(5, TimeUnit.SECONDS)
@@ -33,7 +34,7 @@ object VortexApiModule {
 
     @Provides
     @Singleton
-    fun provideGson() = GsonBuilder()
+    fun provideGson(): Gson = GsonBuilder()
         .enableComplexMapKeySerialization()
         .create()
 
@@ -56,4 +57,8 @@ object VortexApiModule {
     @Provides
     @Singleton
     fun provideStoryApiService(retrofit: Retrofit) = retrofit.create(StoryApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUserApiService(retrofit: Retrofit) = retrofit.create(UserApiService::class.java)
 }

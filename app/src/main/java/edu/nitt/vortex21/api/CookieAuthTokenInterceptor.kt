@@ -6,7 +6,7 @@ import edu.nitt.vortex21.helpers.UserTokenStore
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class HeaderInterceptor(private val context: Context) : Interceptor {
+class CookieAuthTokenInterceptor(private val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response = chain.run {
         val userTokenStore = UserTokenStore(context)
         proceed(

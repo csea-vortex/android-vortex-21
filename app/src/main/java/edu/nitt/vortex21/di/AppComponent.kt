@@ -9,6 +9,7 @@ import edu.nitt.vortex21.BaseApplication
 import edu.nitt.vortex21.helpers.Constants
 import edu.nitt.vortex21.repository.AuthRepository
 import edu.nitt.vortex21.repository.StoryRepository
+import edu.nitt.vortex21.repository.UserRepository
 import edu.nitt.vortex21.viewmodel.ViewModelProviderFactory
 import edu.nitt.vortex21.viewmodel.ViewModelProviderModule
 import javax.inject.Named
@@ -21,12 +22,14 @@ import javax.inject.Singleton
         VortexApiModule::class,
         AppModule::class,
         StoryModule::class,
-        AuthModule::class
+        AuthModule::class,
+        UserModule::class
     ]
 )
 @Singleton
 interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(repo: AuthRepository)
+    fun inject(repo: UserRepository)
     fun inject(repo: StoryRepository)
 
     fun getViewModelProviderFactory(): ViewModelProviderFactory

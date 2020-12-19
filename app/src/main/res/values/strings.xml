@@ -18,6 +18,7 @@
 
     <string name="email">Email</string>
     <string name="email_error_description">Email</string>
+    <string name="register_email_helper_text">Students of NIT Trichy are advised to use official college email</string>
 
     <string name="year_of_study">Year of Study</string>
     <string name="year_of_study_error_description">Year of Study</string>

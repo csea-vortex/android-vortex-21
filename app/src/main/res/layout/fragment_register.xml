@@ -134,6 +134,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/email"
             app:endIconMode="clear_text"
+            app:helperText="@string/register_email_helper_text"
             app:layout_constraintTop_toBottomOf="@id/containerNumber"
             app:startIconDrawable="@drawable/email">
 
