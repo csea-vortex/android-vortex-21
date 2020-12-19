@@ -38,7 +38,7 @@ object Constants {
     val SOCIAL_MEDIA_LINKS = arrayOf(
         SocialMediaLink(
             "Vortex Website",
-            R.drawable.vortex_logo,
+            R.drawable.csea_logo,
             "https://vortex.nitt.edu/"
         ),
         SocialMediaLink(

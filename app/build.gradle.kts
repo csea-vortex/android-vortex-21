@@ -7,8 +7,7 @@ plugins {
 }
 
 android {
-    signingConfigs {
-    compileSdkVersion(AndroidSdk.compileSdk)
+   compileSdkVersion(AndroidSdk.compileSdk)
     defaultConfig {
         applicationId = "edu.nitt.vortex21"
         minSdkVersion(AndroidSdk.minSdk)

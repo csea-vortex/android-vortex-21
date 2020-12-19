@@ -51,7 +51,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/vortex_logo" />
+            android:src="@drawable/csea_logo" />
 
         <TextView
             android:id="@+id/storyTitle"
@@ -71,7 +71,7 @@
         android:layout_height="match_parent"
         android:scaleType="fitCenter"
         android:layout_centerInParent="true"
-        android:src="@drawable/vortex_logo"
+        android:src="@drawable/csea_logo"
         android:contentDescription="@string/techie_tuesday"/>
 
 </RelativeLayout>
