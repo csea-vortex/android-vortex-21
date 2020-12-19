@@ -7,6 +7,7 @@ plugins {
 }
 
 android {
+    signingConfigs {
     compileSdkVersion(AndroidSdk.compileSdk)
     defaultConfig {
         applicationId = "edu.nitt.vortex21"
@@ -19,7 +20,7 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
