@@ -34,8 +34,17 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        initSplashSkipListener()
         initSplashAnimation()
         checkUpdateAvailability()
+    }
+
+    private fun initSplashSkipListener() {
+        binding.root.setOnClickListener {
+            if (canLaunchNextActivity) {
+                startNextActivity(0)
+            }
+        }
     }
 
     private fun initSplashAnimation() {
@@ -135,15 +144,14 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
-    private fun startNextActivity() {
+    private fun startNextActivity(delay: Long = 3000) {
         val intent = Intent(this, MainActivity::class.java)
         Handler(Looper.getMainLooper()).postDelayed({
             if (canLaunchNextActivity) {
                 startActivity(intent)
                 finish()
-                overridePendingTransition(0, 0)
             }
-        }, 2000)
+        }, delay)
 
     }
 

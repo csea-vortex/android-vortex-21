@@ -4,7 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorOnPrimary">@color/colorOnAccent</item>
     </style>
 
     <style name="TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">

@@ -26,12 +26,7 @@ object Constants {
         "Other"
     )
 
-    val yearOfStudy = listOf(
-        "1", "2", "3", "4", "5",
-        "Other"
-    )
-
-    const val SHARED_PREFERENCE = "encrypted_shared_pref"
+    const val SHARED_PREFERENCE = "vortex_shared_pref"
     const val BACKEND_BASE_URL = "https://vortex.nitt.edu"
     const val API_BASE_URL = "${BACKEND_BASE_URL}/api/"
 
@@ -52,14 +47,9 @@ object Constants {
             "https://instagram.com/vortex_nitt?igshid=7cduw1t8j1k"
         ),
         SocialMediaLink(
-            "Twitter",
-            R.drawable.twitter,
-            ""
-        ),
-        SocialMediaLink(
-            "LinkedIn",
-            R.drawable.linkedin,
-            ""
+            "Medium",
+            R.drawable.medium,
+            "https://medium.com/bits-bytes-nit-trichy"
         ),
     )
 }

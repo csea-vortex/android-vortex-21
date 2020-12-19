@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import edu.nitt.vortex21.R
 import edu.nitt.vortex21.databinding.StoryItemBinding
 import edu.nitt.vortex21.helpers.Constants
 import edu.nitt.vortex21.model.Story
@@ -18,7 +19,6 @@ class StoryTrayAdapter(
     class StoryViewHolder(val binding: StoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(index: Int, story: Story, clickListener: (Int) -> Unit) {
             binding.storyName.text = story.title
-
             try {
                 Picasso.get()
                     .load(Constants.BACKEND_BASE_URL + story.slides[0].imageUrl)

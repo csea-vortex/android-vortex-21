@@ -22,6 +22,8 @@ object Versions {
     const val picasso = "2.71828"
     const val dagger2 = "2.27"
 
+    const val glide = "4.11.0"
+
     /* test */
     const val junit = "4.12"
     const val junitExt = "1.1.2"
