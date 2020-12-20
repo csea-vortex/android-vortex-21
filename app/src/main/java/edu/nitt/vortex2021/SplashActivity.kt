@@ -28,20 +28,27 @@ class SplashActivity : AppCompatActivity() {
 
     private val binding by viewLifecycle(ActivitySplashBinding::inflate)
     private var canLaunchNextActivity = false
+    private var nextActivityRunnable: Runnable? = null
+
+    private var splashSkipInitiated = false
+
+    private val runnableScheduler = Handler(Looper.getMainLooper())
+
     private val TAG = "AppVersionStatus"
     private var alertDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        initSplashSkipListener()
         initSplashAnimation()
+        initSplashSkipListener()
         checkUpdateAvailability()
     }
 
     private fun initSplashSkipListener() {
         binding.root.setOnClickListener {
-            if (canLaunchNextActivity) {
+            if (canLaunchNextActivity and !splashSkipInitiated) {
+                splashSkipInitiated = true
                 startNextActivity(0)
             }
         }
@@ -145,13 +152,21 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun startNextActivity(delay: Long = 3000) {
+        // If there is already a launch scheduled then disable it
+        nextActivityRunnable?.apply {
+            runnableScheduler.removeCallbacks(this)
+        }
+
         val intent = Intent(this, MainActivity::class.java)
-        Handler(Looper.getMainLooper()).postDelayed({
+
+        nextActivityRunnable = Runnable {
             if (canLaunchNextActivity) {
                 startActivity(intent)
                 finish()
             }
-        }, delay)
+        }.apply {
+            runnableScheduler.postDelayed(this, delay)
+        }
 
     }
 

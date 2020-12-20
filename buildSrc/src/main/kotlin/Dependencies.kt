@@ -3,7 +3,7 @@ object AndroidSdk {
     const val minSdk = 21
     const val targetSdk = 30
 
-    const val versionCode = 1
+    const val versionCode = 2
     const val versionName = "1.0.0"
 }
 
@@ -21,8 +21,6 @@ object Versions {
     const val security = "1.1.0-alpha02"
     const val picasso = "2.71828"
     const val dagger2 = "2.27"
-
-    const val glide = "4.11.0"
 
     /* test */
     const val junit = "4.12"
