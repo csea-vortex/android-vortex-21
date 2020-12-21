@@ -32,6 +32,7 @@ object VortexApiModule {
     @Provides
     @Singleton
     fun provideGson(): Gson = GsonBuilder()
+        .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
         .enableComplexMapKeySerialization()
         .create()
 

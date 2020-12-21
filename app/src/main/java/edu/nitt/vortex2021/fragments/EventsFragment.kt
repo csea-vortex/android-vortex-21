@@ -81,7 +81,9 @@ class EventsFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     mStories.clear()
-                    mStories.addAll(response.data!!.data)
+                    var stories = response.data!!.data
+                    stories = stories.sortedByDescending { it.visibleAt }
+                    mStories.addAll(stories)
                     binding.recyclerViewStory.apply {
                         adapter?.notifyDataSetChanged()
                         scheduleLayoutAnimation()

@@ -3,6 +3,8 @@ package edu.nitt.vortex2021.model
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import java.util.*
+import kotlin.collections.ArrayList
 
 @Parcelize
 class Story(
@@ -22,7 +24,10 @@ class Story(
     val category: String,
 
     @SerializedName("slides")
-    val slides: List<StorySlide>
+    val slides: List<StorySlide>,
+
+    @SerializedName("visibleAt")
+    val visibleAt: Date
 
 ) : Parcelable
 
