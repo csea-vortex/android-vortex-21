@@ -27,16 +27,16 @@
             android:src="@drawable/csea_logo" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/containerUsername"
+            android:id="@+id/containerEmail"
             style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/vortex_username"
+            android:hint="@string/email"
             app:endIconMode="clear_text"
-            app:startIconDrawable="@drawable/person">
+            app:startIconDrawable="@drawable/email">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextUsername"
+                android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />

@@ -5,10 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import edu.nitt.vortex2021.api.AuthApiService
-import edu.nitt.vortex2021.api.CookieAuthTokenInterceptor
-import edu.nitt.vortex2021.api.StoryApiService
-import edu.nitt.vortex2021.api.UserApiService
+import edu.nitt.vortex2021.api.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -61,4 +58,8 @@ object VortexApiModule {
     @Provides
     @Singleton
     fun provideUserApiService(retrofit: Retrofit) = retrofit.create(UserApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDataApiService(retrofit: Retrofit) = retrofit.create(DataApiService::class.java)
 }

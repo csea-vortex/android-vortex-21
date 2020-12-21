@@ -55,7 +55,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun initSplashAnimation() {
-        val uri = Uri.parse("android.resource://edu.nitt.vortex2021/" + R.raw.splash)
+        val uri = Uri.parse("android.resource://${packageName}/" + R.raw.splash)
         binding.video.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE)
@@ -69,7 +69,9 @@ class SplashActivity : AppCompatActivity() {
             }
             setOnCompletionListener { start() }
             setVideoURI(uri)
-            start()
+            setOnPreparedListener {
+                start()
+            }
         }
     }
 

@@ -17,11 +17,17 @@ import edu.nitt.vortex2021.databinding.FragmentRegisterBinding
 import edu.nitt.vortex2021.helpers.*
 import edu.nitt.vortex2021.model.RegisterRequest
 import edu.nitt.vortex2021.viewmodel.AuthViewModel
+import edu.nitt.vortex2021.viewmodel.DataViewModel
 
 class RegisterFragment : Fragment() {
 
     private var binding by viewLifecycle<FragmentRegisterBinding>()
-    private lateinit var viewModel: AuthViewModel
+    private lateinit var authViewModel: AuthViewModel
+    private lateinit var dataViewModel: DataViewModel
+
+    private val colleges = ArrayList<String>()
+
+    private lateinit var collegeAdapter: ArrayAdapter<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,12 +44,13 @@ class RegisterFragment : Fragment() {
             .applicationComponent
             .getViewModelProviderFactory()
 
-        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+        authViewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+        dataViewModel = ViewModelProvider(this, factory).get(DataViewModel::class.java)
         observeLiveData()
     }
 
     private fun observeLiveData() {
-        viewModel.registerResponse.observe(viewLifecycleOwner) { response ->
+        authViewModel.registerResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
@@ -56,6 +63,18 @@ class RegisterFragment : Fragment() {
                 }
             }
         }
+
+        dataViewModel.collegesResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    // ToDo: Populate the college text field with list of colleges
+                    collegeAdapter.clear()
+                    collegeAdapter.addAll(response.data!!.collegeList.map { college -> college.name })
+                    collegeAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+
     }
 
     private fun hideProgressBar() {
@@ -72,6 +91,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.register)
 
+        dataViewModel.fetchCollegeList()
         setupAutoCompleteDropdownViews()
 
         mapOf(
@@ -81,7 +101,7 @@ class RegisterFragment : Fragment() {
             binding.editTextConfirmPassword to binding.containerConfirmPassword,
             binding.editTextNumber to binding.containerNumber,
             binding.editTextEmail to binding.containerEmail,
-            binding.editTextCollege to binding.containerCollege,
+            binding.autocompleteTextCollege to binding.containerCollege,
             binding.autocompleteTextDepartment to binding.containerDepartment,
         ).forEach {
             it.key.addTextChangedListener { text ->
@@ -132,14 +152,14 @@ class RegisterFragment : Fragment() {
                 binding.containerEmail.error = "Invalid email"
             }
 
-            val college = binding.editTextCollege.text.toString()
+            val college = binding.autocompleteTextCollege.text.toString()
             if (college.isEmpty()) {
                 allOk = false
                 binding.containerCollege.error = "College field cannot be empty"
             }
 
             val department = binding.autocompleteTextDepartment.text.toString()
-            if (binding.autocompleteTextDepartment.text.isEmpty()) {
+            if (department.isEmpty()) {
                 allOk = false
                 binding.containerDepartment.error = "Enter your department"
             }
@@ -156,7 +176,7 @@ class RegisterFragment : Fragment() {
                 )
                 showProgressBar()
                 try {
-                    viewModel.sendRegisterRequest(registerRequest)
+                    authViewModel.sendRegisterRequest(registerRequest)
                 } catch (e: Exception) {
                     Toast.makeText(requireContext(), "No Internet Connection", Toast.LENGTH_SHORT).show()
                     hideProgressBar()
@@ -171,7 +191,13 @@ class RegisterFragment : Fragment() {
             android.R.layout.simple_list_item_1,
             Constants.departments
         )
+        collegeAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            colleges
+        )
         binding.autocompleteTextDepartment.setAdapter(departmentAdapter)
+        binding.autocompleteTextCollege.setAdapter(collegeAdapter)
     }
 
 }

@@ -21,6 +21,6 @@ data class RegisterRequest(
     @SerializedName("college")
     val college: String,
 
-    @SerializedName("dept")
+    @SerializedName("department")
     val department: String
 )

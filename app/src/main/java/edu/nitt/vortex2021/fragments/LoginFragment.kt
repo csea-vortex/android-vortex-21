@@ -76,7 +76,7 @@ class LoginFragment : Fragment() {
 
 
         mapOf(
-            binding.editTextUsername to binding.containerUsername,
+            binding.editTextEmail to binding.containerEmail,
             binding.editTextPassword to binding.containerPassword,
         ).forEach {
             it.key.addTextChangedListener { text ->
@@ -89,10 +89,10 @@ class LoginFragment : Fragment() {
         binding.buttonLogin.setOnClickListener {
             var allOk = true
 
-            val username = binding.editTextUsername.text.toString()
-            if (username.isEmpty() or !Validators.isAlphaNumeric(username)) {
+            val email = binding.editTextEmail.text.toString()
+            if (email.isEmpty() or !Validators.isEmailValid(email)) {
                 allOk = false
-                binding.containerUsername.error = "Vortex Username should be alphanumeric with no spaces"
+                binding.containerEmail.error = "Vortex Username should be alphanumeric with no spaces"
             }
 
             val password = binding.editTextPassword.text.toString()
@@ -102,7 +102,7 @@ class LoginFragment : Fragment() {
             }
 
             if (allOk) {
-                loginRequest = LoginRequest(username, password)
+                loginRequest = LoginRequest(email, password)
                 showProgressBar()
                 try {
                     viewModel.sendLoginRequest(loginRequest)
