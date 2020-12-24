@@ -63,4 +63,8 @@ object VortexApiModule {
     @Provides
     @Singleton
     fun provideDataApiService(retrofit: Retrofit) = retrofit.create(DataApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideLinkedApoService(retrofit: Retrofit) = retrofit.create(LinkedApiService::class.java)
 }
