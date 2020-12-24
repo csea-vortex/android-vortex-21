@@ -16,4 +16,6 @@
     <color name="backgroundColorGradientEnd">#031F3E</color>
 
     <color name="storyBorder">#dd2a7b</color>
+
+    <color name="linkedCardColor">@color/colorPrimary</color>
 </resources>
