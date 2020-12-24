@@ -74,6 +74,12 @@ class EventsFragment : Fragment() {
                 )
             }
         }
+
+        binding.temporaryLinkedButton.setOnClickListener {
+            findNavController().navigate(
+                    EventsFragmentDirections.actionFragmentEventsToLinkedFragment()
+            )
+        }
     }
 
     private fun observeLiveData() {
