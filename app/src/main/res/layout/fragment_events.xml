@@ -74,7 +74,7 @@
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />-->
+                        app:layout_constraintTop_toTopOf="parent" />
                 <RatingBar
                     android:id="@+id/ratingBar"
                     android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-              <!-- </androidx.constraintlayout.widget.ConstraintLayout>-->
+               </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -148,6 +148,69 @@
                         android:focusable="true" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/crown1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/crown_empty"
+                        android:tag="1" />
+
+                    <ImageView
+                        android:id="@+id/crown2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/crown_empty"
+                        android:tag="2" />
+
+                    <ImageView
+                        android:id="@+id/crown3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/crown_empty"
+                        android:tag="3" />
+
+                    <ImageView
+                        android:id="@+id/crown4"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/crown_empty"
+                        android:tag="4" />
+
+                    <ImageView
+                        android:id="@+id/crown5"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/crown_empty"
+                        android:tag="5" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/statusTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:gravity="center_horizontal"
+                    android:text="Looks like you haven't registered"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
