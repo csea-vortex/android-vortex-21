@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +29,7 @@ class EventsFragment : Fragment() {
     private var binding by viewLifecycle<FragmentEventsBinding>()
     private lateinit var viewmodel: StoryViewModel
     private val mStories = Stories()
+    private  var currentRound:Int = 0// mutableLiveData for showing the progress
 
 
     override fun onCreateView(
@@ -57,7 +59,8 @@ class EventsFragment : Fragment() {
 
         viewmodel.fetchStoriesOfCategory("techie-tuesdays")
 
-        binding.ratingBar.rating = 4f
+
+
         val navHostFragment = this.parentFragment as NavHostFragment
         val parent = navHostFragment.parentFragment as HomeFragment
         parent.binding.bottomNavigation.visibility = View.VISIBLE
@@ -78,7 +81,8 @@ class EventsFragment : Fragment() {
         binding.registerButton.setOnClickListener{
             //TODO(): call register route
             binding.playButton.isEnabled = true
-            Toast.makeText(requireContext(),"registered Successfully",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"Registered Successfully",Toast.LENGTH_SHORT).show()
+            binding.statusTextView.text = "You are ready to go"
             binding.registerButton.isEnabled = false
         }
         binding.playButton.setOnClickListener {
@@ -111,6 +115,14 @@ class EventsFragment : Fragment() {
                 }
             }
         }
+
+        //observe currentRoundStatus here
+        //inside it... below piece of code and update the textview too ...
+        for(i in 1 .. currentRound){
+            val image: ImageView = binding.ratingBar.findViewWithTag<ImageView>("$i")
+            image.setImageResource(R.drawable.crownr)
+        }
+        //binding.statusTextView.text = "You are currently at round 4"
     }
 
 }
