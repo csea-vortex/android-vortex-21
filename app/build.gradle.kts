@@ -4,6 +4,7 @@ plugins {
     id(BuildPlugins.kotlinAndroidExtensions)
     id(BuildPlugins.kotlinKapt)
     id(BuildPlugins.navigationSafeArgsPlugin)
+
 }
 
 android {
@@ -44,6 +45,7 @@ android {
 
 dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
     ModuleLibs.AppModule.implementations.forEach(::implementation)
     ModuleLibs.AppModule.kapts.forEach(::kapt)
     ModuleLibs.AppModule.testImplementations.forEach(::testImplementation)

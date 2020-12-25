@@ -33,6 +33,8 @@ object Versions {
     const val okhttp = "3.10.0"
     const val okhttpDownloader = "1.1.0"
     const val okhttpLogger = "4.9.0"
+
+    const val cardView = "1.0.0"
 }
 
 object BuildPlugins {
@@ -85,6 +87,8 @@ object Libs {
     const val daggerAndroidAndroidProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger2}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger2}"
 
+    const val cardView = "androidx.cardview:cardview:${Versions.cardView}"
+
 }
 
 object TestLibs {
@@ -112,7 +116,8 @@ object ModuleLibs {
             Libs.okhttp,
             Libs.okhttpDownloader,
             Libs.okhttplogger,
-            Libs.dagger, Libs.daggerAndroid
+            Libs.dagger, Libs.daggerAndroid,
+            Libs.cardView
         )
         val kapts = listOf(
             Libs.lifecycleCompiler,
