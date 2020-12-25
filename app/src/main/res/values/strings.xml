@@ -47,4 +47,11 @@
     <string name="update">UPDATE</string>
     <string name="contact_us">Contact Us</string>
     <string name="name">Name</string>
+    <string name="linked">Linked</string>
+    <string name="progress">Progress</string>
+    <string name="Continue">Continue</string>
+    <string name="playButton">PlayButton</string>
+    <string name="registerButton">RegisterButton</string>
+    <string name="leaderBoardButton">LeaderBoardButton</string>
+    <string name="rules"><b><u>RULES:</u></b>\n\u25CF Submit the correct answer to proceed to the next level.\n\u25CF Players will be ranked based on points they score.\n\u25CF Points are calculated as follows :\n  \u25CB Solving a question in level 1 awards the player with 10 points.\n  \u25CB Solving a question in levels 2 and 3 awards the player with 20 points.\n  \u25CB Solving a question in levels 4 and 5 awards the player with 30 points.\n  \u25CB For each question an additional hint will be given, if any player takes the help of the additional hint to solve the question, then that player will be awarded with only half of the points.\n\n <b><u>SUBMISSION INSTUCTIONS:</u></b>\n\u25CFAll the words in an answer must be in lowercase and separated by a space.\n\u25CF If the answer is a group of words(strings), then enter the answer as "<b>word1 word2 word3</b>" i.e. each string separated by a space. Ex: “<b>programming language</b>”\n\u25CF If the answer contains a group of words and any number of separate real values, enter the answer as "<b>word integer</b>". Ex: “<b>ubuntu 19.04</b>”\n\u25CFIf the answer is an integer or real number then enter the answer simply as “1234” or “123.45”\n\n<b><u>ALL THE BEST!</u></b></string>
 </resources>

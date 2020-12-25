@@ -23,6 +23,13 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_fragmentEvents_to_instructionFragment"
+            app:destination="@id/instructionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -35,7 +42,9 @@
         android:id="@+id/fragmentMore"
         android:name="edu.nitt.vortex2021.fragments.MoreFragment"
         android:label="@string/more"
-        tools:layout="@layout/fragment_more" />
+        tools:layout="@layout/fragment_more" >
+
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentStory"
@@ -60,5 +69,10 @@
             android:name="stories"
             app:argType="edu.nitt.vortex2021.model.Stories" />
     </fragment>
+    <fragment
+        android:id="@+id/instructionFragment"
+        android:name="edu.nitt.vortex2021.fragments.InstructionFragment"
+        android:label="fragment_instruction"
+        tools:layout="@layout/fragment_instruction" />
 
 </navigation>

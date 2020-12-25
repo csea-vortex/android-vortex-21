@@ -53,10 +53,11 @@ class EventsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.events)
 
+        binding.playButton.isEnabled = false
 
         viewmodel.fetchStoriesOfCategory("techie-tuesdays")
 
-
+        binding.ratingBar.rating = 4f
         val navHostFragment = this.parentFragment as NavHostFragment
         val parent = navHostFragment.parentFragment as HomeFragment
         parent.binding.bottomNavigation.visibility = View.VISIBLE
@@ -74,6 +75,18 @@ class EventsFragment : Fragment() {
                 )
             }
         }
+        binding.registerButton.setOnClickListener{
+            //TODO(): call register route
+            binding.playButton.isEnabled = true
+            Toast.makeText(requireContext(),"registered Successfully",Toast.LENGTH_SHORT).show()
+            binding.registerButton.isEnabled = false
+        }
+        binding.playButton.setOnClickListener {
+            findNavController().navigate(EventsFragmentDirections.actionFragmentEventsToInstructionFragment())
+        }
+
+
+
     }
 
     private fun observeLiveData() {
