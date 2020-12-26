@@ -28,6 +28,10 @@
 
     <string name="stay_tuned_for_update">Keep checking back for exciting and engaging events with attractive prizes!</string>
 
+    <string name="username">username</string>
+    <string name="score">Score</string>
+    <string name="rank">Rank</string>
+
     <string name="department">Department</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
@@ -36,7 +40,7 @@
     <string name="home">Home</string>
 
     <string name="workshops">Workshops</string>
-    <string name="leader_board">Leader Board</string>
+    <string name="leaderboard">Leaderboard</string>
     <string name="events">Events</string>
     <string name="social_media">Social Media</string>
     <string name="more">More</string>
