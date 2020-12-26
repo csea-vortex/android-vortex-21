@@ -24,7 +24,8 @@ import javax.inject.Singleton
         UserModule::class,
         DataModule::class,
         LinkedModule::class,
-        LeaderboardModule::class
+        LeaderboardModule::class,
+        EventListModule::class
     ]
 )
 @Singleton
@@ -35,6 +36,8 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(repo: DataRepository)
     fun inject(repo: LinkedRepository)
     fun inject(repo: LeaderboardRepository)
+    fun inject(repo: EventListRepository)
+
 
     fun getViewModelProviderFactory(): ViewModelProviderFactory
 
