@@ -35,6 +35,7 @@ object Versions {
     const val okhttpLogger = "4.9.0"
 
     const val cardView = "1.0.0"
+    const val legacySupport ="1.0.0"
 }
 
 object BuildPlugins {
@@ -88,6 +89,8 @@ object Libs {
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger2}"
 
     const val cardView = "androidx.cardview:cardview:${Versions.cardView}"
+    const val kotlinJetbrains = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
+    const val legacySupport = "androidx.legacy:legacy-support-v4:${Versions.legacySupport}"
 
 }
 
@@ -117,7 +120,9 @@ object ModuleLibs {
             Libs.okhttpDownloader,
             Libs.okhttplogger,
             Libs.dagger, Libs.daggerAndroid,
-            Libs.cardView
+            Libs.cardView,
+            Libs.kotlinJetbrains,
+            Libs.legacySupport
         )
         val kapts = listOf(
             Libs.lifecycleCompiler,
