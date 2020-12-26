@@ -48,7 +48,9 @@
     <string name="contact_us">Contact Us</string>
     <string name="name">Name</string>
 
-    <string name="round_number">Round %1$d</string>
+    <string name="round_number">Level %1$d</string>
     <string name="confirm_hint_title">Are you sure you want to use the additional hint?</string>
     <string name="confirm_hint_body">You will be awarded with only half of the points upon solving.</string>
+    <string name="correct_answer">Correct answer, %1$d marks awarded!</string>
+    <string name="wrong_answer">Wrong answer!</string>
 </resources>
