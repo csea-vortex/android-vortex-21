@@ -79,32 +79,48 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <ImageButton
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/playButton"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_margin="20dp"
-                        android:background="@drawable/play_selector"
-                        android:clickable="true"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:src="@drawable/play"
+                        app:borderWidth="0dp"
+                        app:fabSize="normal"
+                        app:tint = "@color/white"
+                        app:rippleColor="@color/colorAccent"
                         android:contentDescription="@string/playButton"
+                        android:clickable="true"
                         android:focusable="true" />
 
-                    <ImageButton
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/registerButton"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:fabSize="normal"
                         android:layout_margin="20dp"
-                        android:background="@drawable/register_selector"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:src="@drawable/register"
+                        app:borderWidth="0dp"
+                        app:tint = "@color/white"
+                        app:rippleColor="@color/colorAccent"
                         android:clickable="true"
                         android:contentDescription="@string/registerButton"
                         android:focusable="true" />
 
-                    <ImageButton
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/leaderBoardButton"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_margin="20dp"
-                        android:background="@drawable/trophy_selector"
+                        android:src="@drawable/trophy"
+                        app:rippleColor="@color/colorAccent"
+                        app:fabSize="normal"
+                        app:borderWidth="0dp"
+                        app:tint="@color/white"
+                        android:backgroundTint="@color/colorPrimary"
                         android:clickable="true"
                         android:contentDescription="@string/leaderBoardButton"
                         android:focusable="true" />
