@@ -11,13 +11,7 @@
         android:enabled="true"
         android:icon="@drawable/workshops"
         android:title="@string/workshops"
-        android:visible="false" />
-    <item
-        android:id="@+id/fragmentLeaderboard"
-        android:enabled="true"
-        android:icon="@drawable/leaderboard"
-        android:title="@string/leader_board"
-        android:visible="false" />
+        android:visible="true" />
     <item
         android:id="@+id/fragmentMore"
         android:enabled="true"
