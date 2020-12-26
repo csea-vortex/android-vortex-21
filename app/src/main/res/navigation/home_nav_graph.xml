@@ -73,6 +73,16 @@
         android:id="@+id/instructionFragment"
         android:name="edu.nitt.vortex2021.fragments.InstructionFragment"
         android:label="fragment_instruction"
-        tools:layout="@layout/fragment_instruction" />
+        tools:layout="@layout/fragment_instruction" >
+        <action
+            android:id="@+id/action_instructionFragment_to_linkedFragment"
+            app:destination="@id/linkedFragment"
+            app:popUpTo="@id/fragmentEvents" />
+    </fragment>
+    <fragment
+        android:id="@+id/linkedFragment"
+        android:name="edu.nitt.vortex2021.fragments.LinkedFragment"
+        android:label="fragment_linked"
+        tools:layout="@layout/fragment_linked" />
 
 </navigation>
