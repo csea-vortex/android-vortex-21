@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import edu.nitt.vortex2021.R
 import edu.nitt.vortex2021.databinding.FragmentEventsBinding
 import edu.nitt.vortex2021.databinding.FragmentInstructionBinding
@@ -32,7 +33,7 @@ class InstructionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.textView.movementMethod = ScrollingMovementMethod()
         binding.continueButton.setOnClickListener {
-            // navigate to game fragment
+            findNavController().navigate(InstructionFragmentDirections.actionInstructionFragmentToLinkedFragment())
         }
     }
 
