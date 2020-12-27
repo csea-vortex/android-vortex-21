@@ -17,5 +17,6 @@ data class EventData (
     @SerializedName("format") val format : String,
     @SerializedName("eventFrom") val eventFrom : String,
     @SerializedName("eventTo") val eventTo : String,
-    @SerializedName("__v") val __v : Int
+    @SerializedName("__v") val __v : Int,
+    @SerializedName("smallImage") val smallImage:String
 )
