@@ -74,6 +74,6 @@ object VortexApiModule {
 
     @Provides
     @Singleton
-    fun provideEventListApiService(retrofit: Retrofit) = retrofit.create(EventListApiService::class.java)
+    fun provideEventApiService(retrofit: Retrofit) = retrofit.create(EventApiService::class.java)
 
 }

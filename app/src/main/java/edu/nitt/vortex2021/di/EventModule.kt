@@ -4,14 +4,14 @@ import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import edu.nitt.vortex2021.viewmodel.EventListViewModel
+import edu.nitt.vortex2021.viewmodel.EventViewModel
 import edu.nitt.vortex2021.viewmodel.ViewModelKey
 
 @Module
-abstract class EventListModule {
+abstract class EventModule {
     @Binds
     @IntoMap
-    @ViewModelKey(EventListViewModel::class)
-    abstract fun bindEventListViewModel(eventListViewModel: EventListViewModel) : ViewModel
+    @ViewModelKey(EventViewModel::class)
+    abstract fun bindEventListViewModel(eventViewModel: EventViewModel) : ViewModel
 
 }

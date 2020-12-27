@@ -15,12 +15,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.nitt.vortex2021.BaseApplication
 import edu.nitt.vortex2021.R
+import edu.nitt.vortex2021.adapters.EventAdapter
 import edu.nitt.vortex2021.adapters.StoryTrayAdapter
 import edu.nitt.vortex2021.databinding.FragmentEventsBinding
 import edu.nitt.vortex2021.helpers.Resource
 import edu.nitt.vortex2021.helpers.initGradientBackgroundAnimation
 import edu.nitt.vortex2021.helpers.viewLifecycle
+import edu.nitt.vortex2021.model.EventList
 import edu.nitt.vortex2021.model.Stories
+import edu.nitt.vortex2021.viewmodel.EventViewModel
 import edu.nitt.vortex2021.viewmodel.StoryViewModel
 
 
@@ -28,6 +31,7 @@ class EventsFragment : Fragment() {
 
     private var binding by viewLifecycle<FragmentEventsBinding>()
     private lateinit var viewmodel: StoryViewModel
+    private lateinit var eventViewModel: EventViewModel
     private val mStories = Stories()
     private  var currentRound:Int = 0// mutableLiveData for showing the progress
 
@@ -48,14 +52,14 @@ class EventsFragment : Fragment() {
             .getViewModelProviderFactory()
 
         viewmodel = ViewModelProvider(this, factory).get(StoryViewModel::class.java)
+        eventViewModel = ViewModelProvider(this,factory).get(EventViewModel::class.java)
         observeLiveData()
+        eventViewModel.fetchEventList()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.events)
-
-        binding.playButton.isEnabled = false
 
         viewmodel.fetchStoriesOfCategory("techie-tuesdays")
 
@@ -78,16 +82,14 @@ class EventsFragment : Fragment() {
                 )
             }
         }
-        binding.registerButton.setOnClickListener{
+      /*  binding.registerButton.setOnClickListener{
             //TODO(): call register route
             binding.playButton.isEnabled = true
             Toast.makeText(requireContext(),"Registered Successfully",Toast.LENGTH_SHORT).show()
             binding.statusTextView.text = "You are ready to go"
             binding.registerButton.isEnabled = false
         }
-        binding.playButton.setOnClickListener {
-            findNavController().navigate(EventsFragmentDirections.actionFragmentEventsToInstructionFragment())
-        }
+       */
 
 
 
@@ -116,13 +118,33 @@ class EventsFragment : Fragment() {
             }
         }
 
+        eventViewModel.eventListResponse.observe(viewLifecycleOwner){response->
+            when(response){
+                is Resource.Success->{
+                    var responseList:List<EventList>
+                    if(response.data!=null){
+                        responseList = response.data.data.eventList
+                        setUpAdapter(responseList)
+                    }
+                }
+            }
+
+        }
+
         //observe currentRoundStatus here
         //inside it... below piece of code and update the textview too ...
-        for(i in 1 .. currentRound){
+      /*  for(i in 1 .. currentRound){
             val image: ImageView = binding.ratingBar.findViewWithTag<ImageView>("$i")
             image.setImageResource(R.drawable.crownr)
-        }
+        }*/
         //binding.statusTextView.text = "You are currently at round 4"
+    }
+
+    fun setUpAdapter(eventList: List<EventList>){
+        val adapter:EventAdapter = EventAdapter(eventList)
+        binding.eventRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.eventRecyclerView.adapter = adapter
+
     }
 
 }

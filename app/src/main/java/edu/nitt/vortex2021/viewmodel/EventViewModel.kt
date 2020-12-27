@@ -5,14 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.nitt.vortex2021.helpers.Resource
 import edu.nitt.vortex2021.model.EventListResponse
-import edu.nitt.vortex2021.model.StoryResponse
-import edu.nitt.vortex2021.repository.EventListRepository
+import edu.nitt.vortex2021.repository.EventRepository
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
 
-class EventListViewModel @Inject constructor(private val repository: EventListRepository) : ViewModel(){
+class EventViewModel @Inject constructor(private val repository: EventRepository) : ViewModel(){
     val eventListResponse = MutableLiveData<Resource<EventListResponse>>()
 
     fun fetchEventList(){
