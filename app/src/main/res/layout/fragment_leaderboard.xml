@@ -1,30 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
+    android:orientation="vertical"
     tools:context="edu.nitt.vortex2021.fragments.LeaderboardFragment">
 
     <TextView
         android:id="@+id/heading"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:padding="12dp"
         android:text="@string/leaderboard"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leaderboardList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="12dp"
+        android:layout_weight="1"
         android:layoutAnimation="@anim/layout_animation_horizontal_fall_down"
-        app:layout_constraintTop_toBottomOf="@id/heading"
         tools:listitem="@layout/list_item_leaderboard" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/paginationButtonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/firstPageFab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/leaderboard_pagination_fab_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/first_page"
+            android:src="@drawable/ic_baseline_first_page_24"
+            app:fabSize="mini" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/naviateBeforeFab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/leaderboard_pagination_fab_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/navigate_before"
+            android:src="@drawable/ic_baseline_navigate_before_24"
+            app:fabSize="normal" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/currentPageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/leaderboard_pagination_fab_margin"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:contentDescription="@string/navigate_before"
+            android:text="@string/number_1"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="8dp" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/navigateNextFab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/leaderboard_pagination_fab_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/navigate_next"
+            android:src="@drawable/ic_baseline_navigate_next_24"
+            app:fabSize="normal" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/lastPageFab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/leaderboard_pagination_fab_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/last_page"
+            android:src="@drawable/ic_baseline_last_page_24"
+            app:fabSize="mini" />
+    </LinearLayout>
+</LinearLayout>

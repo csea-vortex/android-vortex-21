@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.nitt.vortex2021.helpers.Resource
+import edu.nitt.vortex2021.helpers.handleResponse
 import edu.nitt.vortex2021.model.UserResponse
 import edu.nitt.vortex2021.repository.UserRepository
 import kotlinx.coroutines.launch
@@ -21,21 +22,10 @@ class UserViewModel @Inject constructor(
             userDetailsResponse.postValue(Resource.Loading())
             try {
                 val response = repository.fetchUserDetails()
-                userDetailsResponse.postValue(handleUserDetailsResponse(response))
+                userDetailsResponse.postValue(handleResponse(response))
             } catch (e: Exception) {
                 userDetailsResponse.postValue(Resource.Error("No internet"))
             }
         }
-    }
-
-    private fun handleUserDetailsResponse(response: Response<UserResponse>): Resource<UserResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let { detailsResponse ->
-                return Resource.Success(detailsResponse)
-            }
-        }
-        val jsonObject = JSONObject(response.errorBody()!!.string())
-        val message = jsonObject.getString("message")
-        return Resource.Error(message)
     }
 }

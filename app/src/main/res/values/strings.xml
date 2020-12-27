@@ -40,7 +40,15 @@
     <string name="home">Home</string>
 
     <string name="workshops">Workshops</string>
+
     <string name="leaderboard">Leaderboard</string>
+    <string name="navigate_next">Navigate Next</string>
+    <string name="navigate_before">Navigate Before</string>
+    <string name="current_page">Current Page</string>
+    <string name="first_page">First Page</string>
+    <string name="last_page">Last Page</string>
+    <string name="number_1">1</string>
+
     <string name="events">Events</string>
     <string name="social_media">Social Media</string>
     <string name="more">More</string>

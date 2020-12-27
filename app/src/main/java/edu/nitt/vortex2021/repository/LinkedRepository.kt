@@ -5,7 +5,7 @@ import edu.nitt.vortex2021.model.*
 import retrofit2.Response
 import javax.inject.Inject
 
-class LinkedRepository @Inject constructor(private val linkedApiService: LinkedApiService){
+class LinkedRepository @Inject constructor(private val linkedApiService: LinkedApiService) {
     suspend fun getLatestLinkedQuestion(): Response<LatestLinkedQuestion> {
         return linkedApiService.getLatestLinkedQuestion()
     }
