@@ -78,5 +78,7 @@
     <string name="submit">submit</string>
     <string name="additional_hint">additional hint</string>
     <string name="answer_hint">Answer</string>
+    <string name="looks_like_you_have_not_registered">Looks like you have not registered</string>
+    <string name="progress_crown">Progress Crown</string>
 
 </resources>

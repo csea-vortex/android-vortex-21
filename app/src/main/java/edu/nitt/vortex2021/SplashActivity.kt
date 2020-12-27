@@ -73,6 +73,10 @@ class SplashActivity : AppCompatActivity() {
                     canLaunchNextActivity = true
                     startNextActivity()
                 }
+                is Resource.Success -> {
+                    canLaunchNextActivity = true
+                    startNextActivity()
+                }
             }
         }
     }
@@ -83,7 +87,7 @@ class SplashActivity : AppCompatActivity() {
                 splashSkipInitiated = true
                 startNextActivity(0)
             } else {
-                Toast.makeText(this, "Initializing App", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Initializing App. Please wait for a few seconds", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -187,7 +191,7 @@ class SplashActivity : AppCompatActivity() {
         userViewModel.sendUserDetailsRequest()
     }
 
-    private fun startNextActivity(delay: Long = 3000) {
+    private fun startNextActivity(delay: Long = 2250) {
         // If there is already a launch scheduled then disable it
         nextActivityRunnable?.apply {
             runnableScheduler.removeCallbacks(this)

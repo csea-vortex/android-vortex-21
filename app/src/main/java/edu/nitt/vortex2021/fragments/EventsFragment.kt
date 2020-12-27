@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -30,7 +29,7 @@ import edu.nitt.vortex2021.viewmodel.StoryViewModel
 class EventsFragment : Fragment() {
 
     private var binding by viewLifecycle<FragmentEventsBinding>()
-    private lateinit var viewmodel: StoryViewModel
+    private lateinit var storyViewmodel: StoryViewModel
     private lateinit var eventViewModel: EventViewModel
     private val mStories = Stories()
 
@@ -50,22 +49,22 @@ class EventsFragment : Fragment() {
             .applicationComponent
             .getViewModelProviderFactory()
 
-        viewmodel = ViewModelProvider(this, factory).get(StoryViewModel::class.java)
-        eventViewModel = ViewModelProvider(this,factory).get(EventViewModel::class.java)
+        storyViewmodel = ViewModelProvider(this, factory).get(StoryViewModel::class.java)
+        eventViewModel = ViewModelProvider(this, factory).get(EventViewModel::class.java)
+
         observeLiveData()
-        eventViewModel.fetchEventList()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.events)
 
-        viewmodel.fetchStoriesOfCategory("techie-tuesdays")
-
-
+        storyViewmodel.fetchStoriesOfCategory("techie-tuesdays")
+        eventViewModel.fetchEventList()
 
         val navHostFragment = this.parentFragment as NavHostFragment
         val parent = navHostFragment.parentFragment as HomeFragment
+
         parent.binding.bottomNavigation.visibility = View.VISIBLE
         // Stories tray
         binding.recyclerViewStory.apply {
@@ -81,11 +80,10 @@ class EventsFragment : Fragment() {
                 )
             }
         }
-
     }
 
     private fun observeLiveData() {
-        viewmodel.storyResponse.observe(viewLifecycleOwner) { response ->
+        storyViewmodel.storyResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     mStories.clear()
@@ -93,6 +91,7 @@ class EventsFragment : Fragment() {
                     stories = stories.sortedByDescending { it.visibleAt }
                     mStories.addAll(stories)
                     binding.recyclerViewStory.apply {
+                        visibility = View.VISIBLE
                         adapter?.notifyDataSetChanged()
                         scheduleLayoutAnimation()
                     }
@@ -107,11 +106,11 @@ class EventsFragment : Fragment() {
             }
         }
 
-        eventViewModel.eventListResponse.observe(viewLifecycleOwner){response->
-            when(response){
-                is Resource.Success->{
-                    var responseList:List<EventList>
-                    if(response.data!=null){
+        eventViewModel.eventListResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    var responseList: List<EventList>
+                    if (response.data != null) {
                         responseList = response.data.data.eventList
                         setUpAdapter(responseList)
                     }
@@ -123,8 +122,8 @@ class EventsFragment : Fragment() {
 
     }
 
-    fun setUpAdapter(eventList: List<EventList>){
-        val adapter:EventAdapter = EventAdapter(eventList)
+    fun setUpAdapter(eventList: List<EventList>) {
+        val adapter: EventAdapter = EventAdapter(eventList)
         binding.eventRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.eventRecyclerView.adapter = adapter
 

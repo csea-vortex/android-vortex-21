@@ -6,17 +6,17 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import edu.nitt.vortex2021.databinding.EventItemBinding
+import edu.nitt.vortex2021.databinding.ListItemEventBinding
 import edu.nitt.vortex2021.fragments.EventsFragmentDirections
 import edu.nitt.vortex2021.helpers.Constants
 import edu.nitt.vortex2021.model.EventList
 
 class EventAdapter(val eventList:List<EventList>) :
     RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
-    inner class EventViewHolder(val binding:EventItemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class EventViewHolder(val binding:ListItemEventBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        return EventViewHolder(EventItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return EventViewHolder(ListItemEventBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun getItemCount(): Int {
