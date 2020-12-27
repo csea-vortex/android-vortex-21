@@ -33,7 +33,6 @@ class EventsFragment : Fragment() {
     private lateinit var viewmodel: StoryViewModel
     private lateinit var eventViewModel: EventViewModel
     private val mStories = Stories()
-    private  var currentRound:Int = 0// mutableLiveData for showing the progress
 
 
     override fun onCreateView(
@@ -82,16 +81,6 @@ class EventsFragment : Fragment() {
                 )
             }
         }
-      /*  binding.registerButton.setOnClickListener{
-            //TODO(): call register route
-            binding.playButton.isEnabled = true
-            Toast.makeText(requireContext(),"Registered Successfully",Toast.LENGTH_SHORT).show()
-            binding.statusTextView.text = "You are ready to go"
-            binding.registerButton.isEnabled = false
-        }
-       */
-
-
 
     }
 
@@ -131,13 +120,7 @@ class EventsFragment : Fragment() {
 
         }
 
-        //observe currentRoundStatus here
-        //inside it... below piece of code and update the textview too ...
-      /*  for(i in 1 .. currentRound){
-            val image: ImageView = binding.ratingBar.findViewWithTag<ImageView>("$i")
-            image.setImageResource(R.drawable.crownr)
-        }*/
-        //binding.statusTextView.text = "You are currently at round 4"
+
     }
 
     fun setUpAdapter(eventList: List<EventList>){

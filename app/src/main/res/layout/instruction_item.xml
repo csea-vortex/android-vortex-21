@@ -16,7 +16,7 @@
         android:padding="10dp"
         android:scrollbars="vertical"
         android:scrollHorizontally="false"
-        android:text="@string/rules"
+        android:text="@string/vortex"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white"
         android:textSize="14sp"

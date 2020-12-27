@@ -43,6 +43,14 @@ class EventAdapter(val eventList:List<EventList>) :
             holder.binding.statusTextView.text = "You are ready to go"
                 holder.binding.registerButton.isEnabled = false
         }
+        //below code fo updating the crowns in linkedEvent
+        //observe currentRoundStatus here
+        //inside it... below piece of code and update the textview too ...
+        /*  for(i in 1 .. currentRound){
+              val image: ImageView = binding.ratingBar.findViewWithTag<ImageView>("$i")
+              image.setImageResource(R.drawable.crownr)
+          }*/
+        //binding.statusTextView.text = "You are currently at round 4"
 
     }
 
