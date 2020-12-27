@@ -87,11 +87,9 @@ object Libs {
     const val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger2}"
     const val daggerAndroidAndroidProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger2}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger2}"
-
     const val cardView = "androidx.cardview:cardview:${Versions.cardView}"
     const val kotlinJetbrains = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val legacySupport = "androidx.legacy:legacy-support-v4:${Versions.legacySupport}"
-
 }
 
 object TestLibs {

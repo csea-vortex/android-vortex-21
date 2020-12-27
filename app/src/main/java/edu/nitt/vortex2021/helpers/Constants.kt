@@ -26,6 +26,7 @@ object Constants {
         "Other"
     )
 
+    const val LEADERBOARD_PAGE_SIZE = 20
     const val SHARED_PREFERENCE = "vortex_shared_pref"
     const val BACKEND_BASE_URL = "https://vortex.nitt.edu"
     const val API_BASE_URL = "${BACKEND_BASE_URL}/api/"

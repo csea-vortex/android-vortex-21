@@ -5,16 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.nitt.vortex2021.helpers.Resource
+import edu.nitt.vortex2021.helpers.handleResponse
 import edu.nitt.vortex2021.model.*
 import edu.nitt.vortex2021.repository.LinkedRepository
 import kotlinx.coroutines.launch
-import org.json.JSONObject
-import retrofit2.Response
 import javax.inject.Inject
 
 class LinkedViewModel @Inject constructor(
-        private val repository: LinkedRepository
-): ViewModel() {
+    private val repository: LinkedRepository
+) : ViewModel() {
     val latestLinkedQuestionResponse = MutableLiveData<Resource<LatestLinkedQuestion>>()
     val checkedLinkedAnswerResponse = MutableLiveData<Resource<CheckedLinkedAnswer>>()
     val additionalHintResponse = MutableLiveData<Resource<Hint>>()
@@ -33,7 +32,7 @@ class LinkedViewModel @Inject constructor(
         }
     }
 
-    fun checkLatestLinkedAnswer(checkLinkedAnswerRequest: CheckLinkedAnswerRequest){
+    fun checkLatestLinkedAnswer(checkLinkedAnswerRequest: CheckLinkedAnswerRequest) {
         viewModelScope.launch {
             checkedLinkedAnswerResponse.postValue(Resource.Loading())
             try {
@@ -69,14 +68,4 @@ class LinkedViewModel @Inject constructor(
         }
     }
 
-    private fun <T> handleResponse(response: Response<T>): Resource<T> {
-        if (response.isSuccessful) {
-            response.body()?.let { body ->
-                return Resource.Success(body)
-            }
-        }
-        val jsonObject = JSONObject(response.errorBody()!!.string())
-        val message = jsonObject.getString("message")
-        return Resource.Error(message)
-    }
 }

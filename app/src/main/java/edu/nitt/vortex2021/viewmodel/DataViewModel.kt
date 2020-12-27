@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.nitt.vortex2021.helpers.Resource
+import edu.nitt.vortex2021.helpers.handleResponse
 import edu.nitt.vortex2021.model.CollegeResponse
 import edu.nitt.vortex2021.repository.DataRepository
 import kotlinx.coroutines.launch
@@ -22,22 +23,10 @@ class DataViewModel @Inject constructor(
             collegesResponse.postValue((Resource.Loading()))
             try {
                 val response = repository.fetchColleges()
-                collegesResponse.postValue(handleCollegeResponse(response))
+                collegesResponse.postValue(handleResponse(response))
             } catch (e: Exception) {
                 collegesResponse.postValue(Resource.Error("No Internet"))
             }
         }
-    }
-
-    private fun handleCollegeResponse(response: Response<CollegeResponse>): Resource<CollegeResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return Resource.Success(it)
-            }
-        }
-
-        val jsonObject = JSONObject(response.errorBody()!!.toString())
-        val message = jsonObject.getString("message")
-        return Resource.Error(message)
     }
 }

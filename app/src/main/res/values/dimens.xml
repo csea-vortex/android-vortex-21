@@ -4,5 +4,5 @@
     <dimen name="social_media_text_size">24sp</dimen>
     <dimen name="progress_bar_height">2dp</dimen>
     <dimen name="textInputLayoutBoxCornerRadiusTop">12dp</dimen>
-
+    <dimen name="leaderboard_pagination_fab_margin">4dp</dimen>
 </resources>
