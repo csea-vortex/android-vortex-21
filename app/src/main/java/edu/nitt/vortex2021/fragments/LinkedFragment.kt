@@ -1,10 +1,12 @@
 package edu.nitt.vortex2021.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -16,13 +18,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 import edu.nitt.vortex2021.BaseApplication
 import edu.nitt.vortex2021.R
 import edu.nitt.vortex2021.adapters.QuestionAdapter
-import edu.nitt.vortex2021.api.getDummyQuestion
 import edu.nitt.vortex2021.databinding.FragmentLinkedBinding
 import edu.nitt.vortex2021.helpers.Resource
 import edu.nitt.vortex2021.helpers.initGradientBackgroundAnimation
 import edu.nitt.vortex2021.helpers.viewLifecycle
 import edu.nitt.vortex2021.model.CheckLinkedAnswerRequest
 import edu.nitt.vortex2021.viewmodel.LinkedViewModel
+
 
 class LinkedFragment: Fragment() {
 
@@ -64,7 +66,7 @@ class LinkedFragment: Fragment() {
                         questionAdapter.setLatestQuestion(latestLinkedQuestion)
                         addLockedTabs()
                         binding.questionsViewPager.post {
-                            binding.questionsViewPager.currentItem = questionAdapter.itemCount-1
+                            binding.questionsViewPager.currentItem = questionAdapter.itemCount - 1
                         }
                     }
                 }
@@ -74,6 +76,7 @@ class LinkedFragment: Fragment() {
                     Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
                     hideProgressBar()
                 }
+                else -> {}
             }
         }
 
@@ -84,9 +87,9 @@ class LinkedFragment: Fragment() {
                     Log.i("LinkedFragment", response.data.toString())
                     val checkedLinkedAnswer = response.data!!
                     if (checkedLinkedAnswer.isCorrectSolution) {
-                        Toast.makeText(requireContext()
-                                , getString(R.string.correct_answer, checkedLinkedAnswer.marksAwarded), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.correct_answer, checkedLinkedAnswer.marksAwarded), Toast.LENGTH_SHORT).show()
                         showProgressBar()
+                        closeKeyboard()
                         linkedViewModel.sendLatestLinkedQuestionRequest()
                         linkedViewModel.getCurrentScoreRank()
                     } else {
@@ -99,6 +102,7 @@ class LinkedFragment: Fragment() {
                     Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
                     hideProgressBar()
                 }
+                else -> {}
             }
         }
 
@@ -108,6 +112,8 @@ class LinkedFragment: Fragment() {
                     Log.i("LinkedFragment", response.data.toString())
                     val additionalHint = response.data!!
                     questionAdapter.addAdditionalHint(additionalHint)
+                    addLockedTabs()
+                    Toast.makeText(requireContext(), "Additional hint has been added!", Toast.LENGTH_SHORT)
                     hideProgressBar()
                 }
 
@@ -116,6 +122,7 @@ class LinkedFragment: Fragment() {
                     Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
                     hideProgressBar()
                 }
+                else -> {}
             }
         }
 
@@ -134,13 +141,13 @@ class LinkedFragment: Fragment() {
                     Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
                     hideProgressBar()
                 }
+                else -> {}
             }
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //binding.questionsTabLayout.setSelectedTabIndicatorColor(Color.GREEN)
         questionAdapter = QuestionAdapter(requireContext(),
                 object : QuestionAdapter.OnButtonPressListener {
                     override fun onAnswer(givenAnswer: String) {
@@ -187,31 +194,26 @@ class LinkedFragment: Fragment() {
             }
 
         })
-
-        val dummyQuestion = getDummyQuestion()
-        questionAdapter.setLatestQuestion(dummyQuestion)
-        addLockedTabs()
-        binding.roundTextView.text = getString(R.string.round_number, dummyQuestion.level)
-        binding.questionsViewPager.post {
-            binding.questionsViewPager.currentItem = questionAdapter.itemCount-1
-        }
     }
 
     private fun addLockedTabs() {
-        for (i in 0 until binding.questionsTabLayout.tabCount) {
+        val count = binding.questionsTabLayout.tabCount
+        for (i in 0 until count) {
             val tab = binding.questionsTabLayout.getTabAt(i)!!
             tab.customView = null
             tab.setCustomView(R.layout.custom_tab)
             tab.customView?.findViewById<TextView>(R.id.question_number_text_view)?.text = (i+1).toString()
+            if (binding.questionsTabLayout.selectedTabPosition == i) {
+                tab.customView?.findViewById<View>(R.id.selected_circle_view)?.visibility = View.VISIBLE
+            }
         }
-        val count = binding.questionsTabLayout.tabCount
         val tabStrip = binding.questionsTabLayout.getChildAt(0) as LinearLayout
-        if (count != 0) tabStrip.getChildAt(count-1).isClickable = true
+        if (count != 0) tabStrip.getChildAt(count - 1).isClickable = true
         for (i in (count+1)..5) {
             val newTab = binding.questionsTabLayout.newTab()
             newTab.text = "$i \uD83D\uDD12"
             binding.questionsTabLayout.addTab(newTab)
-            tabStrip.getChildAt(i-1).isClickable = false
+            tabStrip.getChildAt(i - 1).isClickable = false
         }
     }
 
@@ -229,6 +231,14 @@ class LinkedFragment: Fragment() {
 
     private fun hideProgressBar() {
         binding.progressBar.visibility = View.GONE
+    }
+
+    private fun closeKeyboard() {
+        val view: View? = requireActivity().currentFocus
+        if (view != null) {
+            val imm: InputMethodManager? = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
 }

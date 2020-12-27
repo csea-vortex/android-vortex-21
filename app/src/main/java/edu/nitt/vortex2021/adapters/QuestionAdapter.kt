@@ -57,9 +57,9 @@ class QuestionAdapter(private val context: Context,
             holder.binding.hintsRecyclerView.layoutManager = LinearLayoutManager(context)
             holder.binding.hintsRecyclerView.visibility = View.VISIBLE
             holder.binding.answerEditText.visibility = View.VISIBLE
+            holder.binding.answerContainer.visibility = View.VISIBLE
             holder.binding.answerTextView.visibility = View.GONE
             holder.binding.answerEditText.setText("")
-            holder.binding.answerEditText.isEnabled = true
             holder.binding.submitAnswerButton.visibility = View.VISIBLE
             holder.binding.additionalHintButton.visibility = if (!latestLinkedQuestion.isAdditionalHintTaken!!) View.VISIBLE else View.GONE
         } else {
@@ -67,6 +67,7 @@ class QuestionAdapter(private val context: Context,
             holder.binding.answerTextView.visibility = View.VISIBLE
             holder.binding.answerTextView.text = latestLinkedQuestion.prevAnswers!![position]
             holder.binding.answerEditText.visibility = View.GONE
+            holder.binding.answerContainer.visibility = View.GONE
             holder.binding.submitAnswerButton.visibility = View.GONE
             holder.binding.additionalHintButton.visibility = View.GONE
         }

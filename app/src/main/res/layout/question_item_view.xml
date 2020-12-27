@@ -11,18 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintBottom_toTopOf="@+id/answer_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/hint_item_view" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/answer_container"
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Answer"
+        android:hint="@string/answer_hint"
         app:layout_constraintBottom_toTopOf="@id/submit_answer_button">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -38,7 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Additional Hint"
+        android:text="@string/additional_hint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -49,7 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Submit"
+        android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/additional_hint_button"
         app:layout_constraintHorizontal_bias="0.5"

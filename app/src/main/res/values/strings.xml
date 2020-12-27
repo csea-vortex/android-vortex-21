@@ -61,5 +61,7 @@
     <string name="confirm_hint_body">You will be awarded with only half of the points upon solving.</string>
     <string name="correct_answer">Correct answer, %1$d marks awarded!</string>
     <string name="wrong_answer">Wrong answer!</string>
-
+    <string name="submit">submit</string>
+    <string name="additional_hint">additional hint</string>
+    <string name="answer_hint">Answer</string>
 </resources>
