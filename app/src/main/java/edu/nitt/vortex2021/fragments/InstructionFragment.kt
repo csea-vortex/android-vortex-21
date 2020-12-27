@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import edu.nitt.vortex2021.BaseApplication
@@ -102,9 +103,6 @@ class InstructionFragment : Fragment() {
         ) { tab, position ->
             tab.text = resource[position]
         }.attach()
-
     }
-
-
 
 }

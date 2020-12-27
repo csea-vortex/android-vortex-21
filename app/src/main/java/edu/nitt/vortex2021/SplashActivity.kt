@@ -14,6 +14,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -21,7 +23,10 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.ktx.BuildConfig
 import edu.nitt.vortex2021.databinding.ActivitySplashBinding
+import edu.nitt.vortex2021.helpers.Resource
+import edu.nitt.vortex2021.helpers.UserTokenStore
 import edu.nitt.vortex2021.helpers.viewLifecycle
+import edu.nitt.vortex2021.viewmodel.UserViewModel
 
 
 class SplashActivity : AppCompatActivity() {
@@ -32,6 +37,8 @@ class SplashActivity : AppCompatActivity() {
 
     private var splashSkipInitiated = false
 
+    private lateinit var userViewModel: UserViewModel
+
     private val runnableScheduler = Handler(Looper.getMainLooper())
 
     private val TAG = "AppVersionStatus"
@@ -40,9 +47,34 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        initViewModels()
         initSplashAnimation()
         initSplashSkipListener()
         checkUpdateAvailability()
+    }
+
+    private fun initViewModels() {
+        val factory = (application as BaseApplication)
+            .applicationComponent
+            .getViewModelProviderFactory()
+
+        userViewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
+        observeLiveData()
+    }
+
+    private fun observeLiveData() {
+        userViewModel.userDetailsResponse.observe(this) { response ->
+            when (response) {
+                is Resource.Error -> {
+                    // User token either expired or invalid
+                    // Clear the user tokens
+                    val userTokenStore = UserTokenStore(this)
+                    userTokenStore.token = ""
+                    canLaunchNextActivity = true
+                    startNextActivity()
+                }
+            }
+        }
     }
 
     private fun initSplashSkipListener() {
@@ -50,6 +82,8 @@ class SplashActivity : AppCompatActivity() {
             if (canLaunchNextActivity and !splashSkipInitiated) {
                 splashSkipInitiated = true
                 startNextActivity(0)
+            } else {
+                Toast.makeText(this, "Initializing App", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -121,15 +155,13 @@ class SplashActivity : AppCompatActivity() {
                 }.create().apply { show() }
             } else {
                 Log.i(TAG, "Can't update the app now.")
-                canLaunchNextActivity = true
-                startNextActivity()
+                checkUpdateCompleteCallback()
             }
         }
 
         appUpdateInfoTask.addOnFailureListener {
             Log.i(TAG, "Task failed.")
-            canLaunchNextActivity = true
-            startNextActivity()
+            checkUpdateCompleteCallback()
         }
 
     }
@@ -138,9 +170,7 @@ class SplashActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == APP_UPDATE_REQUEST_CODE) {
-            // or finish?
-            canLaunchNextActivity = true
-            startNextActivity()
+            checkUpdateCompleteCallback()
         } else {
             if (resultCode == Activity.RESULT_OK) {
                 Toast.makeText(
@@ -151,6 +181,10 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun checkUpdateCompleteCallback() {
+        userViewModel.sendUserDetailsRequest()
     }
 
     private fun startNextActivity(delay: Long = 3000) {
