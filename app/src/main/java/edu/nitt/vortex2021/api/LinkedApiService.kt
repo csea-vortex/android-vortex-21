@@ -7,15 +7,15 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface LinkedApiService {
-    @GET("events/linked/current-question")
+    @GET("event/linked/current-question")
     suspend fun getLatestLinkedQuestion(): Response<LatestLinkedQuestion>
 
-    @GET("events/linked/current-score-rank")
+    @GET("event/linked/current-score-rank")
     suspend fun getCurrentScoreRank(): Response<CurrentScoreRank>
 
-    @POST("events/linked/test-latest-linked-answer")
+    @POST("event/linked/test-latest-linked-answer")
     suspend fun checkLatestLinkedAnswer(@Body checkLinkedAnswerRequest: CheckLinkedAnswerRequest): Response<CheckedLinkedAnswer>
 
-    @GET("events/linked/additional-hint")
+    @GET("event/linked/additional-hint")
     suspend fun getLatestLinkedQuestionAdditionalHint(): Response<Hint>
 }
