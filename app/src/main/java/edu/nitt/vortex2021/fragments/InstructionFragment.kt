@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -103,6 +102,9 @@ class InstructionFragment : Fragment() {
         ) { tab, position ->
             tab.text = resource[position]
         }.attach()
+
     }
+
+
 
 }
