@@ -101,7 +101,6 @@ class StorySlideFragment(
 
     private fun updateSlide(updatedSlideIndex: Int) {
         mCurrentSlideIdx = updatedSlideIndex
-        // ToDO: Change story slide in ViewPager
         if (mCurrentSlideIdx < 0 || mCurrentSlideIdx >= story.slides.size) return;
 
         try {

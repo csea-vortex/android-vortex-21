@@ -18,10 +18,12 @@ class WorkshopAdapter(
     private val onRegisterButtonClickListener: (workshop: Workshop) -> Unit
 ) : RecyclerView.Adapter<WorkshopAdapter.WorkshopViewHolder>() {
 
+    private var selectedWorkshopIdx: Int = -1
+
     inner class WorkshopViewHolder(val binding: ListItemWorkshopBinding) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(workshop: Workshop) {
+        fun bind(index: Int, workshop: Workshop) {
             binding.workshopName.text = workshop.title
             binding.workshopFrom.text = "\uD83D\uDCC5 Starts ${workshop.eventFrom.getFormatted()}"
             binding.workshopTo.text = "\uD83D\uDCC5 Ends ${workshop.eventTo.getFormatted()}"
@@ -58,12 +60,16 @@ class WorkshopAdapter(
             }
 
             binding.detailsButton.setOnClickListener {
-                binding.description.apply {
-                    visibility = if (visibility == View.GONE) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
+                selectedWorkshopIdx = index
+                notifyDataSetChanged()
+            }
+
+            binding.description.apply {
+                visibility = if (index == selectedWorkshopIdx) {
+                    if (visibility == View.VISIBLE) View.GONE
+                    else View.VISIBLE
+                } else {
+                    View.GONE
                 }
             }
         }
@@ -81,7 +87,7 @@ class WorkshopAdapter(
     override fun getItemCount() = workshops.size
 
     override fun onBindViewHolder(holder: WorkshopViewHolder, position: Int) {
-        holder.bind(workshops[position])
+        holder.bind(position, workshops[position])
     }
 
 }

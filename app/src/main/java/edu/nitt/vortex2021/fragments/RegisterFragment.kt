@@ -67,7 +67,6 @@ class RegisterFragment : Fragment() {
         dataViewModel.collegesResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    // ToDo: Populate the college text field with list of colleges
                     collegeAdapter.clear()
                     collegeAdapter.addAll(response.data!!.collegeList.map { college -> college.name })
                     collegeAdapter.notifyDataSetChanged()
