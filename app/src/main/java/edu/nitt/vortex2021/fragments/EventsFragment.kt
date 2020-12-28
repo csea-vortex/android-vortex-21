@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.nitt.vortex2021.BaseApplication
@@ -19,8 +17,9 @@ import edu.nitt.vortex2021.adapters.StoryTrayAdapter
 import edu.nitt.vortex2021.databinding.FragmentEventsBinding
 import edu.nitt.vortex2021.helpers.Resource
 import edu.nitt.vortex2021.helpers.initGradientBackgroundAnimation
+import edu.nitt.vortex2021.helpers.showToastMessage
 import edu.nitt.vortex2021.helpers.viewLifecycle
-import edu.nitt.vortex2021.model.EventList
+import edu.nitt.vortex2021.model.Events
 import edu.nitt.vortex2021.model.Stories
 import edu.nitt.vortex2021.viewmodel.EventViewModel
 import edu.nitt.vortex2021.viewmodel.StoryViewModel
@@ -29,8 +28,10 @@ import edu.nitt.vortex2021.viewmodel.StoryViewModel
 class EventsFragment : Fragment() {
 
     private var binding by viewLifecycle<FragmentEventsBinding>()
-    private lateinit var storyViewmodel: StoryViewModel
+    private lateinit var storyViewModel: StoryViewModel
     private lateinit var eventViewModel: EventViewModel
+
+    private val mEvents = Events()
     private val mStories = Stories()
 
 
@@ -49,7 +50,7 @@ class EventsFragment : Fragment() {
             .applicationComponent
             .getViewModelProviderFactory()
 
-        storyViewmodel = ViewModelProvider(this, factory).get(StoryViewModel::class.java)
+        storyViewModel = ViewModelProvider(this, factory).get(StoryViewModel::class.java)
         eventViewModel = ViewModelProvider(this, factory).get(EventViewModel::class.java)
 
         observeLiveData()
@@ -59,31 +60,13 @@ class EventsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.events)
 
-        storyViewmodel.fetchStoriesOfCategory("techie-tuesdays")
+        initRecyclerViews()
+        storyViewModel.fetchStoriesOfCategory("techie-tuesdays")
         eventViewModel.fetchEventList()
-
-        val navHostFragment = this.parentFragment as NavHostFragment
-        val parent = navHostFragment.parentFragment as HomeFragment
-
-        parent.binding.bottomNavigation.visibility = View.VISIBLE
-        // Stories tray
-        binding.recyclerViewStory.apply {
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            adapter = StoryTrayAdapter(mStories) { storyIdx ->
-                findNavController().navigate(
-                    EventsFragmentDirections
-                        .actionFragmentEventsToFragmentStoryHolder(storyIdx, mStories)
-                )
-            }
-        }
     }
 
     private fun observeLiveData() {
-        storyViewmodel.storyResponse.observe(viewLifecycleOwner) { response ->
+        storyViewModel.storyResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     mStories.clear()
@@ -97,36 +80,76 @@ class EventsFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showToastMessage(requireContext(), response.message)
                 }
             }
         }
 
-        eventViewModel.eventListResponse.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Success -> {
-                    var responseList: List<EventList>
-                    if (response.data != null) {
-                        responseList = response.data.data.eventList
-                        setUpAdapter(responseList)
+
+        eventViewModel.apply {
+            eventListResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        binding.eventRecyclerView.adapter?.apply {
+                            mEvents.clear()
+                            mEvents.addAll(response.data!!.data.events)
+                            notifyDataSetChanged()
+                        }
+                    }
+                    is Resource.Error -> {
+                        showToastMessage(requireContext(), response.message)
                     }
                 }
             }
 
+            eventRegisterResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        showToastMessage(requireContext(), response.data!!.message)
+                        eventViewModel.fetchEventList()
+                    }
+                    is Resource.Error -> {
+                        showToastMessage(requireContext(), response.message)
+                    }
+                }
+            }
         }
 
-
     }
 
-    fun setUpAdapter(eventList: List<EventList>) {
-        val adapter: EventAdapter = EventAdapter(eventList)
-        binding.eventRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.eventRecyclerView.adapter = adapter
+    private fun initRecyclerViews() {
+        binding.recyclerViewStory.apply {
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = StoryTrayAdapter(mStories) { storyIdx ->
+                findNavController().navigate(
+                    EventsFragmentDirections
+                        .actionFragmentEventsToFragmentStoryHolder(storyIdx, mStories)
+                )
+            }
+        }
 
+        binding.eventRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = EventAdapter(
+                mEvents,
+                onPlayButtonClickListener = {
+                    findNavController().navigate(
+                        EventsFragmentDirections.actionFragmentEventsToInstructionFragment(it)
+                    )
+                },
+                onRegisterEventButtonClickListener = {
+                    eventViewModel.sendEventRegistrationRequest(
+                        it.eventData.id
+                    )
+                },
+                onLeaderboardButtonClickListener = {
+
+                }
+            )
+        }
     }
-
 }

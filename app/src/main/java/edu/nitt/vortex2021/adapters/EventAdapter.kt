@@ -3,55 +3,87 @@ package edu.nitt.vortex2021.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import edu.nitt.vortex2021.databinding.ListItemEventBinding
-import edu.nitt.vortex2021.fragments.EventsFragmentDirections
 import edu.nitt.vortex2021.helpers.Constants
-import edu.nitt.vortex2021.model.EventList
+import edu.nitt.vortex2021.model.Event
+import java.util.*
 
-class EventAdapter(val eventList:List<EventList>) :
-    RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
-    inner class EventViewHolder(val binding:ListItemEventBinding) : RecyclerView.ViewHolder(binding.root)
+class EventAdapter(
+    private val eventList: List<Event>,
+    private val onPlayButtonClickListener: (event: Event) -> Unit,
+    private val onRegisterEventButtonClickListener: (event: Event) -> Unit,
+    private val onLeaderboardButtonClickListener: (event: Event) -> Unit
+) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+
+    inner class EventViewHolder(val binding: ListItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        private fun bindPlayButton(event: Event) {
+            // ToDo: Get user's progress
+            binding.playButton.apply {
+                isEnabled = event.isRegistered
+                visibility = if (event.isRegistered) View.VISIBLE else View.GONE
+                setOnClickListener { onPlayButtonClickListener(event) }
+            }
+        }
+
+        private fun bindRegisterButton(event: Event) {
+            // Todo: Show Registered / Event Over Status similar to website
+            val isEventFinished = System.currentTimeMillis() >= event.eventData.eventTo.time
+            val isButtonVisible = !(isEventFinished || event.isRegistered)
+
+            binding.registerButton.apply {
+                isEnabled = isButtonVisible
+                visibility = if (isButtonVisible) View.VISIBLE else View.GONE
+                setOnClickListener { onRegisterEventButtonClickListener(event) }
+            }
+        }
+
+        private fun bindLeaderboardButton(event: Event) {
+            // ToDo: Make a helper function to check for supported events
+            val leaderboardSupported = event.eventData.title.toLowerCase(Locale.getDefault()).contains("linked")
+            binding.leaderBoardButton.apply {
+                isEnabled = leaderboardSupported
+                visibility = if (leaderboardSupported) View.VISIBLE else View.GONE
+                setOnClickListener { onLeaderboardButtonClickListener(event) }
+            }
+        }
+
+        fun bind(event: Event) {
+            binding.eventNameText.text = event.eventData.title
+            bindPlayButton(event)
+            bindRegisterButton(event)
+            bindLeaderboardButton(event)
+
+            try {
+                Picasso.get().load(Constants.BACKEND_BASE_URL + event.eventData.smallImage)
+                    .into(binding.eventLogo, object : Callback {
+                        override fun onSuccess() = Unit
+                        override fun onError(e: Exception?) {
+                            e?.stackTrace
+                        }
+                    })
+            } catch (e: Exception) {
+                e.stackTrace
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        return EventViewHolder(ListItemEventBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        val binding = ListItemEventBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return EventViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-       return eventList.size
-    }
+    override fun getItemCount() = eventList.size
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        val title = eventList[position].eventData.title
-        holder.binding.playButton.isEnabled = false
-        holder.binding.eventNameText.text = title
-        if(title.equals("Linked")){
-            holder.binding.ratingBar.visibility = View.VISIBLE
-        }
-        Picasso.get().load(Constants.BACKEND_BASE_URL + eventList[position].eventData.smallImage).into(holder.binding.eventLogo)
-        if(eventList[position].isRegistered){
-            holder.binding.playButton.isEnabled = true
-        }
-        holder.binding.playButton.setOnClickListener {
-            it.findNavController().navigate(EventsFragmentDirections.actionFragmentEventsToInstructionFragment(position))
-        }
-        holder.binding.registerButton.setOnClickListener {
-            //TODO(): call register route
-            holder.binding.playButton.isEnabled = true
-            holder.binding.statusTextView.text = "You are ready to go"
-                holder.binding.registerButton.isEnabled = false
-        }
-        //below code fo updating the crowns in linkedEvent
-        //observe currentRoundStatus here
-        //inside it... below piece of code and update the textview too ...
-        /*  for(i in 1 .. currentRound){
-              val image: ImageView = binding.ratingBar.findViewWithTag<ImageView>("$i")
-              image.setImageResource(R.drawable.crownr)
-          }*/
-        //binding.statusTextView.text = "You are currently at round 4"
-
+        holder.bind(eventList[position])
     }
 
 }

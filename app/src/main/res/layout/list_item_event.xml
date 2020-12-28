@@ -15,6 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -40,53 +41,39 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/playButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:clickable="true"
-                android:contentDescription="@string/playButton"
-                android:focusable="true"
-                android:src="@drawable/play"
-                app:borderWidth="0dp"
-                app:fabSize="normal"
-                app:rippleColor="@color/colorAccent"
-                app:tint="@color/white" />
+                android:layout_margin="2dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/play"
+                android:textAllCaps="false"
+                app:icon="@drawable/play" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/registerButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:clickable="true"
-                android:contentDescription="@string/registerButton"
-                android:focusable="true"
-                android:src="@drawable/register"
-                app:borderWidth="0dp"
-                app:fabSize="normal"
-                app:rippleColor="@color/colorAccent"
-                app:tint="@color/white" />
+                android:layout_margin="2dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/register"
+                android:textAllCaps="false"
+                app:icon="@drawable/register" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/leaderBoardButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:clickable="true"
-                android:contentDescription="@string/leaderBoardButton"
-                android:focusable="true"
-                android:src="@drawable/trophy"
-                app:borderWidth="0dp"
-                app:fabSize="normal"
-                app:rippleColor="@color/colorAccent"
-                app:tint="@color/white" />
+                android:layout_margin="2dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/leaderboard"
+                android:textAllCaps="false"
+                app:icon="@drawable/leaderboard" />
 
         </LinearLayout>
 
@@ -103,8 +90,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/crown_empty"
                 android:contentDescription="@string/progress_crown"
+                android:src="@drawable/crown_empty"
                 android:tag="1" />
 
             <ImageView
@@ -112,8 +99,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/crown_empty"
                 android:contentDescription="@string/progress_crown"
+                android:src="@drawable/crown_empty"
                 android:tag="2" />
 
             <ImageView
@@ -121,8 +108,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/crown_empty"
                 android:contentDescription="@string/progress_crown"
+                android:src="@drawable/crown_empty"
                 android:tag="3" />
 
             <ImageView
@@ -130,8 +117,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/crown_empty"
                 android:contentDescription="@string/progress_crown"
+                android:src="@drawable/crown_empty"
                 android:tag="4" />
 
             <ImageView
@@ -139,22 +126,10 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/crown_empty"
                 android:contentDescription="@string/progress_crown"
+                android:src="@drawable/crown_empty"
                 android:tag="5" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/statusTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:gravity="center_horizontal"
-            android:text="@string/looks_like_you_have_not_registered"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="normal" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

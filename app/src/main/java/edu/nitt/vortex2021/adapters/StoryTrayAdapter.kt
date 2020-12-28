@@ -15,7 +15,7 @@ class StoryTrayAdapter(
     private val clickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<StoryTrayAdapter.StoryViewHolder>() {
 
-    class StoryViewHolder(val binding: StoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class StoryViewHolder(val binding: StoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(index: Int, story: Story, clickListener: (Int) -> Unit) {
             binding.storyName.text = story.title
             try {

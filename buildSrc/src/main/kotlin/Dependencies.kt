@@ -118,9 +118,7 @@ object ModuleLibs {
             Libs.okhttpDownloader,
             Libs.okhttplogger,
             Libs.dagger, Libs.daggerAndroid,
-            Libs.cardView,
-            Libs.kotlinJetbrains,
-            Libs.legacySupport
+            Libs.kotlinJetbrains
         )
         val kapts = listOf(
             Libs.lifecycleCompiler,

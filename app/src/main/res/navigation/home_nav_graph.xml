@@ -80,10 +80,10 @@
             app:destination="@id/linkedFragment"
             app:popUpTo="@id/fragmentEvents" />
         <argument
-            android:name="position"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="event"
+            app:argType="edu.nitt.vortex2021.model.Event"/>
     </fragment>
+
     <fragment
         android:id="@+id/linkedFragment"
         android:name="edu.nitt.vortex2021.fragments.LinkedFragment"
