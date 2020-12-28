@@ -102,7 +102,7 @@
                 app:icon="@drawable/register" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/leaderBoardButton"
+                android:id="@+id/detailsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"

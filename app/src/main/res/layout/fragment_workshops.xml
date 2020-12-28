@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/message"
+    android:id="@+id/workshopsList"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layoutAnimation="@anim/layout_animation_fall_down"
     tools:context="edu.nitt.vortex2021.fragments.WorkshopsFragment"
     tools:listitem="@layout/list_item_workshop" />
