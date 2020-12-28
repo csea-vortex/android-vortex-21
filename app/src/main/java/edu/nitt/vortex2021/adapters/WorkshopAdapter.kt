@@ -29,7 +29,7 @@ class WorkshopAdapter(
             if (workshop.isFree || (currentUserEmail.endsWith("@nitt.edu") && workshop.isNITTFree)) {
                 binding.workshopCost.text = "\uD83D\uDCB0 Free"
             } else {
-                binding.workshopCost.text = "\uD83D\uDCB0 ₹${workshop.cost}"
+                binding.workshopCost.text = "\uD83D\uDCB0 ₹ ${workshop.cost}"
             }
 
             var description = workshop.description + "\n\n"

@@ -69,7 +69,7 @@ class EventAdapter(
             if (data.isFree || (currentUserEmail.endsWith("@nitt.edu") && data.isNITTFree)) {
                 binding.eventCost.text = "\uD83D\uDCB0 Free"
             } else {
-                binding.eventCost.text = "\uD83D\uDCB0 ₹${data.cost}"
+                binding.eventCost.text = "\uD83D\uDCB0 ₹ ${data.cost}"
             }
 
             bindPlayButton(event)
