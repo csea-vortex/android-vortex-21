@@ -23,26 +23,41 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+
         <action
-            android:id="@+id/action_fragmentEvents_to_instructionFragment"
-            app:destination="@id/instructionFragment"
+            android:id="@+id/action_fragmentEvents_to_fragmentInstruction"
+            app:destination="@id/fragmentInstructions"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_fragmentEvents_to_fragmentLeaderboard"
+            app:destination="@id/fragmentLeaderboard"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/fragmentLeaderboard"
         android:name="edu.nitt.vortex2021.fragments.LeaderboardFragment"
-        android:label="@string/social_media"
-        tools:layout="@layout/fragment_leaderboard" />
+        android:label="@string/leaderboard"
+        tools:layout="@layout/fragment_leaderboard">
+
+        <argument
+            android:name="event"
+            app:argType="edu.nitt.vortex2021.model.Event" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentMore"
         android:name="edu.nitt.vortex2021.fragments.MoreFragment"
         android:label="@string/more"
-        tools:layout="@layout/fragment_more" >
+        tools:layout="@layout/fragment_more">
 
     </fragment>
 
@@ -70,22 +85,23 @@
             app:argType="edu.nitt.vortex2021.model.Stories" />
     </fragment>
     <fragment
-        android:id="@+id/instructionFragment"
+        android:id="@+id/fragmentInstructions"
         android:name="edu.nitt.vortex2021.fragments.InstructionFragment"
         android:label="fragment_instruction"
-        tools:layout="@layout/fragment_instruction" >
+        tools:layout="@layout/fragment_instruction">
 
         <action
-            android:id="@+id/action_instructionFragment_to_linkedFragment"
-            app:destination="@id/linkedFragment"
+            android:id="@+id/action_fragmentInstruction_to_fragmentLinked"
+            app:destination="@id/fragmentLinked"
             app:popUpTo="@id/fragmentEvents" />
+
         <argument
             android:name="event"
-            app:argType="edu.nitt.vortex2021.model.Event"/>
+            app:argType="edu.nitt.vortex2021.model.Event" />
     </fragment>
 
     <fragment
-        android:id="@+id/linkedFragment"
+        android:id="@+id/fragmentLinked"
         android:name="edu.nitt.vortex2021.fragments.LinkedFragment"
         android:label="fragment_linked"
         tools:layout="@layout/fragment_linked" />

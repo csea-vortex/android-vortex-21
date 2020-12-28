@@ -12,7 +12,7 @@ import retrofit2.http.Query
  * leaderboard -- keeping this implementation separate.
  */
 interface LeaderboardApiService {
-    @GET("events/{eventId}/leaderboard")
+    @GET("event/{eventId}/leaderboard")
     suspend fun getLeaderboardData(
         @Path("eventId") eventId: String,
         @Query("starting") starting: Int,

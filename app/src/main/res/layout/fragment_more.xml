@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginBottom="8dp"
-            android:text="@string/resend_token"
+            android:text="@string/verify_email"
             android:visibility="gone"
             app:icon="@drawable/verified"
             app:iconSize="18dp" />

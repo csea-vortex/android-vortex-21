@@ -7,34 +7,39 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.nitt.vortex2021.BaseApplication
 import edu.nitt.vortex2021.adapters.LeaderboardAdapter
 import edu.nitt.vortex2021.databinding.FragmentLeaderboardBinding
-import edu.nitt.vortex2021.helpers.Constants
-import edu.nitt.vortex2021.helpers.Resource
-import edu.nitt.vortex2021.helpers.viewLifecycle
+import edu.nitt.vortex2021.helpers.*
 import edu.nitt.vortex2021.model.LeaderboardRow
 import edu.nitt.vortex2021.viewmodel.LeaderboardViewModel
+import edu.nitt.vortex2021.viewmodel.LinkedViewModel
 import kotlin.math.max
 
 class LeaderboardFragment : Fragment() {
 
     private var binding by viewLifecycle<FragmentLeaderboardBinding>()
-    var leaderboardData = ArrayList<LeaderboardRow>()
-    private lateinit var eventName: String
-    private lateinit var leaderboardViewModel: LeaderboardViewModel
 
-    private var currentPageIndex: Int = 0
+    private val leaderboardData = ArrayList<LeaderboardRow>()
+
+    private lateinit var leaderboardViewModel: LeaderboardViewModel
+    private lateinit var linkedViewModel: LinkedViewModel
+
+    private val args: LeaderboardFragmentArgs by navArgs()
+    private lateinit var eventType: AppSupportedEvents
+
+    private var currentPageIndex: Int = -1
     private var lastPageIndex: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLeaderboardBinding.inflate(inflater, container, false)
+
+        eventType = getEventFromTitle(args.event.eventData.title)
+
         initViewModel()
         observeLiveData()
-
-        // ToDo: Get the name via the calling fragment
-        eventName = "Linked"
         return binding.root
     }
 
@@ -42,7 +47,7 @@ class LeaderboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initFabOnClickListeners()
         initLeaderboardRecyclerView()
-//        setPageIndex(0)
+        setPageIndex(0)
     }
 
     private fun initViewModel() {
@@ -50,23 +55,70 @@ class LeaderboardFragment : Fragment() {
             .applicationComponent
             .getViewModelProviderFactory()
         leaderboardViewModel = ViewModelProvider(this, factory).get(LeaderboardViewModel::class.java)
+        linkedViewModel = ViewModelProvider(this, factory).get(LinkedViewModel::class.java)
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.visibility = View.GONE
+        binding.currentPageButton.visibility = View.VISIBLE
+    }
+
+    private fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.currentPageButton.visibility = View.GONE
     }
 
     private fun observeLiveData() {
         leaderboardViewModel.leaderboardRowsResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
+                    hideProgressBar()
                     lastPageIndex = (max(0, response.data!!.totalUsers - 1)) / Constants.LEADERBOARD_PAGE_SIZE
-
                     binding.currentPageButton.text = (currentPageIndex + 1).toString()
-
                     updateFabVisibility()
 
                     leaderboardData.clear()
                     leaderboardData.addAll(response.data.data)
                     binding.leaderboardList.adapter?.notifyDataSetChanged()
                 }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    showToastMessage(requireContext(), response.message)
+                }
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
             }
+        }
+
+        linkedViewModel.currentScoreRankResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    val data = response.data!!
+                    addCurrentUserScoreRow(data.rank, data.totalScore)
+                }
+            }
+        }
+    }
+
+    private fun addCurrentUserScoreRow(rank: Int, score: Int) {
+        val userStore = UserSharedPrefStore(requireContext())
+        val topRow = LeaderboardRow(
+            rank,
+            userStore.username,
+            score,
+            userStore.college
+        )
+
+        // Only show if user not already exists
+        var found = false
+        for (row in leaderboardData) {
+            found = found || (row.username == topRow.username)
+        }
+
+        if (!found) {
+            leaderboardData.add(0, topRow)
+            binding.leaderboardList.adapter?.notifyDataSetChanged()
         }
     }
 
@@ -79,14 +131,9 @@ class LeaderboardFragment : Fragment() {
     }
 
     private fun initLeaderboardRecyclerView() {
-        val arr = ArrayList<LeaderboardRow>()
-        for (i: Int in 1..100) {
-            arr.add(LeaderboardRow(i, "adityaa30", i * 1000, "National institute of Technology Tiruchirappalli"))
-        }
-
         binding.leaderboardList.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = LeaderboardAdapter(arr) {}
+            adapter = LeaderboardAdapter(leaderboardData) {}
         }
     }
 
@@ -96,7 +143,12 @@ class LeaderboardFragment : Fragment() {
             return
         }
         currentPageIndex = newPageIndex
-        leaderboardViewModel.fetchLeaderboardRowsOf(currentPageIndex, eventName)
+        leaderboardViewModel.fetchLeaderboardRowsOf(currentPageIndex, eventType)
+
+        if (eventType == AppSupportedEvents.LINKED) {
+            linkedViewModel.getCurrentScoreRank()
+        }
+
         updateFabVisibility()
     }
 

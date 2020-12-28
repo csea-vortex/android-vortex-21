@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import edu.nitt.vortex2021.databinding.FragmentMainBinding
-import edu.nitt.vortex2021.helpers.UserTokenStore
+import edu.nitt.vortex2021.helpers.UserSharedPrefStore
 import edu.nitt.vortex2021.helpers.viewLifecycle
 
 
@@ -26,7 +26,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val userTokenStore = UserTokenStore(requireContext())
+        val userTokenStore = UserSharedPrefStore(requireContext())
         if (userTokenStore.token.isNotEmpty()) {
             findNavController().navigate(MainFragmentDirections.actionFragmentMainToFragmentHome())
         } else {

@@ -24,7 +24,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.ktx.BuildConfig
 import edu.nitt.vortex2021.databinding.ActivitySplashBinding
 import edu.nitt.vortex2021.helpers.Resource
-import edu.nitt.vortex2021.helpers.UserTokenStore
+import edu.nitt.vortex2021.helpers.UserSharedPrefStore
 import edu.nitt.vortex2021.helpers.viewLifecycle
 import edu.nitt.vortex2021.viewmodel.UserViewModel
 
@@ -63,17 +63,28 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun observeLiveData() {
+        val userStore = UserSharedPrefStore(this)
+
         userViewModel.userDetailsResponse.observe(this) { response ->
             when (response) {
                 is Resource.Error -> {
                     // User token either expired or invalid
                     // Clear the user tokens
-                    val userTokenStore = UserTokenStore(this)
-                    userTokenStore.token = ""
+                    userStore.token = ""
                     canLaunchNextActivity = true
                     startNextActivity()
                 }
                 is Resource.Success -> {
+                    // Update the user store here
+                    val user = response.data!!.data
+                    userStore.apply {
+                        name = user.name
+                        username = user.username
+                        college = user.college
+                        email = user.email
+                        mobileNumber = user.mobile
+                    }
+
                     canLaunchNextActivity = true
                     startNextActivity()
                 }

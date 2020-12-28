@@ -15,10 +15,7 @@ import edu.nitt.vortex2021.R
 import edu.nitt.vortex2021.adapters.EventAdapter
 import edu.nitt.vortex2021.adapters.StoryTrayAdapter
 import edu.nitt.vortex2021.databinding.FragmentEventsBinding
-import edu.nitt.vortex2021.helpers.Resource
-import edu.nitt.vortex2021.helpers.initGradientBackgroundAnimation
-import edu.nitt.vortex2021.helpers.showToastMessage
-import edu.nitt.vortex2021.helpers.viewLifecycle
+import edu.nitt.vortex2021.helpers.*
 import edu.nitt.vortex2021.model.Events
 import edu.nitt.vortex2021.model.Stories
 import edu.nitt.vortex2021.viewmodel.EventViewModel
@@ -59,7 +56,7 @@ class EventsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.events)
-
+        // ToDo: Add swipe down to refresh
         initRecyclerViews()
         storyViewModel.fetchStoriesOfCategory("techie-tuesdays")
         eventViewModel.fetchEventList()
@@ -138,7 +135,7 @@ class EventsFragment : Fragment() {
                 mEvents,
                 onPlayButtonClickListener = {
                     findNavController().navigate(
-                        EventsFragmentDirections.actionFragmentEventsToInstructionFragment(it)
+                        EventsFragmentDirections.actionFragmentEventsToFragmentInstruction(it)
                     )
                 },
                 onRegisterEventButtonClickListener = {
@@ -147,7 +144,13 @@ class EventsFragment : Fragment() {
                     )
                 },
                 onLeaderboardButtonClickListener = {
-
+                    if (AppSupportedEvents.LINKED == getEventFromTitle(it.eventData.title)) {
+                        findNavController().navigate(
+                            EventsFragmentDirections.actionFragmentEventsToFragmentLeaderboard(it)
+                        )
+                    } else {
+                        // ToDo: Send intent to online leaderboard
+                    }
                 }
             )
         }

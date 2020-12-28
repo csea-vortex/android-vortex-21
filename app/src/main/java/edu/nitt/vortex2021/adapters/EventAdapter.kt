@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import edu.nitt.vortex2021.databinding.ListItemEventBinding
+import edu.nitt.vortex2021.helpers.AppSupportedEvents
 import edu.nitt.vortex2021.helpers.Constants
+import edu.nitt.vortex2021.helpers.getEventFromTitle
 import edu.nitt.vortex2021.model.Event
 import java.util.*
 
@@ -22,8 +24,14 @@ class EventAdapter(
 
         private fun bindPlayButton(event: Event) {
             // ToDo: Get user's progress
+            // ToDo: Show when the event starts if not yet started
+            val data = event.eventData
+            val isEventStarted = System.currentTimeMillis() >= data.eventFrom.time
+            val isEventEnded = System.currentTimeMillis() >= data.eventTo.time
+            val isEventOngoing = isEventStarted && !isEventEnded
+
             binding.playButton.apply {
-                isEnabled = event.isRegistered
+                isEnabled = event.isRegistered && isEventOngoing
                 visibility = if (event.isRegistered) View.VISIBLE else View.GONE
                 setOnClickListener { onPlayButtonClickListener(event) }
             }
@@ -42,8 +50,7 @@ class EventAdapter(
         }
 
         private fun bindLeaderboardButton(event: Event) {
-            // ToDo: Make a helper function to check for supported events
-            val leaderboardSupported = event.eventData.title.toLowerCase(Locale.getDefault()).contains("linked")
+            val leaderboardSupported = AppSupportedEvents.LINKED == getEventFromTitle(event.eventData.title)
             binding.leaderBoardButton.apply {
                 isEnabled = leaderboardSupported
                 visibility = if (leaderboardSupported) View.VISIBLE else View.GONE

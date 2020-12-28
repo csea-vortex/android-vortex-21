@@ -59,11 +59,23 @@ class MoreFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     val user = response.data!!.data
-                    binding.name.text = user.name
-                    binding.email.text = user.email
-                    binding.mobileNumber.text = user.mobile.toString()
-                    binding.containerUserDetails.visibility = View.VISIBLE
-                    binding.resendTokenButton.visibility = if (user.isVerified) View.GONE else View.VISIBLE
+                    val userStore = UserSharedPrefStore(requireContext())
+
+                    userStore.apply {
+                        name = user.name
+                        username = user.username
+                        college = user.college
+                        email = user.email
+                        mobileNumber = user.mobile
+                    }
+
+                    binding.apply {
+                        name.text = user.name
+                        email.text = user.email
+                        mobileNumber.text = user.mobile.toString()
+                        containerUserDetails.visibility = View.VISIBLE
+                        resendTokenButton.visibility = if (user.isVerified) View.GONE else View.VISIBLE
+                    }
                 }
                 is Resource.Error -> {
                     showToastMessage(requireContext(), response.message)
@@ -102,7 +114,7 @@ class MoreFragment : Fragment() {
 
     private fun initButtons() {
         binding.logoutButton.setOnClickListener {
-            val userTokenStore = UserTokenStore(requireContext())
+            val userTokenStore = UserSharedPrefStore(requireContext())
             userTokenStore.token = ""
             // ToDo: Send Logout Request
 

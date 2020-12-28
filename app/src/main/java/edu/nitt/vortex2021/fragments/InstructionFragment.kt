@@ -34,7 +34,7 @@ class InstructionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewPager()
         binding.continueButton.setOnClickListener {
-            findNavController().navigate(InstructionFragmentDirections.actionInstructionFragmentToLinkedFragment())
+            findNavController().navigate(InstructionFragmentDirections.actionFragmentInstructionToFragmentLinked())
         }
     }
 
