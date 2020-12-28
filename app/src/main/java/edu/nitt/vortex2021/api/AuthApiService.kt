@@ -14,4 +14,7 @@ interface AuthApiService {
 
     @POST("auth/logout")
     suspend fun getLogoutResponse(): Response<LoginResponse>
+
+    @POST("auth/email/resend-verification")
+    suspend fun resendVerificationToken(): Response<ResendVerificationTokenResponse>
 }

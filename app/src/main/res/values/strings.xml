@@ -37,6 +37,7 @@
     <string name="register">Register</string>
     <string name="need_login">Need Login</string>
     <string name="logout">Logout</string>
+    <string name="resend_token">Resend Token</string>
     <string name="home">Home</string>
 
     <string name="workshops">Workshops</string>

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +16,7 @@ import edu.nitt.vortex2021.MainActivity
 import edu.nitt.vortex2021.R
 import edu.nitt.vortex2021.databinding.FragmentMoreBinding
 import edu.nitt.vortex2021.helpers.*
+import edu.nitt.vortex2021.viewmodel.AuthViewModel
 import edu.nitt.vortex2021.viewmodel.UserViewModel
 
 
@@ -25,6 +25,7 @@ class MoreFragment : Fragment() {
     private var binding by viewLifecycle<FragmentMoreBinding>()
 
     private lateinit var userViewModel: UserViewModel
+    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +35,7 @@ class MoreFragment : Fragment() {
         initGradientBackgroundAnimation(binding.root)
         initViewModels()
         initSocialMediaChips()
-        initLogoutButton()
+        initButtons()
         return binding.root
     }
 
@@ -49,6 +50,7 @@ class MoreFragment : Fragment() {
             .getViewModelProviderFactory()
 
         userViewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
+        authViewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
         observeLiveData()
     }
 
@@ -61,9 +63,22 @@ class MoreFragment : Fragment() {
                     binding.email.text = user.email
                     binding.mobileNumber.text = user.mobile.toString()
                     binding.containerUserDetails.visibility = View.VISIBLE
+                    binding.resendTokenButton.visibility = if (user.isVerified) View.GONE else View.VISIBLE
                 }
                 is Resource.Error -> {
-                    Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                    showToastMessage(requireContext(), response.message)
+                }
+            }
+        }
+
+        authViewModel.resendVerificationTokenResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    showToastMessage(requireContext(), response.data!!.message)
+                    userViewModel.sendUserDetailsRequest()
+                }
+                is Resource.Error -> {
+                    showToastMessage(requireContext(), response.message)
                 }
             }
         }
@@ -85,7 +100,7 @@ class MoreFragment : Fragment() {
         }
     }
 
-    private fun initLogoutButton() {
+    private fun initButtons() {
         binding.logoutButton.setOnClickListener {
             val userTokenStore = UserTokenStore(requireContext())
             userTokenStore.token = ""
@@ -96,6 +111,10 @@ class MoreFragment : Fragment() {
                 startActivity(intent)
                 finish()
             }
+        }
+
+        binding.resendTokenButton.setOnClickListener {
+            authViewModel.resendVerificationToken()
         }
     }
 
