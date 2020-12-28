@@ -9,3 +9,5 @@
 local.properties
 /key
 /app/release
+
+app/google-services.json

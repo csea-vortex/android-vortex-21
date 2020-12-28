@@ -92,5 +92,7 @@
     <string name="looks_like_you_have_not_registered">Looks like you have not registered</string>
     <string name="progress_crown">Progress Crown</string>
     <string name="start_playing">Start Playing</string>
+    <string name="reload">Reload</string>
+    <string name="refresh">Refresh</string>
 
 </resources>

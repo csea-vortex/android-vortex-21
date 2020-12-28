@@ -3,8 +3,8 @@ object AndroidSdk {
     const val minSdk = 21
     const val targetSdk = 30
 
-    const val versionCode = 3
-    const val versionName = "1.0.1"
+    const val versionCode = 4
+    const val versionName = "1.0.2"
 }
 
 object Versions {
@@ -21,6 +21,11 @@ object Versions {
     const val security = "1.1.0-alpha02"
     const val picasso = "2.71828"
     const val dagger2 = "2.27"
+    const val googleServices = "4.3.4"
+    const val firebaseBom = "26.2.0"
+    const val firebaseAnalytics = "18.0.0"
+    const val firebaseCrashanalyticsGradle = "2.4.1"
+    const val crashlytics = "17.3.0"
 
     /* test */
     const val junit = "4.12"
@@ -35,19 +40,23 @@ object Versions {
     const val okhttpLogger = "4.9.0"
 
     const val cardView = "1.0.0"
-    const val legacySupport ="1.0.0"
+    const val legacySupport = "1.0.0"
 }
 
 object BuildPlugins {
     const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.gradle}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+    const val googleServices = "com.google.gms:google-services:${Versions.googleServices}"
+    const val firebaseCrashlyticsGradle = "com.google.firebase:firebase-crashlytics-gradle:${Versions.firebaseCrashanalyticsGradle}"
 
     const val androidApplication = "com.android.application"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
     const val kotlinKapt = "kotlin-kapt"
     const val navigationSafeArgsPlugin = "androidx.navigation.safeargs.kotlin"
+    const val googleServicesPlugin = "com.google.gms.google-services"
+    const val crashAnalyticsGradlePlugin = "com.google.firebase.crashlytics"
 }
 
 object Libs {
@@ -90,6 +99,10 @@ object Libs {
     const val cardView = "androidx.cardview:cardview:${Versions.cardView}"
     const val kotlinJetbrains = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val legacySupport = "androidx.legacy:legacy-support-v4:${Versions.legacySupport}"
+
+    const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx:${Versions.firebaseAnalytics}"
+    const val crashAnalytics = "com.google.firebase:firebase-crashlytics-ktx:${Versions.crashlytics}"
 }
 
 object TestLibs {
@@ -118,8 +131,10 @@ object ModuleLibs {
             Libs.okhttpDownloader,
             Libs.okhttplogger,
             Libs.dagger, Libs.daggerAndroid,
-            Libs.kotlinJetbrains
+            Libs.kotlinJetbrains,
+            Libs.firebaseAnalytics, Libs.firebaseBom, Libs.crashAnalytics
         )
+
         val kapts = listOf(
             Libs.lifecycleCompiler,
             Libs.daggerCompiler, Libs.daggerAndroidAndroidProcessor

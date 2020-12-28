@@ -45,7 +45,7 @@ class LeaderboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initFabOnClickListeners()
+        initOnClickListeners()
         initLeaderboardRecyclerView()
         setPageIndex(0)
     }
@@ -61,11 +61,13 @@ class LeaderboardFragment : Fragment() {
     private fun hideProgressBar() {
         binding.progressBar.visibility = View.GONE
         binding.currentPageButton.visibility = View.VISIBLE
+        binding.refreshButton.isEnabled = true
     }
 
     private fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
         binding.currentPageButton.visibility = View.GONE
+        binding.refreshButton.isEnabled = false
     }
 
     private fun observeLiveData() {
@@ -122,11 +124,12 @@ class LeaderboardFragment : Fragment() {
         }
     }
 
-    private fun initFabOnClickListeners() {
+    private fun initOnClickListeners() {
         binding.firstPageFab.setOnClickListener { setPageIndex(0) }
         binding.naviateBeforeFab.setOnClickListener { setPageIndex(currentPageIndex - 1) }
         binding.navigateNextFab.setOnClickListener { setPageIndex(currentPageIndex + 1) }
         binding.lastPageFab.setOnClickListener { setPageIndex(lastPageIndex) }
+        binding.refreshButton.setOnClickListener { setPageIndex(max(0, currentPageIndex), true) }
         updateFabVisibility()
     }
 
@@ -138,10 +141,11 @@ class LeaderboardFragment : Fragment() {
     }
 
 
-    private fun setPageIndex(newPageIndex: Int = 0) {
+    private fun setPageIndex(newPageIndex: Int = 0, forceRefresh: Boolean = false) {
         if (newPageIndex == currentPageIndex || newPageIndex < 0 || newPageIndex > lastPageIndex) {
-            return
+            if (!forceRefresh) return
         }
+
         currentPageIndex = newPageIndex
         leaderboardViewModel.fetchLeaderboardRowsOf(currentPageIndex, eventType)
 

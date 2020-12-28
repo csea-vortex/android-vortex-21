@@ -4,11 +4,12 @@ plugins {
     id(BuildPlugins.kotlinAndroidExtensions)
     id(BuildPlugins.kotlinKapt)
     id(BuildPlugins.navigationSafeArgsPlugin)
-
+    id(BuildPlugins.googleServicesPlugin)
+    id(BuildPlugins.crashAnalyticsGradlePlugin)
 }
 
 android {
-   compileSdkVersion(AndroidSdk.compileSdk)
+    compileSdkVersion(AndroidSdk.compileSdk)
     defaultConfig {
         applicationId = "edu.nitt.vortex2021"
         minSdkVersion(AndroidSdk.minSdk)
@@ -32,22 +33,17 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-        
+
     }
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
-
-
-
 }
 
 dependencies {
-
     ModuleLibs.AppModule.implementations.forEach(::implementation)
     ModuleLibs.AppModule.kapts.forEach(::kapt)
     ModuleLibs.AppModule.testImplementations.forEach(::testImplementation)
     ModuleLibs.AppModule.androidTestImplementations.forEach(::androidTestImplementation)
-    //
 }

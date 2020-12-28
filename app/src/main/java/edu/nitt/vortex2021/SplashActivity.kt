@@ -6,10 +6,7 @@ import android.content.Intent
 import android.content.IntentSender
 import android.media.AudioManager
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -46,10 +43,12 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(binding.root)
         initViewModels()
         initSplashAnimation()
         initSplashSkipListener()
+
         checkUpdateAvailability()
     }
 

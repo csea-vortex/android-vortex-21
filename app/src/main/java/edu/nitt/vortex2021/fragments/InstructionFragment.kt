@@ -50,7 +50,12 @@ class InstructionFragment : Fragment() {
                 if (System.currentTimeMillis() < event.eventData.eventFrom.time) {
                     showToastMessage(
                         requireContext(),
-                        "${event.eventData.title} starts at ${event.eventData.eventFrom.getFormatted()}"
+                        "${event.eventData.title} event starts at ${event.eventData.eventFrom.getFormatted()}"
+                    )
+                } else if (System.currentTimeMillis() >= event.eventData.eventTo.time) {
+                    showToastMessage(
+                        requireContext(),
+                        "${event.eventData.title} event ended at ${event.eventData.eventTo.getFormatted()}"
                     )
                 } else {
                     findNavController().navigate(InstructionFragmentDirections.actionFragmentInstructionToFragmentLinked())
