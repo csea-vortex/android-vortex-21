@@ -20,7 +20,7 @@ class BaseApplication : DaggerApplication() {
         builder.downloader(OkHttp3Downloader(this))
 
         val built = builder.build()
-        built.setIndicatorsEnabled(true)
+        built.setIndicatorsEnabled(false)
         built.isLoggingEnabled = true
         Picasso.setSingletonInstance(built)
     }

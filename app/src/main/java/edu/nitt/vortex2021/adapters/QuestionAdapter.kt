@@ -1,7 +1,6 @@
 package edu.nitt.vortex2021.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,15 @@ import edu.nitt.vortex2021.databinding.QuestionItemViewBinding
 import edu.nitt.vortex2021.model.Hint
 import edu.nitt.vortex2021.model.LatestLinkedQuestion
 
-class QuestionAdapter(private val context: Context,
-                      private val onButtonPressListener: OnButtonPressListener):
-        RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
+class QuestionAdapter(
+    private val context: Context,
+    private val onButtonPressListener: OnButtonPressListener
+) :
+    RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
 
     private lateinit var latestLinkedQuestion: LatestLinkedQuestion
 
-    inner class QuestionViewHolder(val binding: QuestionItemViewBinding): RecyclerView.ViewHolder(binding.root)
+    inner class QuestionViewHolder(val binding: QuestionItemViewBinding) : RecyclerView.ViewHolder(binding.root)
 
     fun setLatestQuestion(question: LatestLinkedQuestion) {
         latestLinkedQuestion = question
@@ -27,7 +28,7 @@ class QuestionAdapter(private val context: Context,
     fun addAdditionalHint(additionalHint: Hint) {
         latestLinkedQuestion.isAdditionalHintTaken = true
         latestLinkedQuestion.additionalHint = additionalHint
-        notifyItemChanged(itemCount-1)
+        notifyItemChanged(itemCount - 1)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
@@ -61,7 +62,8 @@ class QuestionAdapter(private val context: Context,
             holder.binding.answerTextView.visibility = View.GONE
             holder.binding.answerEditText.setText("")
             holder.binding.submitAnswerButton.visibility = View.VISIBLE
-            holder.binding.additionalHintButton.visibility = if (!latestLinkedQuestion.isAdditionalHintTaken!!) View.VISIBLE else View.GONE
+            holder.binding.additionalHintButton.visibility =
+                if (!latestLinkedQuestion.isAdditionalHintTaken!!) View.VISIBLE else View.GONE
         } else {
             holder.binding.hintsRecyclerView.visibility = View.INVISIBLE
             holder.binding.answerTextView.visibility = View.VISIBLE
@@ -73,7 +75,7 @@ class QuestionAdapter(private val context: Context,
         }
     }
 
-    override fun getItemCount(): Int  {
+    override fun getItemCount(): Int {
         if (this::latestLinkedQuestion.isInitialized) {
             return latestLinkedQuestion.qno!!
         }

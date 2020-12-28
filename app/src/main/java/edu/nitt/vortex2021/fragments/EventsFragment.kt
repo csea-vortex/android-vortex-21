@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.nitt.vortex2021.BaseApplication
@@ -58,7 +59,12 @@ class EventsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setTitle(R.string.events)
+
         // ToDo: Add swipe down to refresh
+        val navHostFragment = this.parentFragment as NavHostFragment
+        val parent = navHostFragment.parentFragment as HomeFragment
+        parent.binding.bottomNavigation.visibility = View.VISIBLE
+
         initRecyclerViews()
         storyViewModel.fetchStoriesOfCategory("techie-tuesdays")
         eventViewModel.fetchEventList()
@@ -90,8 +96,10 @@ class EventsFragment : Fragment() {
                 when (response) {
                     is Resource.Success -> {
                         binding.eventRecyclerView.adapter?.apply {
+                            var events = response.data!!.data.events
+                            events = events.sortedByDescending { it.eventData.eventFrom }
                             mEvents.clear()
-                            mEvents.addAll(response.data!!.data.events)
+                            mEvents.addAll(events)
                             notifyDataSetChanged()
                         }
                     }

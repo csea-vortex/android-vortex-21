@@ -72,9 +72,10 @@ class WorkshopsFragment : Fragment() {
         dataViewModel.workshopsResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    val data = response.data!!.workshops
+                    var currWorkshops = response.data!!.workshops
+                    currWorkshops = currWorkshops.sortedByDescending { it.eventFrom }
                     workshops.clear()
-                    workshops.addAll(data)
+                    workshops.addAll(currWorkshops)
                     binding.workshopsList.adapter?.notifyDataSetChanged()
                 }
                 is Resource.Error -> {

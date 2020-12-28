@@ -20,6 +20,6 @@ object Validators {
     }
 
     fun isStrongPassword(password: String): Boolean {
-        return password.matches("^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$".toRegex())
+        return password.matches("^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=]).*$".toRegex())
     }
 }

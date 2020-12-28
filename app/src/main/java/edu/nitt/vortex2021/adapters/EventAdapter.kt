@@ -31,7 +31,7 @@ class EventAdapter(
             val isEventOngoing = isEventStarted && !isEventEnded
 
             binding.playButton.apply {
-                isEnabled = event.isRegistered && isEventOngoing
+                isEnabled = event.isRegistered
                 visibility = if (event.isRegistered) View.VISIBLE else View.GONE
                 setOnClickListener { onPlayButtonClickListener(event) }
             }

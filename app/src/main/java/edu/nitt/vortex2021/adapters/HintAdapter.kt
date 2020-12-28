@@ -27,25 +27,26 @@ class HintAdapter(private val hints: List<Hint>): RecyclerView.Adapter<HintAdapt
             layoutParams.dimensionRatio = "2:1"
             holder.binding.hintText.visibility = View.GONE
             holder.binding.hintImage.visibility = View.VISIBLE
+            holder.binding.hintImageContainer.visibility = View.VISIBLE
             val picasso = Picasso.get()
             picasso.setIndicatorsEnabled(false)
             picasso.load(Constants.BACKEND_BASE_URL + hint.image)
-                    .placeholder(R.drawable.placeholder)
                     .into(holder.binding.hintImage)
         } else if (hint.image == null) {
             layoutParams.dimensionRatio = "2:1"
             holder.binding.hintImage.visibility = View.GONE
+            holder.binding.hintImageContainer.visibility = View.GONE
             holder.binding.hintText.visibility = View.VISIBLE
             holder.binding.hintText.text = hint.text
         } else {
             layoutParams.dimensionRatio = "1:1"
             holder.binding.hintImage.visibility = View.VISIBLE
+            holder.binding.hintImageContainer.visibility = View.VISIBLE
             holder.binding.hintText.visibility = View.VISIBLE
             holder.binding.hintText.text = hint.text
             val picasso = Picasso.get()
             picasso.setIndicatorsEnabled(false)
             picasso.load(Constants.BACKEND_BASE_URL + hint.image)
-                    .placeholder(R.drawable.placeholder)
                     .into(holder.binding.hintImage)
         }
     }

@@ -1,8 +1,9 @@
 package edu.nitt.vortex2021.adapters
 
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import edu.nitt.vortex2021.databinding.InstructionItemBinding
 
@@ -23,8 +24,13 @@ class InstructionAdapter(val items: List<String>) :
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: InstructionViewHolder, position: Int) {
-        // ToDo: Handle Android N case
-        holder.binding.instructionText.text =
-            HtmlCompat.fromHtml(items[position], HtmlCompat.FROM_HTML_MODE_LEGACY)
+        holder.binding.instructionText.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            // FROM_HTML_MODE_LEGACY is the behaviour that was used for versions below android N
+            // we are using this flag to give a consistent behaviour
+            Html.fromHtml(items[position], Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            Html.fromHtml(items[position])
+        }
+
     }
 }
