@@ -35,12 +35,18 @@
     <string name="department">Department</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="show_details">Show Details</string>
+
     <string name="need_login">Need Login</string>
     <string name="logout">Logout</string>
     <string name="verify_email">Verify Email</string>
     <string name="home">Home</string>
 
     <string name="workshops">Workshops</string>
+    <string name="workshop_from">Workshop From</string>
+    <string name="workshop_to">Workshop To</string>
+    <string name="workshop_name">Workshop Name</string>
+    <string name="workshop_cost">Workshop Cost</string>
 
     <string name="leaderboard">Leaderboard</string>
     <string name="navigate_next">Navigate Next</string>
@@ -51,6 +57,10 @@
     <string name="number_1">1</string>
 
     <string name="events">Events</string>
+    <string name="event_name">Event Name</string>
+    <string name="event_from">Event From</string>
+    <string name="event_to">Event To</string>
+    <string name="event_cost">Event Cost</string>
 
     <string name="social_media">Social Media</string>
     <string name="more">More</string>

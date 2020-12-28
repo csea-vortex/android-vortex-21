@@ -1,6 +1,8 @@
 package edu.nitt.vortex2021.fragments
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -129,10 +131,12 @@ class EventsFragment : Fragment() {
             }
         }
 
+        val userStore = UserSharedPrefStore(requireContext())
+
         binding.eventRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = EventAdapter(
-                mEvents,
+                userStore.email, mEvents,
                 onPlayButtonClickListener = {
                     findNavController().navigate(
                         EventsFragmentDirections.actionFragmentEventsToFragmentInstruction(it)
@@ -149,7 +153,8 @@ class EventsFragment : Fragment() {
                             EventsFragmentDirections.actionFragmentEventsToFragmentLeaderboard(it)
                         )
                     } else {
-                        // ToDo: Send intent to online leaderboard
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.eventData.link))
+                        requireContext().startActivity(intent)
                     }
                 }
             )
