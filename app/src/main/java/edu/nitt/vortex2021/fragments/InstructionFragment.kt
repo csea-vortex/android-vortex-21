@@ -77,7 +77,8 @@ class InstructionFragment : Fragment() {
 
     private fun initViewPager() {
         val headings = listOf("Description", "Rules", "Format", "Resources")
-        val prizeTitle = listOf("First", "Second", "Third")
+        val prizeTitle = listOf("First", "Second", "Third", "Fourth", "Fifth", "Sixth",
+            "Seventh", "Eighth", "Ninth", "Tenth")
 
         val data = args.event.eventData
 
