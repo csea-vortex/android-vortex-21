@@ -146,11 +146,9 @@ class EventsFragment : Fragment() {
             adapter = EventAdapter(
                 userStore.email, mEvents,
                 onPlayButtonClickListener = {
-                    if(it.eventData.link.isNotEmpty()) {
-                        findNavController().navigate(
-                            EventsFragmentDirections.actionFragmentEventsToFragmentInstruction(it)
-                        )
-                    }
+                    findNavController().navigate(
+                        EventsFragmentDirections.actionFragmentEventsToFragmentInstruction(it)
+                    )
                 },
                 onRegisterEventButtonClickListener = {
                     eventViewModel.sendEventRegistrationRequest(
