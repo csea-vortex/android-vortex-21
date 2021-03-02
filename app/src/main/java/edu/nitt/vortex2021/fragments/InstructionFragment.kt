@@ -41,24 +41,32 @@ class InstructionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewPager()
-        initStartPlayingButton()
+        if(event.eventData.link.isNullOrEmpty()) {
+            binding.startPlayingButton.visibility = View.GONE
+        } else {
+            initStartPlayingButton()
+        }
     }
 
     private fun initStartPlayingButton() {
         binding.startPlayingButton.setOnClickListener {
             if (AppSupportedEvents.LINKED == eventType) {
-                if (System.currentTimeMillis() < event.eventData.eventFrom.time) {
-                    showToastMessage(
-                        requireContext(),
-                        "${event.eventData.title} event starts at ${event.eventData.eventFrom.getFormatted()}"
-                    )
-                } else if (System.currentTimeMillis() >= event.eventData.eventTo.time) {
-                    showToastMessage(
-                        requireContext(),
-                        "${event.eventData.title} event ended at ${event.eventData.eventTo.getFormatted()}"
-                    )
-                } else {
-                    findNavController().navigate(InstructionFragmentDirections.actionFragmentInstructionToFragmentLinked())
+                when {
+                    System.currentTimeMillis() < event.eventData.eventFrom.time -> {
+                        showToastMessage(
+                            requireContext(),
+                            "${event.eventData.title} event starts at ${event.eventData.eventFrom.getFormatted()}"
+                        )
+                    }
+                    System.currentTimeMillis() >= event.eventData.eventTo.time -> {
+                        showToastMessage(
+                            requireContext(),
+                            "${event.eventData.title} event ended at ${event.eventData.eventTo.getFormatted()}"
+                        )
+                    }
+                    else -> {
+                        findNavController().navigate(InstructionFragmentDirections.actionFragmentInstructionToFragmentLinked())
+                    }
                 }
             } else {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(event.eventData.link))
@@ -75,7 +83,7 @@ class InstructionFragment : Fragment() {
 
         var eventDescription = data.description
 
-        if(data.prizeMoney.isNotEmpty()) {
+        if(!data.prizeMoney.isNullOrEmpty()) {
             eventDescription += "<br><br><h3>Prizes</h3>"
             eventDescription += "<ul>"
 
