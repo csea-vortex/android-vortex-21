@@ -69,16 +69,22 @@ class InstructionFragment : Fragment() {
 
     private fun initViewPager() {
         val headings = listOf("Description", "Rules", "Format", "Resources")
+        val prizeTitle = listOf("First", "Second", "Third")
 
         val data = args.event.eventData
 
         var eventDescription = data.description
-        eventDescription += "<br><br><h3>Prizes</h3>"
-        eventDescription += "<ul>"
-        eventDescription += "<li>First Prize : ₹ ${data.prizeMoney[0]}</li>"
-        eventDescription += "<li>Second Prize : ₹ ${data.prizeMoney[1]}</li>"
-        eventDescription += "<li>Third Prize : ₹ ${data.prizeMoney[2]}</li>"
-        eventDescription += "</ul>"
+
+        if(data.prizeMoney.isNotEmpty()) {
+            eventDescription += "<br><br><h3>Prizes</h3>"
+            eventDescription += "<ul>"
+
+            data.prizeMoney.forEachIndexed { i, prize ->
+                eventDescription += "<li>${prizeTitle[i]} Prize : ₹ ${prize}</li>"
+            }
+
+            eventDescription += "</ul>"
+        }
 
         val contents = listOf(
             eventDescription,
